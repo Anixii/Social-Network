@@ -18,7 +18,7 @@ const Sidebar = () =>{
                 <NavLink to= '/Profile'>Music</NavLink> 
             </div>
             <div className={s.navbar__item}> 
-                <NavLink to= '/Profile'>Settigns</NavLink> 
+                <NavLink to= '/Profile'>Settign</NavLink> 
             </div> 
         </div>
     )
