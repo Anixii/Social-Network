@@ -1,0 +1,15 @@
+.dialogs{  
+    padding: 15px;
+    height: 100%; 
+    display: grid; 
+    grid-template-columns: 3fr 10fr; 
+    background-color: yellow;
+} 
+.dialogItem{ 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around;
+} 
+.messages { 
+    color: aquamarine;
+}

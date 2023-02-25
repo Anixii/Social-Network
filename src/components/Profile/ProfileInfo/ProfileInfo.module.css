@@ -1,0 +1,15 @@
+ .info{ 
+    width: 100%;
+ } 
+ .info__image{ 
+    max-width: 100%;
+ }
+ .bg__img{ 
+    height: 180px; 
+    width: 100%;
+} 
+.ava{ 
+    width: 90px; 
+    height: 90px;
+    border-radius: 50px;
+}

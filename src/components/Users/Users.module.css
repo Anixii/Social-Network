@@ -1,0 +1,8 @@
+.image{ 
+    width: 180px; 
+    height: 180px; 
+    border-radius: 100%;
+} 
+.selectedItem{ 
+    font-weight: 800;
+}

@@ -1,0 +1,7 @@
+.navbar{ 
+    grid-area: side; 
+    background-color:green
+} 
+.active{ 
+    color: blueviolet;
+}
