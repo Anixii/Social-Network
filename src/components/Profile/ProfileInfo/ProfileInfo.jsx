@@ -1,10 +1,27 @@
+import Preloader from '../../common/Preloader'
 import s from './ProfileInfo.module.css' 
 
-function ProfileInfo(props){ 
-    return( 
-        <div className={s.info}> 
-            <div className={s.info__image}> <img  className={s.bg__img} src={props.background} alt="Background Img" /></div> 
-            <div className={s.item}> <img className={s.ava} src={props.ava} alt='Ava'></img></div> 
+function ProfileInfo(props){  
+    if(!props.profile){ 
+        return <Preloader/>
+    }
+    return(  
+        
+        <div className={s.info}>   
+        
+        <div> NickName: {props.profile.fullName}</div>
+            <div className={s.info__image}> <img  className={s.bg__img} src={props.profile.photos.small} alt="Background Img" /></div> 
+            <div className={s.item}> <img className={s.ava} src={props.profile.photos.large} alt='Ava'></img></div>  
+            <div> 
+                Обо мне: {props.profile.aboutMe}
+            </div> 
+            <div>Контакты: 
+                <ul> 
+                    <li>Вк {props.profile.contacts.vk}</li>
+                    <li>Инста {props.profile.contacts.instagram}</li>
+                    <li>Твитер {props.profile.contacts.twitter} </li>
+                </ul>
+            </div>
 
         </div>
     )

@@ -24,8 +24,7 @@ import Preloader from "../common/Preloader";
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`) 
             .then(response =>{  
                 this.props.toggleFetching(false)
-                this.props.setUsers(response.data.items) 
-            
+                this.props.setUsers(response.data.items)           
             }) ;
     }
     
@@ -49,7 +48,6 @@ import Preloader from "../common/Preloader";
 }
   
 const mapStateToProps = (state)=>{   
-    debugger
     return{ 
         users: state.usersPage.users, 
         pageSize: state.usersPage.pageSize, 
@@ -77,4 +75,5 @@ export default connect(mapStateToProps,
         setTotalCount : setTotalCountAC, 
         setUsers : setUsersAC, 
         getCurrentPage: getCurrentPageAC,
-        toggleFetching})(UsersAPIComponent)
+        toggleFetching}) 
+        (UsersAPIComponent)

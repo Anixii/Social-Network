@@ -12,11 +12,10 @@ let initialState = {
     isFetching: false
 }
 const usersReducer = (state = initialState, action) =>{ 
-    debugger
+
     switch(action.type){  
         case FOLLOW: 
            return{ 
-            
                 ...state, 
                 users: state.users.map( (item)=> {  
                     if(item.id === action.userId){  
@@ -42,7 +41,6 @@ const usersReducer = (state = initialState, action) =>{
             }), 
         } }
         case SET_USERS:{  
-            debugger
             
             return { ...state, users: action.users }
         } 
