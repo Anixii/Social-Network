@@ -15,7 +15,7 @@ import Preloader from "../common/Preloader";
             this.props.toggleFetching(false)
             this.props.setUsers(response.data.items) 
             this.props.setTotalCount(response.data.totalCount)
-            console.log('a')
+            
             }) ;
     }
     setCurrentPage(currentPage){  
