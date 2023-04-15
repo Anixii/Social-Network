@@ -10,7 +10,9 @@ import Preloader from "../common/Preloader";
     
     componentDidMount(){  
         this.props.toggleFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`) 
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{ 
+            withCredentials:true
+        }) 
             .then(response =>{  
             this.props.toggleFetching(false)
             this.props.setUsers(response.data.items) 
@@ -21,7 +23,9 @@ import Preloader from "../common/Preloader";
     setCurrentPage(currentPage){  
         this.props.toggleFetching(true)
         this.props.getCurrentPage(currentPage); 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`) 
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`, { 
+            withCredentials:true
+        }) 
             .then(response =>{  
                 this.props.toggleFetching(false)
                 this.props.setUsers(response.data.items)           
