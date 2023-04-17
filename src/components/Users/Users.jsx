@@ -33,28 +33,32 @@ function Users(props){
                 <div> 
                     
                 {item.followed 
-                ? <button onClick={() => 
-                    {  
+                ? <button disabled={props.isFollowing} onClick={() => 
+                    {   
+                        props.toggleFollowing(true)
                         followAPI.unFollow(item.id)
                         .then(response =>{  
                         if(response.data.resultCode === 0){ 
-                            props.unFollow(item.id) 
-                              
-                        }}) ;
+                            props.unFollow(item.id)           
+                        }  
+                        props.toggleFollowing(false)
+                    }) ;
                         
                        
                        } 
                  
                 } >unfollow</button>  
-                :<button onClick={() => {  
+                :<button disabled={props.isFollowing} onClick={() => {   
+                    props.toggleFollowing(true)
                     followAPI.onFollow(item.id)
                     .then(response =>{  
                     if(response.data.resultCode === 0){ 
                         props.onFollow(item.id)  
-                    }}) ;
+                    } 
+                    props.toggleFollowing(true)
+                }) ;
                  
                 }}>follow</button>   
-        
                 }
                     
                     </div> 
