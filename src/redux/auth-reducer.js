@@ -12,7 +12,6 @@ let initialState = {
 
     switch(action.type){ 
         case SET_USER_DATA: 
-        debugger 
         console.log(action.data) 
         return {...state, ...action.data, isAuth : true}  
         default: 
