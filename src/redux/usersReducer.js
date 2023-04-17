@@ -11,7 +11,10 @@ let initialState = {
     totalUsers: 10, 
     currentPage:1, 
     isFetching: false, 
-    followingInProgress : [],
+    followingInProgress :  {
+        isFetching: false,
+        userId: null
+    }
 }
 const usersReducer = (state = initialState, action) =>{ 
 
@@ -66,12 +69,14 @@ const usersReducer = (state = initialState, action) =>{
         } 
         case TOGGLE_IS_FOLLOWING : {  
             
-            return{ 
-                ...state, 
-                followingInProgress: action.isFetching 
-                ?  [...state.followingInProgress, action.userId] 
-                :  state.followingInProgress.filter(id => id !== action.userId)
-            }
+            return {
+                ...state,
+                followingInProgress: {
+                    ...state.followingInProgress,
+                    isFollowing: action.isFollowing,
+                    userId:      action.userId
+                }
+            };
         }
         default:  
     
@@ -90,5 +95,5 @@ export const setUsersAC = (users) =>({type: SET_USERS, users})
 export const getCurrentPageAC = (currentPage) => ({type: CURRENT_PAGE, currentPage})
 export const setTotalCountAC = (totalCount) =>({type:TOTAL_COUNT, totalCount})    
 export const toggleFetching = (isFetching) =>({type:TOGGLE_FETCHING, isFetching})   
-export const toggleFollowingInProgress = (followingInProgress,userId) => ({type: TOGGLE_IS_FOLLOWING, followingInProgress, userId})
+export const toggleFollowingInProgress = (isFollowing,userId) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userId})
 export default usersReducer
