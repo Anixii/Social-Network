@@ -1,4 +1,5 @@
-const ADD_POST = 'ADD-POST'
+import { authAPI } from "../api/api"
+ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'  
 const SET_USER_PROFILE = 'SET_USER_PROFILE' 
 
@@ -36,7 +37,6 @@ const profileReducer = (state = initialState, action) =>{
         return copyState; 
         }  
         case SET_USER_PROFILE: { 
-            debugger
             return {...state, profile: action.profile}
         }
         default: 
@@ -56,5 +56,23 @@ export const updateNewPostTextActionCreator =(text)=>{
         type: UPDATE_NEW_POST_TEXT,
         arg: text,
     }
-}  
+}    
+
+
+export const getUsersProfileThunkC =(userId) =>{ 
+    return (dispatch) => { 
+      
+         
+        if(!userId){ 
+            userId= 28741
+        }
+       authAPI.getProfile(userId)
+        .then(response =>{   
+        dispatch(setUsersProfile(response.data)) 
+       
+    }) ;
+    }
+}
+
+
 export default profileReducer

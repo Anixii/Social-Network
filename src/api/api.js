@@ -19,6 +19,9 @@ export const userAPI = {
 export const authAPI = {  
    logIn(){ 
     return instance.get(`auth/me`)   
+   }, 
+   getProfile (id) { 
+    return instance.get(`/profile/${id}`)
    }
 }  
 export const followAPI = { 
