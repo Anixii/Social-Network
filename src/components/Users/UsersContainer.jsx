@@ -1,31 +1,19 @@
 
 import { connect } from "react-redux";
-import { followAC, setUsersAC, unfollowAC, getCurrentPageAC, setTotalCountAC, toggleFetching,toggleFollowingInProgress } from "../../redux/usersReducer";
+import { getUsersThunkCreator,followAC, getCurrentPageAC, unfollowAC, toggleFollowingInProgress } from "../../redux/usersReducer";
 import React from "react";  
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
-import { userAPI } from "../../api/api";
+
 
  class UsersAPIComponent extends React.Component{  
     
     componentDidMount(){   
-        this.props.toggleFetching(true)
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response =>{  
-            this.props.toggleFetching(false)
-            this.props.setUsers(response.items) 
-            this.props.setTotalCount(response.totalCount)
-            
-            }) ;
+       this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
     setCurrentPage(currentPage){  
-        this.props.toggleFetching(true)
-        this.props.getCurrentPage(currentPage); 
-        userAPI.getUsers(currentPage, this.props.pageSize).then(response =>{  
-                this.props.toggleFetching(false)
-                this.props.setUsers(response.items)           
-            }) ;
+       this.props.getUsersThunkCreator(currentPage, this.props.pageSize)
     }
     
     
@@ -76,8 +64,9 @@ export default connect(mapStateToProps,
         { 
         onFollow : followAC,
         unFollow:unfollowAC,  
-        setTotalCount : setTotalCountAC, 
-        setUsers : setUsersAC, 
+        
         getCurrentPage: getCurrentPageAC,
-        toggleFetching, toggleFollowingInProgress}) 
+         toggleFollowingInProgress, 
+        getUsersThunkCreator,
+    }) 
         (UsersAPIComponent)

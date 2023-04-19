@@ -21,7 +21,6 @@ root.render(
 );
  
 
-console.log(store.getState())
 // store.subscribe(()=> { 
 //   let state = store.getState() 
 //   renderEntireTree(state)
