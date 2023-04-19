@@ -40,10 +40,8 @@ function Users(props){
                 } >unfollow</button>  
                 :<button disabled={props.isFollowing.userId === item.id} onClick={() => {   
                  props.followThunk(item.id)
-                 
                 }}>follow</button>   
                 }
-                    
                     </div> 
                 </span>  
                 <div>{item.name}</div>

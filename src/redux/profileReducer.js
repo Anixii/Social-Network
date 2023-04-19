@@ -60,9 +60,7 @@ export const updateNewPostTextActionCreator =(text)=>{
 
 
 export const getUsersProfileThunkC =(userId) =>{ 
-    return (dispatch) => { 
-      
-         
+    return (dispatch) => {  
         if(!userId){ 
             userId= 28741
         }

@@ -1,11 +1,11 @@
  
 import React from 'react'
 import Profile from './Profile'
-import axios from 'axios'; 
+
 import { getUsersProfileThunkC } from '../../redux/profileReducer';
 import { connect } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom'; 
-import { authAPI } from '../../api/api';
+
 class ProfileContainer extends React.Component{ 
     componentDidMount(){ 
         let userId = this.props.router.params.userId;
