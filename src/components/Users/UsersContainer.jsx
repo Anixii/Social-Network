@@ -1,6 +1,6 @@
 
 import { connect } from "react-redux";
-import { getUsersThunkCreator,followAC, getCurrentPageAC, unfollowAC, toggleFollowingInProgress } from "../../redux/usersReducer";
+import { getUsersThunkCreator,followThunk,unfollowThunk} from "../../redux/usersReducer";
 import React from "react";  
 
 import Users from "./Users"; 
@@ -22,13 +22,12 @@ import Preloader from "../common/Preloader";
         return( 
             <> 
             {this.props.isFetching ? <Preloader/> :(<Users users={this.props.users}  
+            unfollowThunk={this.props.unfollowThunk} 
+            followThunk={this.props.followThunk}
             totalUsers={this.props.totalUsers} 
-            currentPage={this.props.currentPage} 
-            onFollow={this.props.onFollow} 
-            unFollow={this.props.unFollow} 
+            currentPage={this.props.currentPage}  
             setCurrentPage={this.setCurrentPage.bind(this)} 
-            pageSize={this.props.pageSize} 
-            toggleFollowing ={this.props.toggleFollowingInProgress} 
+            pageSize={this.props.pageSize}  
             isFollowing={this.props.isFollowing}
             /> )}
             
@@ -44,7 +43,6 @@ const mapStateToProps = (state)=>{
         pageSize: state.usersPage.pageSize, 
         totalUsers: state.usersPage.totalUsers, 
         currentPage: state.usersPage.currentPage, 
-        isFetching: state.usersPage.isFetching, 
         isFollowing: state.usersPage.followingInProgress
     }
 } 
@@ -62,11 +60,8 @@ const mapStateToProps = (state)=>{
 // }
 export default connect(mapStateToProps,  
         { 
-        onFollow : followAC,
-        unFollow:unfollowAC,  
-        
-        getCurrentPage: getCurrentPageAC,
-         toggleFollowingInProgress, 
-        getUsersThunkCreator,
+        getUsersThunkCreator, 
+        unfollowThunk, 
+        followThunk,
     }) 
         (UsersAPIComponent)

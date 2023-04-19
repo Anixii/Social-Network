@@ -2,7 +2,7 @@ import s from './Users.module.css'
 import userImage from '../../assets/image/user.png'; 
 
 import { NavLink } from 'react-router-dom';
-import { followAPI } from '../../api/api';
+
 function Users(props){   
     let pagesCount = Math.ceil(props.totalUsers / props.pageSize)
         let pages = []; 
@@ -35,29 +35,11 @@ function Users(props){
                 {item.followed 
                 ? <button disabled={props.isFollowing.userId === item.id} onClick={() => 
                     {    
-                        console.log(item)
-                        props.toggleFollowing(true, item.id)
-                        followAPI.unFollow(item.id)
-                        .then(response =>{  
-                        if(response.data.resultCode === 0){ 
-                            props.unFollow(item.id)           
-                        }  
-                        props.toggleFollowing(false, null)
-                    }) ;
-                        
-                       
-                       } 
+                       props.unfollowThunk(item.id) } 
                  
                 } >unfollow</button>  
                 :<button disabled={props.isFollowing.userId === item.id} onClick={() => {   
-                    props.toggleFollowing(true, item.id)
-                    followAPI.onFollow(item.id)
-                    .then(response =>{  
-                    if(response.data.resultCode === 0){ 
-                        props.onFollow(item.id)  
-                    } 
-                    props.toggleFollowing(false, null)
-                }) ;
+                 props.followThunk(item.id)
                  
                 }}>follow</button>   
                 }

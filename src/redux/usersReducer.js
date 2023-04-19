@@ -1,4 +1,4 @@
-import { userAPI } from "../api/api" 
+import { userAPI,followAPI } from "../api/api" 
  
 const FOLLOW = 'FOLLOW'
 const CURRENT_PAGE = 'CURRENT-PAGE'
@@ -118,7 +118,31 @@ return (dispatch) =>
         
         }) ;
 } 
+}  
+export const unfollowThunk = (id) => { 
+    return (dispatch) => { 
+        dispatch(toggleFollowingInProgress(true, id))
+        followAPI.unFollow(id)
+        .then(response =>{  
+        if(response.data.resultCode === 0){ 
+            dispatch(unfollowAC(id))           
+        }  
+        dispatch(toggleFollowingInProgress(false, null))
+    }) ;
+    }
 } 
+export const followThunk = (id) => { 
+    return (dispatch) => { 
+        dispatch(toggleFollowingInProgress(true, id))
+        followAPI.onFollow(id)
+        .then(response =>{  
+        if(response.data.resultCode === 0){ 
+            dispatch(followAC(id))           
+        }  
+        dispatch(toggleFollowingInProgress(false, null))
+    }) ;
+    }
+}
 
 
 
