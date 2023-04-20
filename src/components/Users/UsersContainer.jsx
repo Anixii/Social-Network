@@ -5,6 +5,7 @@ import React from "react";
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
+import { withAuthRedirect } from "../../hoc/AuthRedirect";
 
 
  class UsersAPIComponent extends React.Component{  
@@ -57,11 +58,13 @@ const mapStateToProps = (state)=>{
 //         getCurrentPage: (currentPage) =>{dispatch(getCurrentPageAC(currentPage))},
 //         toggleFetching: (isFetching) =>{dispatch(toggleFetching(isFetching))}
 //     }
-// }
+// } 
+
+let withRedirect = withAuthRedirect(UsersAPIComponent)
 export default connect(mapStateToProps,  
         { 
         getUsersThunkCreator, 
         unfollowThunk, 
         followThunk,
     }) 
-        (UsersAPIComponent)
+        (withRedirect)
