@@ -7,6 +7,7 @@ import { Routes, Route} from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/login/Login';
 
 function App(props) {  
 
@@ -19,7 +20,8 @@ function App(props) {
       <Routes>
         <Route path='/profile/' element={<ProfileContainer />}> 
           <Route path=":userId?" element={<ProfileContainer/>}/>       
-        </Route> 
+        </Route>  
+        <Route path='/login'  element={<Login/>}/>
         <Route path='/dialogs/*' element={<DialogsContainer />}/>  
         <Route path='/users/*' element={<UsersContainer/>}/>   
       </Routes>
