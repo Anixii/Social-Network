@@ -1,6 +1,6 @@
 import Preloader from '../../common/Preloader'
 import s from './ProfileInfo.module.css' 
-
+import ProfileStatus from './ProfileStatus'
 function ProfileInfo(props){  
     if(!props.profile){ 
         return <Preloader/>
@@ -15,6 +15,7 @@ function ProfileInfo(props){
             <div> 
                 Обо мне: {props.profile.aboutMe}
             </div>  
+            <ProfileStatus status={'hello'}/> 
             <div>Контакты: 
                 <ul> 
                     <li>Вк {props.profile.contacts.vk}</li>
