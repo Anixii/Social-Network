@@ -2,7 +2,7 @@
 import React from 'react'
 import Profile from './Profile'
 
-import { getUsersProfileThunkC } from '../../redux/profileReducer';
+import { getUsersProfileThunkC,getStatusThunkC, updateStatusThunkC } from '../../redux/profileReducer';
 import { connect } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom'; 
 import { withAuthRedirect } from '../../hoc/AuthRedirect';
@@ -12,6 +12,7 @@ class ProfileContainer extends React.Component{
     componentDidMount(){ 
         let userId = this.props.router.params.userId;
         this.props.getUsersProfileThunkC(userId)
+        this.props.getStatusThunkC(userId)
     }
     render(){   
         return( 
@@ -23,7 +24,7 @@ class ProfileContainer extends React.Component{
 
 let mapStateToProps = (state) => ({ 
     profile: state.postPage.profile,
-
+    status: state.postPage.status
 })   
 
 
@@ -47,7 +48,7 @@ function withRouter(Component) {
 
 
 export default compose( 
-    connect(mapStateToProps, {getUsersProfileThunkC}), 
+    connect(mapStateToProps, {getUsersProfileThunkC, getStatusThunkC,updateStatusThunkC}), 
     withRouter,  
 //    withAuthRedirect
 )(ProfileContainer) 

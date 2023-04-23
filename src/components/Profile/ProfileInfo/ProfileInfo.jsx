@@ -4,7 +4,7 @@ import ProfileStatus from './ProfileStatus'
 function ProfileInfo(props){  
     if(!props.profile){ 
         return <Preloader/>
-    }
+    } 
     return(  
         
         <div className={s.info}>   
@@ -15,7 +15,7 @@ function ProfileInfo(props){
             <div> 
                 Обо мне: {props.profile.aboutMe}
             </div>  
-            <ProfileStatus status={'hello'}/> 
+            <ProfileStatus status={props.status} updateStatusThunkC={props.updateStatusThunkC}/> 
             <div>Контакты: 
                 <ul> 
                     <li>Вк {props.profile.contacts.vk}</li>
