@@ -21,7 +21,7 @@ function App(props) {
         <Route path='/profile/' element={<ProfileContainer />}> 
           <Route path=":userId?" element={<ProfileContainer/>}/>       
         </Route>  
-        <Route path='/login'  element={<Login/>}/>
+        <Route path='/login/'  element={<Login/>}/>
         <Route path='/dialogs/*' element={<DialogsContainer />}/>  
         <Route path='/users/*' element={<UsersContainer/>}/>   
       </Routes>

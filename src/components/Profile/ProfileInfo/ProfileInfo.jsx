@@ -14,7 +14,7 @@ function ProfileInfo(props){
             <div className={s.item}> <img className={s.ava} src={props.profile.photos.large} alt='Ava'></img></div>  
             <div> 
                 Обо мне: {props.profile.aboutMe}
-            </div> 
+            </div>  
             <div>Контакты: 
                 <ul> 
                     <li>Вк {props.profile.contacts.vk}</li>
