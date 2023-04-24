@@ -80,6 +80,7 @@ export const getStatusThunkC = (userId) =>{
     return (dispatch)=> {  
        ProfileAPI.getStatus(userId)
         .then(response =>{   
+        console.log(response.data)
         dispatch(setStatus(response.data)) 
        
     }) ;
@@ -90,7 +91,9 @@ export const updateStatusThunkC = (status) =>{
        ProfileAPI.updateStatus(status)
         .then(response =>{  
             if(response.data.resultCode ===0){ 
-          dispatch(setStatus(response.data)) 
+           console.log(response.data)
+                dispatch(setStatus(status))  
+          
             }  
        
     }) ;

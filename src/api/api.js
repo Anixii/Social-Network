@@ -29,11 +29,11 @@ export const ProfileAPI ={
     getProfile (id) { 
         return instance.get(`profile/${id}`)
        },
-    getStatus (id){ 
+    getStatus (id =  28741){ 
         return instance.get(`profile/status/${id}`)
     }, 
     updateStatus (status){ 
-        return instance.put(`profile/status/`,{status})
+        return instance.put(`profile/status`, {status})
     }
     }
 export const followAPI = { 
