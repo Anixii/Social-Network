@@ -22,15 +22,20 @@ const profileReducer = (state = initialState, action) =>{
         case ADD_POST: {
         let newPost = { 
             id:5, 
-            message: state.newPostText , 
+            message: action.text , 
             likes: 0
         } 
-        let copyState = {...state}; 
-        copyState.myPostItem = [...state.myPostItem] 
-        copyState.myPostItem.push(newPost)  
+        // let copyState = {...state}; 
+        // copyState.myPostItem = [...state.myPostItem] 
+        // copyState.myPostItem.push(newPost)  
         
-        copyState.newPostText = '' 
-        return copyState 
+        // copyState.newPostText = '' 
+        // return copyState  
+
+        return { 
+            ...state, 
+            myPostItem: [...state.myPostItem, newPost]
+        }
     }
         case UPDATE_NEW_POST_TEXT: {
         let copyState = {...state}
@@ -48,9 +53,9 @@ const profileReducer = (state = initialState, action) =>{
     }
     
 }  
-export const addPostActionCreator = () =>{ 
+export const addPostActionCreator = (text) =>{ 
     return{ 
-        type: ADD_POST, 
+        type: ADD_POST, text
     }
 } 
 export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })

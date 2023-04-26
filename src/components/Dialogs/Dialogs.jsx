@@ -19,7 +19,6 @@ function Dialogs(props){
     return(
  
  <div className={s.dialogs}> 
-            {/* <div><NavLink to='/dialogs/1>'> A</NavLink></div> */} 
             <div className={s.dialogItem}>          
               {dialogsElem} 
                 

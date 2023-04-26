@@ -13,7 +13,6 @@ let initialState = {
     
     
 }
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const dialogsReducer = (state = initialState, action) =>{ 
      switch(action.type){   
         
@@ -47,11 +46,4 @@ export const addMessageActionCreator=(text)=>{
        text
     }
 }  
-
-export const updateNewMessageActionCreator=(text) =>{ 
-   return{ 
-       type: UPDATE_NEW_MESSAGE_TEXT, 
-       arg: text
-   }
-}
 export default dialogsReducer
