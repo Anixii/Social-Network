@@ -20,7 +20,7 @@ function Posts(props){
 const PostForm = (props) => { 
     return( 
         <form onSubmit={props.handleSubmit} > 
-             <div > <Field name='newPostText' component={'input'} ></Field></div>
+             <div > <Field name='newPostText' component={'input'}  ></Field></div>
             <div className={s.item}><button >Add Post</button> </div> 
         </form>
     )

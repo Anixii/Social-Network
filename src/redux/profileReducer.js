@@ -9,8 +9,7 @@ let initialState = {
         {id:2, message:'Whats up maan', likes: 147,},  
         {id:3, message:'dude', likes: 4547,},  
         {id:4, message:'bruh', likes: 17,}, 
-    ], 
-    newPostText: 'BSA',  
+    ],   
     profile: null , 
     status: ''
     
@@ -59,13 +58,6 @@ export const addPostActionCreator = (text) =>{
     }
 } 
 export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })
-export const updateNewPostTextActionCreator =(text)=>{  
-   
-    return{ 
-        type: UPDATE_NEW_POST_TEXT,
-        arg: text,
-    }
-}  
 export const setStatus    = (status) => ({type: SET_STATUS, status})
 
 
