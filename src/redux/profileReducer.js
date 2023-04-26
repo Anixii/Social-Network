@@ -80,7 +80,6 @@ export const getStatusThunkC = (userId) =>{
     return (dispatch)=> {  
        ProfileAPI.getStatus(userId)
         .then(response =>{   
-        console.log(response.data)
         dispatch(setStatus(response.data)) 
        
     }) ;

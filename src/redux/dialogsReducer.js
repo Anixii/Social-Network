@@ -10,38 +10,41 @@ let initialState = {
         {message:'What up'}, 
         {message:'Wow'}
     ] ,  
-    newMessageText: '2028'
+    
     
 }
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const dialogsReducer = (state = initialState, action) =>{ 
      switch(action.type){   
         
-        case ADD_MESSAGE: { 
-        let newMessage = state.newMessageText 
+    //     case ADD_MESSAGE: { 
+    //     let newMessage = state.newMessageText 
+    //     return { 
+    //         ...state, 
+    //         newMessageText : '', 
+    //         messageItem:[...state.messageItem, {message : newMessage}]
+    //     };    } flux круговорот, когда то был 
+    case ADD_MESSAGE :{ 
         return { 
             ...state, 
-            newMessageText : '', 
-            messageItem:[...state.messageItem, {message : newMessage}]
-        }; 
-
-       }
-        case UPDATE_NEW_MESSAGE_TEXT:{  
-        return{ 
-            ...state, 
-            newMessageText: action.arg
-        } 
-        // newState.newMessageText = action.arg
-        
-         }
+            messageItem: [...state.messageItem, {message: action.text}]
+        }
+    }
+        // case UPDATE_NEW_MESSAGE_TEXT:{  
+        // return{ 
+        //     ...state, 
+        //     newMessageText: action.arg
+        // } 
+         //}
         default: return state
     } 
 
     
 }  
-export const addMessageActionCreator=()=>{
+export const addMessageActionCreator=(text)=>{
     return{ 
-       type: ADD_MESSAGE,
+       type: ADD_MESSAGE, 
+       text
     }
 }  
 
