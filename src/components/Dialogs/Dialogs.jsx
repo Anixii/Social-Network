@@ -4,7 +4,8 @@ import Dialog from './Dialog/Dialog'
 import Message from './Message/Message'  
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-
+import { Input } from '../common/FormsControls'
+import { maxLength, required } from '../../utils/validators/validators'
 function Dialogs(props){  
 
     const onSubmit = (dataObj) =>{ 
@@ -37,7 +38,8 @@ function Dialogs(props){
 const DialogForms = (props) =>{ 
 return( 
     <form onSubmit={props.handleSubmit} > 
-            <div><Field component={'textarea'} name='newMessageText'  
+            <div><Field component={Input} validate={[required, maxLength(15)]} 
+            name='newMessageText'  
             ></Field></div>  
             <div><button >Add message</button></div>
         </form>

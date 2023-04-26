@@ -1,11 +1,4 @@
- import s from './FormControls.module.css'
- 
- export const Textarea = ({input,meta, ...props}) =>{ 
-   // console.log(props) 
-    return( 
-        <div className={s.form_control}> 
-            <textarea {...input} {...props}/> 
-            <span>{'some error'}</span> 
-        </div>
-    )
-} 
+
+import {Element} from '../../hoc/ValidatorHOC'
+export const Textarea = Element('textarea')
+export const Input = Element('input')
