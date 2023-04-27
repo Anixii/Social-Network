@@ -17,19 +17,25 @@ export const userAPI = {
         }, 
 } 
 export const authAPI = {  
-   logIn(){ 
+   me(){ 
     return instance.get(`auth/me`)   
    }, 
    getProfile (id) {  
     console.warn('NOOOO')
     return ProfileAPI.getProfile(id)
-   },
+   }, 
+   authLogin(email, password, rememberMe = false){ 
+    return instance.post(`auth/login`, {email, password, rememberMe})
+   }, 
+   authLogout() { 
+    return instance.delete(`auth/login`)
+   }
 }   
 export const ProfileAPI ={ 
     getProfile (id) { 
         return instance.get(`profile/${id}`)
        },
-    getStatus (id =  28741){ 
+    getStatus (id = 28741){ 
         return instance.get(`profile/status/${id}`)
     }, 
     updateStatus (status){ 
