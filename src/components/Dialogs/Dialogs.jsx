@@ -9,7 +9,6 @@ import { maxLength, required } from '../../utils/validators/validators'
 function Dialogs(props){  
 
     const onSubmit = (dataObj) =>{ 
-
         props.addMessage(dataObj.newMessageText)
     }
     let dialogsElem = props.state.dialogItem 
