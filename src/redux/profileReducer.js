@@ -63,9 +63,6 @@ export const setStatus    = (status) => ({type: SET_STATUS, status})
 
 export const getUsersProfileThunkC =(userId) =>{ 
     return (dispatch) => {  
-        if(!userId){ 
-            userId= 28741
-        }
        ProfileAPI.getProfile(userId)
         .then(response =>{   
         dispatch(setUsersProfile(response.data)) 
