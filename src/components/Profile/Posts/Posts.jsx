@@ -1,32 +1,54 @@
 import s from './Posts.module.css' 
 import MyPosts from './MyPosts/MyPosts' 
 import React from 'react' 
-import { Field, reduxForm } from 'redux-form'
-import { maxLength, required } from '../../../utils/validators/validators'
-import { Textarea } from '../../common/FormsControls'
+import { useForm } from 'react-hook-form'
 function Posts(props){       
-    const onSubmit = (dataObj) => { 
-        props.addPost(dataObj.newPostText)    
-    }
+    
     const myPostElem = props.post.myPostItem.map(post => <MyPosts message={post.message} likes={post.likes}/>)
     return(
         <div className={s.post}>  
-            <ReduxPostForm onSubmit={onSubmit}/>
+            <PostForm {...props}/>
             <div className={s.itemPost}> 
                 {myPostElem}
             </div> 
         </div>
     )
 }   
-const PostForm = (props) => { 
+const PostForm = (props )  => { 
+    const onSubmit = (dataObj) => {  
+        console.log(dataObj)
+        props.addPost(dataObj.newPostText)  
+        reset()   
+    }
+    
+    const {  
+        register, 
+        formState: { 
+            errors, 
+            isValid
+        }, 
+        handleSubmit, 
+        reset
+    } = useForm({ 
+        mode: 'onChange'
+    })
+ 
     return( 
-        <form onSubmit={props.handleSubmit} > 
-             <div > <Field name='newPostText' component={Textarea} validate={[required, maxLength(10)]} ></Field></div>
-            <div className={s.item}><button >Add Post</button> </div> 
+        <form onSubmit={handleSubmit(onSubmit)}> 
+            <div><input type="text" {...register('newPostText', {
+             minLength : { 
+                value : 1, 
+                message: 'Минимально 1 символ'
+             }, maxLength:{ 
+                value: 15, 
+                message: 'Максимально 15 символов'
+            } ,
+             })} /></div> 
+            {errors?.newPostText && <p>{errors?.newPostText?.message || 'Erorr'} </p>}       
+            <input type="submit" disabled={!isValid}/> 
         </form>
     )
-} 
-const ReduxPostForm = reduxForm({ 
-    form: 'addPostForm'
-})(PostForm)
-export default Posts
+
+}
+
+ export default Posts

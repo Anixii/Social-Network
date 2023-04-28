@@ -1,26 +1,37 @@
+import { stopSubmit } from "redux-form"
 import { authAPI } from "../api/api" 
  
  
 let SET_USER_DATA = 'SET_USER_DATA' 
- 
+let  ERROR_MESSAGE ='ERROR_MESSAGE'
  
 let initialState = { 
 
     email: null,    
     userId: null,   
     login: null,
-    isAuth: false
-}  
+    isAuth: false, 
+    error : ''
+}   
+
  const authreducer= (state = initialState, action) =>{ 
 
     switch(action.type){ 
         case SET_USER_DATA: 
         console.log(action.data) 
         return {...state, ...action.data}  
+        case ERROR_MESSAGE: { 
+
+            return {
+                ...state,
+                ...action.payload
+            }
+        }  
         default: 
         return state
     }
-} 
+}  
+export const errorAC = (error) => ({type: ERROR_MESSAGE, error})   
 export const setUserDataAC= (userId, email, login, isAuth) => ({type: SET_USER_DATA, data:{userId,email,login, isAuth}}) 
  
 export const loginThunkCreator = () =>{ 
@@ -47,10 +58,17 @@ export const loginTC = (email, password,rememberMe) =>{
 } 
 export const logoutTC = () =>{  
     return (dispatch) =>{ 
-        authAPI.authLogout() 
-            .then(response =>{ 
+        authAPI.authLogout()  
+        
+            .then(response =>{  
+                debugger
                 if(response.data.resultCode === 0){ 
                     dispatch(setUserDataAC(null, null,null, false))
+                } else {  
+                    debugger
+                    let serverErrorMessageResponse = response.data.messages[0]; 
+                    console.log(response.data)
+                    // dispatch (errorAC(serverErrorMessageResponse))   
                 }
             })
     }

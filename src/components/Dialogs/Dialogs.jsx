@@ -2,14 +2,13 @@
 import s from './Dialogs.module.css' 
 import Dialog from './Dialog/Dialog' 
 import Message from './Message/Message'  
+import { useForm } from 'react-hook-form' 
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Input } from '../common/FormsControls'
-import { maxLength, required } from '../../utils/validators/validators'
 function Dialogs(props){  
 
     const onSubmit = (dataObj) =>{ 
-        props.addMessage(dataObj.newMessageText)
+        props.addMessage(dataObj.newMessageText) 
+        console.log(dataObj)
     }
     let dialogsElem = props.state.dialogItem 
     .map(arg => <Dialog name={arg.name} id={arg.id}/> ); 
@@ -27,24 +26,33 @@ function Dialogs(props){
              <div className={s.messages}>  
                 {messageElem}
                 
-            </div>  
-            <ReduxDialogForm onSubmit={onSubmit  } />
+            </div>   
+            <DialogForms onSubmit={onSubmit}/>
         </div>
     )
 }  
 
-
-const DialogForms = (props) =>{ 
-return( 
-    <form onSubmit={props.handleSubmit} > 
-            <div><Field component={Input} validate={[required, maxLength(15)]} 
-            name='newMessageText'  
-            ></Field></div>  
-            <div><button >Add message</button></div>
+const DialogForms = (props) => { 
+    const { 
+        register, 
+        formState: { 
+            errors
+        }, 
+        handleSubmit
+    } = useForm()
+    return( 
+        <form onSubmit={handleSubmit(props.onSubmit)}>  
+        <label > 
+        Message: 
+        <input type="text" {...register('newMessageText', {required:'Поле не объязательно к заполнению', minLength: { 
+            value: 3, 
+            message: `Минимум 3 символов `
+        }})} /> 
+        </label> 
+        <div>{errors?.newMessageText && <p>{errors?.newMessageText?.message || 'error'} </p>} </div>
+        <input type="submit" />
         </form>
-)
-} 
-const ReduxDialogForm = reduxForm({ 
-    form: 'dialogAddMessageForm'
-})(DialogForms)
+    )
+}
+
 export default Dialogs
