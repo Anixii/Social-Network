@@ -39,8 +39,10 @@ export const loginThunkCreator = () =>{
     return (dispatch) =>{ 
          authAPI.me() 
            .then(response =>{   
-                if(response.data.resultCode === 0){ 
-                    let {id,email,login} = response.data.data
+                if(response.data.resultCode === 0){  
+                    debugger
+                    let {id,email,login} = response.data.data 
+                    
                     dispatch(setUserDataAC(id,email,login, true))
                     //можно стянуть аву
                 }}) ;
@@ -49,9 +51,14 @@ export const loginThunkCreator = () =>{
 export const loginTC = (email, password,rememberMe) =>{  
     return (dispatch) =>{ 
         authAPI.authLogin(email, password, rememberMe) 
-            .then(response =>{ 
+            .then(response =>{  
+                console.log(email)
                 if(response.data.resultCode === 0){ 
+                    debugger 
                     dispatch(loginThunkCreator())
+                } else {  
+                    debugger
+                    console.log('failed')
                 }
             })
     }
@@ -64,12 +71,7 @@ export const logoutTC = () =>{
                 debugger
                 if(response.data.resultCode === 0){ 
                     dispatch(setUserDataAC(null, null,null, false))
-                } else {  
-                    debugger
-                    let serverErrorMessageResponse = response.data.messages[0]; 
-                    console.log(response.data)
-                    // dispatch (errorAC(serverErrorMessageResponse))   
-                }
+                } 
             })
     }
 }
