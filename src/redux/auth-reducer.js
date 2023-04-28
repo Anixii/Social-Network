@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form"
 import { authAPI } from "../api/api" 
- 
- 
+import { useForm } from "react-hook-form"
+  
 let SET_USER_DATA = 'SET_USER_DATA' 
 let  ERROR_MESSAGE ='ERROR_MESSAGE'
  
@@ -48,7 +48,7 @@ export const loginThunkCreator = () =>{
                 }}) ;
     }
 }
-export const loginTC = (email, password,rememberMe) =>{  
+export const loginTC = (email, password,rememberMe, setError) =>{  
     return (dispatch) =>{ 
         authAPI.authLogin(email, password, rememberMe) 
             .then(response =>{  
@@ -57,8 +57,10 @@ export const loginTC = (email, password,rememberMe) =>{
                     debugger 
                     dispatch(loginThunkCreator())
                 } else {  
-                    debugger
-                    console.log('failed')
+                    setError("server", {
+                        type: "custom",
+                        message: response.data.messages
+                    });
                 }
             })
     }

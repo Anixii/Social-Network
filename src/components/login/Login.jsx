@@ -19,7 +19,7 @@ const Login =(props) =>{
 const LoginForm = (props) => { 
     console.log(props)
     const onSubmit = (formData) => {  
-        props.loginTC(formData.email, formData.password, formData.rememberMe) 
+        props.loginTC(formData.email, formData.password, formData.rememberMe,setError) 
         reset()
     }
     const { 
@@ -28,7 +28,9 @@ const LoginForm = (props) => {
         formState:{ 
             errors, isValid
         }, 
-        reset 
+        reset, 
+        setError, 
+        clearErrors
 
     } = useForm( { 
         mode: 'onBlur'
@@ -37,7 +39,8 @@ const LoginForm = (props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email:
             <br />
-            <input
+            <input 
+               onFocus={() => clearErrors(["email", "server"])}
                 {...register("email", {
                     required: "This field is requiered.",
                     minLength: {
@@ -54,7 +57,8 @@ const LoginForm = (props) => {
         </div>
         <label>Password:
             <br />
-            <input
+            <input 
+               onFocus={() => clearErrors(["password", "server"])}
                 type="password"
                 {...register("password", {
                     required: "This field is requiered."
