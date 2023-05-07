@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';   
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Sidebar from './components/Sidebar/Side';  
@@ -8,9 +8,13 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/login/Login';
+import { connect } from 'react-redux';
+import { loginThunkCreator } from './redux/auth-reducer';
 
 function App(props) {  
-
+    useEffect(()=> { 
+      props.loginThunkCreator()
+    })
  return (  
   
     <div className='App'> 
@@ -32,4 +36,4 @@ function App(props) {
  )
 }
 
-export default App;
+export default connect(null, {loginThunkCreator})(App);
