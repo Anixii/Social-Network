@@ -5,7 +5,7 @@ import React from "react";
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
-import { withAuthRedirect } from "../../hoc/AuthRedirect";
+
 import { compose } from "redux";
 
 
@@ -68,6 +68,6 @@ export default compose(
         unfollowThunk, 
         followThunk,
     }) ,  
-    withAuthRedirect
+    
 
 )(UsersAPIComponent)

@@ -5,7 +5,6 @@ import Profile from './Profile'
 import { getUsersProfileThunkC,getStatusThunkC, updateStatusThunkC } from '../../redux/profileReducer';
 import { connect } from 'react-redux';
 import {  useLocation, useNavigate, useParams } from 'react-router-dom'; 
-import { withAuthRedirect } from '../../hoc/AuthRedirect';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component{ 
