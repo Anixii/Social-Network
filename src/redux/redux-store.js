@@ -6,12 +6,13 @@ import usersReducer from './usersReducer'
 import authreducer from './auth-reducer'
 import thunk from 'redux-thunk'
 import {reducer as fromReducer} from 'redux-form'
+import appReducer from './app-reducer'
 let reducers = combineReducers({  
     postPage:profileReducer ,
     dialogPage:dialogsReducer, 
     usersPage: usersReducer, 
     auth: authreducer,  
-    form: fromReducer
+    app: appReducer
 })
 let store = createStore(reducers, applyMiddleware(thunk))  
 window.store= store

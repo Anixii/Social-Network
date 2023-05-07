@@ -4,17 +4,19 @@ import Profile from './Profile'
 
 import { getUsersProfileThunkC,getStatusThunkC, updateStatusThunkC } from '../../redux/profileReducer';
 import { connect } from 'react-redux';
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'; 
+import {  useLocation, useNavigate, useParams } from 'react-router-dom'; 
 import { withAuthRedirect } from '../../hoc/AuthRedirect';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component{ 
     componentDidMount(){ 
         let userId = this.props.router.params.userId; 
-        if(!userId){ 
+        if(!userId){  
+            debugger
             userId= this.props.loginnedUserId
-        }else { 
-            // return <Navigate to={'users'}/>
+            if(!userId){  
+                this.props.router.navigate('/login')
+            }
         }
         this.props.getUsersProfileThunkC(userId)
         this.props.getStatusThunkC(userId)
@@ -57,5 +59,5 @@ function withRouter(Component) {
 export default compose( 
     connect(mapStateToProps, {getUsersProfileThunkC, getStatusThunkC,updateStatusThunkC}), 
     withRouter,  
-//    withAuthRedirect
+    // withAuthRedirect
 )(ProfileContainer) 

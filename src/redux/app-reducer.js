@@ -1,3 +1,4 @@
+import { loginThunkCreator } from "./auth-reducer" 
 const SET_INITIALIZED = 'SET_INITIALIZED'
 const initialState ={ 
     initialized : false
@@ -19,6 +20,9 @@ export const initializedSuccess = () =>({type: SET_INITIALIZED})
  
 
 export const initializeTC = () => (dispatch) =>{ 
-    
+    let result =  dispatch(loginThunkCreator())
+    result.then(() =>{ 
+        dispatch(initializedSuccess())
+    }) 
 }
 export default appReducer

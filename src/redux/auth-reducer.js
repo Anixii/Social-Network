@@ -34,10 +34,10 @@ let initialState = {
 export const errorAC = (error) => ({type: ERROR_MESSAGE, error})   
 export const setUserDataAC= (userId, email, login, isAuth) => ({type: SET_USER_DATA, data:{userId,email,login, isAuth}}) 
  
-export const loginThunkCreator = () =>{ 
+export const loginThunkCreator = () =>(dispatch) =>{ 
     //getAuthUserData 
-    return (dispatch) =>{ 
-         authAPI.me() 
+   
+       return authAPI.me() 
            .then(response =>{   
                 if(response.data.resultCode === 0){  
                     debugger
@@ -46,7 +46,7 @@ export const loginThunkCreator = () =>{
                     dispatch(setUserDataAC(id,email,login, true))
                     //можно стянуть аву
                 }}) ;
-    }
+    
 }
 export const loginTC = (email, password,rememberMe, setError) =>{  
     return (dispatch) =>{ 

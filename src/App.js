@@ -9,12 +9,16 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/login/Login';
 import { connect } from 'react-redux';
-import { loginThunkCreator } from './redux/auth-reducer';
+import { initializeTC } from './redux/app-reducer';
+import Preloader from './components/common/Preloader';
 
 function App(props) {  
     useEffect(()=> { 
-      props.loginThunkCreator()
-    })
+      props.initializeTC()
+    }) 
+    if(!props.initialized){ 
+      return <Preloader/>
+    }
  return (  
   
     <div className='App'> 
@@ -25,7 +29,7 @@ function App(props) {
         <Route path='/profile/' element={<ProfileContainer />}> 
           <Route path=":userId?" element={<ProfileContainer/>}/>       
         </Route>  
-        <Route path='/login/'  element={<Login/>}/>
+        <Route path='/login'  element={<Login/>}/>
         <Route path='/dialogs/*' element={<DialogsContainer />}/>  
         <Route path='/users/*' element={<UsersContainer/>}/>   
       </Routes>
@@ -35,5 +39,9 @@ function App(props) {
   
  )
 }
-
-export default connect(null, {loginThunkCreator})(App);
+const mapStateToProps = state =>{ 
+  return{ 
+    initialized: state.app.initialized
+  }
+}
+export default connect(mapStateToProps, {initializeTC})(App);
