@@ -5,7 +5,7 @@ import React from "react";
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
-
+import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow } from "../../redux/users-selecors";
 import { compose } from "redux";
 
 
@@ -41,25 +41,13 @@ import { compose } from "redux";
   
 const mapStateToProps = (state)=>{   
     return{ 
-        users: state.usersPage.users, 
-        pageSize: state.usersPage.pageSize, 
-        totalUsers: state.usersPage.totalUsers, 
-        currentPage: state.usersPage.currentPage, 
-        isFollowing: state.usersPage.followingInProgress
+        users: getUsers(state), 
+        pageSize: getPageSize(state), 
+        totalUsers: getTotalUserCount(state), 
+        currentPage: getCurrentPage(state), 
+        isFollowing: getIsFollow(state),
     }
 } 
-// const mapDispatchToProps = (dispatch) =>{  
-//     debugger 
-//     return{  
-    
-//         onFollow : (userId) =>{dispatch(followAC(userId))},
-//         unFollow: (userId) =>{dispatch(unfollowAC(userId))},  
-//         setTotalCount : (totalCount) =>{dispatch(setTotalCountAC(totalCount))}, 
-//         setUsers : (users) =>{dispatch(setUsersAC(users))}, 
-//         getCurrentPage: (currentPage) =>{dispatch(getCurrentPageAC(currentPage))},
-//         toggleFetching: (isFetching) =>{dispatch(toggleFetching(isFetching))}
-//     }
-// } 
 
 export default compose( 
     connect(mapStateToProps,  
@@ -69,5 +57,24 @@ export default compose(
         followThunk,
     }) ,  
     
-
-)(UsersAPIComponent)
+    
+    )(UsersAPIComponent)
+     
+    
+    
+    
+    
+    
+    
+    // const mapDispatchToProps = (dispatch) =>{  
+    //     debugger 
+    //     return{  
+        
+    //         onFollow : (userId) =>{dispatch(followAC(userId))},
+    //         unFollow: (userId) =>{dispatch(unfollowAC(userId))},  
+    //         setTotalCount : (totalCount) =>{dispatch(setTotalCountAC(totalCount))}, 
+    //         setUsers : (users) =>{dispatch(setUsersAC(users))}, 
+    //         getCurrentPage: (currentPage) =>{dispatch(getCurrentPageAC(currentPage))},
+    //         toggleFetching: (isFetching) =>{dispatch(toggleFetching(isFetching))}
+    //     }
+    // } 
