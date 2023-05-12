@@ -88,7 +88,8 @@ const usersReducer = (state = initialState, action) =>{
          return state
     }
     
-}  
+}   
+//Action Creators
 export const followAC = (userId) =>{ 
     return{ 
         type: FOLLOW,   
@@ -103,7 +104,7 @@ export const toggleFetching = (isFetching) =>({type:TOGGLE_FETCHING, isFetching}
 export const toggleFollowingInProgress = (isFollowing,userId) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userId})
  
 
-
+//Thunk-Creators
 export const getUsersThunkCreator = (currentPage,pageSize) => { 
 return (dispatch) => 
 //замыкание 
