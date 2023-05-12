@@ -1,6 +1,8 @@
+import { createSelector } from "reselect"
+
 export const getUsers = (state) =>{ 
     return state.usersPage.users
-} 
+}  
 export const getPageSize = (state) =>{ 
     return state.usersPage.pageSize
 } 
@@ -12,4 +14,9 @@ export const getCurrentPage = (state) =>{
 } 
 export const getIsFollow = (state) =>{ 
     return state.usersPage.followingInProgress
-}
+} 
+
+// just practise
+export const getUsersSuperSelector = createSelector(getUsers,(users) =>{ 
+    return users.filter(item => true)
+})
