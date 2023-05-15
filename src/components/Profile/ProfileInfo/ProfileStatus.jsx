@@ -39,7 +39,7 @@ const ProfileStatus = props =>{
     const [status, setStatus] = useState(props.status) 
     const deactivedEditMode =() =>{ 
     setEditMode(false)
-    props.updateStatusThunkC(this.state.status)
+    props.updateStatusThunkC(status)
    }
    return( 
        <div> 
