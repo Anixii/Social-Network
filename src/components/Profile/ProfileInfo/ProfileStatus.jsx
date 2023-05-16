@@ -1,5 +1,5 @@
 // import React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 // class ProfileStatus extends React.Component { 
     
 //     state ={ 
@@ -37,9 +37,12 @@ import { useState } from "react"
 const ProfileStatus = props =>{  
     const [editMode, setEditMode] = useState(false) 
     const [status, setStatus] = useState(props.status) 
+    useEffect(() =>{ 
+        setStatus(props.status)
+    },[props.status]) 
     const deactivedEditMode =() =>{ 
-    setEditMode(false)
-    props.updateStatusThunkC(status)
+        setEditMode(false)
+        props.updateStatusThunkC(status)
    }
    return( 
        <div> 
