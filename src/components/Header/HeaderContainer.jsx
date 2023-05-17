@@ -7,7 +7,8 @@ import { compose } from "redux";
 
 class HeaderContainer extends React.Component{ 
     
-    render(){ 
+    render(){  
+        console.log('render');
         return( 
             <Header {...this.props}/>
         )

@@ -20,7 +20,6 @@ import { compose } from "redux";
     
     
     render(){  
-        
         return( 
             <> 
             {this.props.isFetching ? <Preloader/> :(<Users users={this.props.users}  

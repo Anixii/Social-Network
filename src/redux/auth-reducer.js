@@ -40,7 +40,7 @@ export const loginThunkCreator = () =>(dispatch) =>{
        return authAPI.me() 
            .then(response =>{   
                 if(response.data.resultCode === 0){  
-                    debugger
+              
                     let {id,email,login} = response.data.data 
                     
                     dispatch(setUserDataAC(id,email,login, true))
@@ -54,7 +54,7 @@ export const loginTC = (email, password,rememberMe, setError) =>{
             .then(response =>{  
                 console.log(email)
                 if(response.data.resultCode === 0){ 
-                    debugger 
+                  
                     dispatch(loginThunkCreator())
                 } else {  
                     setError("server", {
@@ -70,7 +70,7 @@ export const logoutTC = () =>{
         authAPI.authLogout()  
         
             .then(response =>{  
-                debugger
+                
                 if(response.data.resultCode === 0){ 
                     dispatch(setUserDataAC(null, null,null, false))
                 } 

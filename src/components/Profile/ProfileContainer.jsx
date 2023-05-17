@@ -11,7 +11,7 @@ class ProfileContainer extends React.Component{
     componentDidMount(){ 
         let userId = this.props.router.params.userId; 
         if(!userId){  
-            debugger
+         
             userId= this.props.loginnedUserId
             if(!userId){  
                 this.props.router.navigate('/login')
