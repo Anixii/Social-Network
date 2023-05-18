@@ -6,6 +6,7 @@ import { getUsersProfileThunkC,getStatusThunkC, updateStatusThunkC } from '../..
 import { connect } from 'react-redux';
 import {  useLocation, useNavigate, useParams } from 'react-router-dom'; 
 import { compose } from 'redux';
+import { getAuthSelector, getProfileSelector, getStatusSelector, getUserIDSelector } from '../../redux/profile-Selector';
 
 class ProfileContainer extends React.Component{ 
     componentDidMount(){ 
@@ -29,10 +30,10 @@ class ProfileContainer extends React.Component{
 
 
 let mapStateToProps = (state) => ({ 
-    profile: state.postPage.profile,
-    status: state.postPage.status, 
-    loginnedUserId: state.auth.userId, 
-    isAuth: state.auth.isAuth
+    profile: getProfileSelector(state),
+    status: getStatusSelector(state), 
+    loginnedUserId: getUserIDSelector(state), 
+    isAuth: getAuthSelector(state)
 })   
 
 
