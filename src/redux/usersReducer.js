@@ -35,16 +35,6 @@ const usersReducer = (state = initialState, action) =>{
         return{ 
             ...state, 
             users:  updateObjectInArr(state.users, action.userId, 'id', {followed: false})
-            // state.users.map( (item)=> {  
-
-            //     if(item.id === action.userId){  
-                  
-            //         return{...item, followed:false}
-            //     }  
-               
-            //    return item
-                
-            // }), 
         } }
         case SET_USERS:{  
             

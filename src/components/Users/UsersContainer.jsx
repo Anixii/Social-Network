@@ -11,8 +11,9 @@ import { compose } from "redux";
 
  class UsersAPIComponent extends React.Component{  
     
-    componentDidMount(){   
-       this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+    componentDidMount(){    
+        let { currentPage,pageSize} = this.props
+       this.props.getUsersThunkCreator(currentPage, pageSize)
     }
     setCurrentPage(currentPage){  
        this.props.getUsersThunkCreator(currentPage, this.props.pageSize)
