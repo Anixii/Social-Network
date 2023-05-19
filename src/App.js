@@ -17,9 +17,9 @@ function App(props) {
     useEffect(()=> { 
       props.initializeTC()
     },[]) 
-    if(!props.initialized){ 
-      return <Preloader/>
-    }
+    // if(!props.initialized){ 
+    //   return <Preloader/>
+    // }
  return (  
   
 

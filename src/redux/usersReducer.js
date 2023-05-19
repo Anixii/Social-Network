@@ -105,46 +105,30 @@ export const toggleFollowingInProgress = (isFollowing,userId) => ({type: TOGGLE_
  
 
 //Thunk-Creators
-export const getUsersThunkCreator = (currentPage,pageSize) => { 
-return (dispatch) => 
-//замыкание 
-{ 
+export const getUsersThunkCreator = (currentPage,pageSize) =>async (dispatch) =>{ 
     dispatch(toggleFetching(true)) 
     dispatch(getCurrentPageAC(currentPage)); 
-    userAPI.getUsers(currentPage, pageSize)
-        .then(response =>{  
-        dispatch(toggleFetching(false))
-        dispatch(setUsersAC(response.items)) 
-        dispatch(setTotalCountAC(response.totalCount))
-        
-        }) ;
+let response = await userAPI.getUsers(currentPage, pageSize) 
+    dispatch(toggleFetching(false))
+    dispatch(setUsersAC(response.items)) 
+    dispatch(setTotalCountAC(response.totalCount))   
 } 
-}  
-export const unfollowThunk = (id) => { 
-    return (dispatch) => { 
-        dispatch(toggleFollowingInProgress(true, id))
-        followAPI.unFollow(id)
-        .then(response =>{  
+export const unfollowThunk = (id) => async(dispatch) => { 
+    dispatch(toggleFollowingInProgress(true, id))
+    let response =await followAPI.unFollow(id)
         if(response.data.resultCode === 0){ 
             dispatch(unfollowAC(id))           
         }  
         dispatch(toggleFollowingInProgress(false, null))
-    }) ;
-    }
-} 
-export const followThunk = (id) => { 
-    return (dispatch) => { 
-        dispatch(toggleFollowingInProgress(true, id))
-        followAPI.onFollow(id)
-        .then(response =>{  
-        if(response.data.resultCode === 0){ 
-            dispatch(followAC(id))           
-        }  
-        dispatch(toggleFollowingInProgress(false, null))
-    }) ;
-    }
 }
-
+export const followThunk = (id) => async(dispatch) => { 
+    dispatch(toggleFollowingInProgress(true, id))
+    let response = await followAPI.onFollow(id) 
+    if(response.data.resultCode === 0){ 
+        dispatch(followAC(id))           
+    }  
+    dispatch(toggleFollowingInProgress(false, null))
+}
 
 
 export default usersReducer

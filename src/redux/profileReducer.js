@@ -15,9 +15,7 @@ let initialState = {
     
 }
 const profileReducer = (state = initialState, action) =>{ 
-    
     switch(action.type){  
-        
         case ADD_POST: {
         let newPost = { 
             id:5, 
@@ -42,14 +40,9 @@ const profileReducer = (state = initialState, action) =>{
         }
         default: 
          return state
-    }
-    
+    } 
 }  
-export const addPostActionCreator = (text) =>{ 
-    return{ 
-        type: ADD_POST, text
-    }
-} 
+export const addPostActionCreator = (text) =>({type: ADD_POST, text})
 export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })
 export const setStatus    = (status) => ({type: SET_STATUS, status})
 
@@ -62,7 +55,7 @@ export const getUsersProfileThunkC = (userId) => async (dispatch) => {
         console.log("Error getting user profile: ", error);
       } 
     };
-  export const getStatusThunkC = (userId) => async (dispatch) => {
+export const getStatusThunkC = (userId) => async (dispatch) => {
       try {
         const response = await ProfileAPI.getStatus(userId);
         dispatch(setStatus(response.data));
@@ -70,7 +63,7 @@ export const getUsersProfileThunkC = (userId) => async (dispatch) => {
         console.log("Error getting user status: ", error);
       }
     };
-  export const updateStatusThunkC = (status) => async (dispatch) => {
+export const updateStatusThunkC = (status) => async (dispatch) => {
       try {
         const response = await ProfileAPI.updateStatus(status);
         if (response.data.resultCode === 0) {
