@@ -54,71 +54,39 @@ export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })
 export const setStatus    = (status) => ({type: SET_STATUS, status})
 
 
-export const getUsersProfileThunkC =(userId) =>{ 
-    return (dispatch) => {  
-       ProfileAPI.getProfile(userId)
-        .then(response =>{   
-        dispatch(setUsersProfile(response.data)) 
-       
-    }) ;
-    }
-}  
-export const getStatusThunkC = (userId) =>{ 
-    return (dispatch)=> {  
-       ProfileAPI.getStatus(userId)
-        .then(response =>{   
-        dispatch(setStatus(response.data)) 
-       
-    }) ;
-    }
-} 
-export const updateStatusThunkC = (status) =>{ 
-    return (dispatch)=> {  
-       ProfileAPI.updateStatus(status)
-        .then(response =>{  
-            if(response.data.resultCode ===0){ 
-           console.log(response.data)
-                dispatch(setStatus(status))  
-          
-            }  
-       
-    }) ;
-    }
-} 
-
-// export const getUsersProfileThunkC = (userId) => {
-//     return async (dispatch) => {
-//       try {
-//         const response = await ProfileAPI.getProfile(userId);
-//         dispatch(setUsersProfile(response.data));
-//       } catch (error) {
-//         console.log("Error getting user profile: ", error);
-//       } 
-//     };
-//   };
-//   export const getStatusThunkC = (userId) => {
-//     return async (dispatch) => {
-//       try {
-//         const response = await ProfileAPI.getStatus(userId);
-//         dispatch(setStatus(response.data));
-//       } catch (error) {
-//         console.log("Error getting user status: ", error);
-//       }
-//     };
-//   };
+export const getUsersProfileThunkC = (userId) => {
+    return async (dispatch) => {
+      try {
+        const response = await ProfileAPI.getProfile(userId);
+        dispatch(setUsersProfile(response.data));
+      } catch (error) {
+        console.log("Error getting user profile: ", error);
+      } 
+    };
+  };
+  export const getStatusThunkC = (userId) => {
+    return async (dispatch) => {
+      try {
+        const response = await ProfileAPI.getStatus(userId);
+        dispatch(setStatus(response.data));
+      } catch (error) {
+        console.log("Error getting user status: ", error);
+      }
+    };
+  };
   
-//   export const updateStatusThunkC = (status) => {
-//     return async (dispatch) => {
-//       try {
-//         const response = await ProfileAPI.updateStatus(status);
-//         if (response.data.resultCode === 0) {
-//           dispatch(setStatus(status));
-//         }
-//       } catch (error) {
-//         console.log("Error updating user status: ", error);
-//       }
-//     };
-//   };
+  export const updateStatusThunkC = (status) => {
+    return async (dispatch) => {
+      try {
+        const response = await ProfileAPI.updateStatus(status);
+        if (response.data.resultCode === 0) {
+          dispatch(setStatus(status));
+        }
+      } catch (error) {
+        console.log("Error updating user status: ", error);
+      }
+    };
+  };
   
 
 export default profileReducer
