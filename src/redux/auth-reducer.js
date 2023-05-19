@@ -34,47 +34,30 @@ let initialState = {
 export const errorAC = (error) => ({type: ERROR_MESSAGE, error})   
 export const setUserDataAC= (userId, email, login, isAuth) => ({type: SET_USER_DATA, data:{userId,email,login, isAuth}}) 
  
-export const loginThunkCreator = () =>(dispatch) =>{ 
+export const loginThunkCreator = () => async(dispatch) =>{ 
     //getAuthUserData 
-   
-       return authAPI.me() 
-           .then(response =>{   
-                if(response.data.resultCode === 0){  
-              
-                    let {id,email,login} = response.data.data 
-                    
-                    dispatch(setUserDataAC(id,email,login, true))
-                    //можно стянуть аву
-                }}) ;
-    
+    let response = await authAPI.me()
+    if(response.data.resultCode === 0){        
+        let {id,email,login} = response.data.data         
+        dispatch(setUserDataAC(id,email,login, true))
+    }; 
 }
-export const loginTC = (email, password,rememberMe, setError) =>{  
-    return (dispatch) =>{ 
-        authAPI.authLogin(email, password, rememberMe) 
-            .then(response =>{  
-                console.log(email)
-                if(response.data.resultCode === 0){ 
-                  
-                    dispatch(loginThunkCreator())
-                } else {  
-                    setError("server", {
-                        type: "custom",
-                        message: response.data.messages
-                    });
-                }
-            })
-    }
+export const loginTC = (email, password,rememberMe, setError) =>async(dispatch) =>{ 
+        let response = await authAPI.authLogin(email, password, rememberMe) 
+        if(response.data.resultCode === 0){ 
+            dispatch(loginThunkCreator())
+        } else {  
+            setError("server", {
+            type: "custom",
+            message: response.data.messages
+        });
+        }
 } 
-export const logoutTC = () =>{  
-    return (dispatch) =>{ 
-        authAPI.authLogout()  
-        
-            .then(response =>{  
-                
-                if(response.data.resultCode === 0){ 
-                    dispatch(setUserDataAC(null, null,null, false))
-                } 
-            })
+export const logoutTC = () => async(dispatch) =>{ 
+        let response = await authAPI.authLogout()  
+        if(response.data.resultCode === 0){ 
+         dispatch(setUserDataAC(null, null,null, false))
+        } 
     }
-}
+
 export default authreducer
