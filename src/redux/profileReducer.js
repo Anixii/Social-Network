@@ -54,8 +54,7 @@ export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })
 export const setStatus    = (status) => ({type: SET_STATUS, status})
 
 
-export const getUsersProfileThunkC = (userId) => {
-    return async (dispatch) => {
+export const getUsersProfileThunkC = (userId) => async (dispatch) => {
       try {
         const response = await ProfileAPI.getProfile(userId);
         dispatch(setUsersProfile(response.data));
@@ -63,9 +62,7 @@ export const getUsersProfileThunkC = (userId) => {
         console.log("Error getting user profile: ", error);
       } 
     };
-  };
-  export const getStatusThunkC = (userId) => {
-    return async (dispatch) => {
+  export const getStatusThunkC = (userId) => async (dispatch) => {
       try {
         const response = await ProfileAPI.getStatus(userId);
         dispatch(setStatus(response.data));
@@ -73,10 +70,7 @@ export const getUsersProfileThunkC = (userId) => {
         console.log("Error getting user status: ", error);
       }
     };
-  };
-  
-  export const updateStatusThunkC = (status) => {
-    return async (dispatch) => {
+  export const updateStatusThunkC = (status) => async (dispatch) => {
       try {
         const response = await ProfileAPI.updateStatus(status);
         if (response.data.resultCode === 0) {
@@ -86,7 +80,7 @@ export const getUsersProfileThunkC = (userId) => {
         console.log("Error updating user status: ", error);
       }
     };
-  };
+  
   
 
 export default profileReducer
