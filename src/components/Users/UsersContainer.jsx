@@ -19,10 +19,12 @@ import { compose } from "redux";
     }
     
     
-    render(){  
+    render(){   
+        console.log('render')
         return( 
             <> 
-            {this.props.isFetching ? <Preloader/> :(<Users users={this.props.users}  
+            {/* {this.props.isFetching ? <Preloader/> :( 
+            <Users users={this.props.users}  
             unfollowThunk={this.props.unfollowThunk} 
             followThunk={this.props.followThunk}
             totalUsers={this.props.totalUsers} 
@@ -30,8 +32,11 @@ import { compose } from "redux";
             setCurrentPage={this.setCurrentPage.bind(this)} 
             pageSize={this.props.pageSize}  
             isFollowing={this.props.isFollowing}
-            /> )}
-            
+            /> )} */}
+            {this.props.isFetching ? <Preloader/> :( 
+            <Users {...this.props}  
+            setCurrentPage={this.setCurrentPage.bind(this)} 
+            /> )}            
             </>
             
         )

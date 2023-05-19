@@ -3,8 +3,6 @@ import MyPosts from './MyPosts/MyPosts'
 import React from 'react' 
 import { useForm } from 'react-hook-form' 
 const Posts = React.memo((props) =>{       
-         console.log('render');
-
         const myPostElem = props.post.myPostItem.map((post, index) => <MyPosts key={index+post} message={post.message} likes={post.likes}/>)
         return(
         <div className={s.post}>  

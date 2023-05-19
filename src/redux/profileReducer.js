@@ -24,13 +24,6 @@ const profileReducer = (state = initialState, action) =>{
             message: action.text , 
             likes: 0
         } 
-        // let copyState = {...state}; 
-        // copyState.myPostItem = [...state.myPostItem] 
-        // copyState.myPostItem.push(newPost)  
-        
-        // copyState.newPostText = '' 
-        // return copyState  
-
         return { 
             ...state, 
             myPostItem: [...state.myPostItem, newPost]
@@ -69,7 +62,7 @@ export const getUsersProfileThunkC =(userId) =>{
        
     }) ;
     }
-} 
+}  
 export const getStatusThunkC = (userId) =>{ 
     return (dispatch)=> {  
        ProfileAPI.getStatus(userId)
@@ -91,7 +84,41 @@ export const updateStatusThunkC = (status) =>{
        
     }) ;
     }
-}
+} 
 
+// export const getUsersProfileThunkC = (userId) => {
+//     return async (dispatch) => {
+//       try {
+//         const response = await ProfileAPI.getProfile(userId);
+//         dispatch(setUsersProfile(response.data));
+//       } catch (error) {
+//         console.log("Error getting user profile: ", error);
+//       } 
+//     };
+//   };
+//   export const getStatusThunkC = (userId) => {
+//     return async (dispatch) => {
+//       try {
+//         const response = await ProfileAPI.getStatus(userId);
+//         dispatch(setStatus(response.data));
+//       } catch (error) {
+//         console.log("Error getting user status: ", error);
+//       }
+//     };
+//   };
+  
+//   export const updateStatusThunkC = (status) => {
+//     return async (dispatch) => {
+//       try {
+//         const response = await ProfileAPI.updateStatus(status);
+//         if (response.data.resultCode === 0) {
+//           dispatch(setStatus(status));
+//         }
+//       } catch (error) {
+//         console.log("Error updating user status: ", error);
+//       }
+//     };
+//   };
+  
 
 export default profileReducer
