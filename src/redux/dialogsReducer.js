@@ -14,36 +14,15 @@ let initialState = {
     
 }
 const dialogsReducer = (state = initialState, action) =>{ 
-     switch(action.type){   
-        
-    //     case ADD_MESSAGE: { 
-    //     let newMessage = state.newMessageText 
-    //     return { 
-    //         ...state, 
-    //         newMessageText : '', 
-    //         messageItem:[...state.messageItem, {message : newMessage}]
-    //     };    } flux круговорот, когда то был 
+    switch(action.type){   
     case ADD_MESSAGE :{ 
         return { 
             ...state, 
             messageItem: [...state.messageItem, {message: action.text}]
         }
     }
-        // case UPDATE_NEW_MESSAGE_TEXT:{  
-        // return{ 
-        //     ...state, 
-        //     newMessageText: action.arg
-        // } 
-         //}
         default: return state
     } 
-
-    
 }  
-export const addMessageActionCreator=(text)=>{
-    return{ 
-       type: ADD_MESSAGE, 
-       text
-    }
-}  
+export const addMessageActionCreator=(text)=>({type: ADD_MESSAGE,text})  
 export default dialogsReducer

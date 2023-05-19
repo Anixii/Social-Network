@@ -1,5 +1,6 @@
-import { userAPI,followAPI } from "../api/api" 
- 
+import { followAPI } from "../api/api"
+import { userAPI} from "../api/api"  
+import { updateObjectInArr } from "../utils/helpers"
 const FOLLOW = 'FOLLOW'
 const CURRENT_PAGE = 'CURRENT-PAGE'
 const UNFOLLOW = 'UNFOLLOW'  
@@ -27,28 +28,23 @@ const usersReducer = (state = initialState, action) =>{
         case FOLLOW: 
            return{ 
                 ...state, 
-                users: state.users.map( (item)=> {  
-                    if(item.id === action.userId){  
-                        return{...item, followed:true}
-                    } 
-                    
-                    return item;
-                }), 
+                users:  updateObjectInArr(state.users, action.userId, 'id', {followed:true})
             }
         case UNFOLLOW:{   
        
         return{ 
             ...state, 
-            users:state.users.map( (item)=> {  
+            users:  updateObjectInArr(state.users, action.userId, 'id', {followed: false})
+            // state.users.map( (item)=> {  
 
-                if(item.id === action.userId){  
+            //     if(item.id === action.userId){  
                   
-                    return{...item, followed:false}
-                }  
+            //         return{...item, followed:false}
+            //     }  
                
-               return item
+            //    return item
                 
-            }), 
+            // }), 
         } }
         case SET_USERS:{  
             
@@ -90,20 +86,13 @@ const usersReducer = (state = initialState, action) =>{
     
 }   
 //Action Creators
-export const followAC = (userId) =>{ 
-    return{ 
-        type: FOLLOW,   
-        userId,
-    }
-} 
+export const followAC = (userId) =>({type: FOLLOW,userId,}) 
 export const unfollowAC = (userId) =>({ type: UNFOLLOW, userId})
 export const setUsersAC = (users) =>({type: SET_USERS, users}) 
 export const getCurrentPageAC = (currentPage) => ({type: CURRENT_PAGE, currentPage})
 export const setTotalCountAC = (totalCount) =>({type:TOTAL_COUNT, totalCount})    
 export const toggleFetching = (isFetching) =>({type:TOGGLE_FETCHING, isFetching})   
 export const toggleFollowingInProgress = (isFollowing,userId) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userId})
- 
-
 //Thunk-Creators
 export const getUsersThunkCreator = (currentPage,pageSize) =>async (dispatch) =>{ 
     dispatch(toggleFetching(true)) 
@@ -112,23 +101,22 @@ let response = await userAPI.getUsers(currentPage, pageSize)
     dispatch(toggleFetching(false))
     dispatch(setUsersAC(response.items)) 
     dispatch(setTotalCountAC(response.totalCount))   
-} 
-export const unfollowThunk = (id) => async(dispatch) => { 
-    dispatch(toggleFollowingInProgress(true, id))
-    let response =await followAPI.unFollow(id)
-        if(response.data.resultCode === 0){ 
-            dispatch(unfollowAC(id))           
-        }  
-        dispatch(toggleFollowingInProgress(false, null))
-}
-export const followThunk = (id) => async(dispatch) => { 
-    dispatch(toggleFollowingInProgress(true, id))
-    let response = await followAPI.onFollow(id) 
+}  
+
+const followUnfollowFlow = async (dispatch, userId,apiMethod, AC) =>{ 
+    dispatch(toggleFollowingInProgress(true, userId)) 
+    let response = await apiMethod(userId) 
     if(response.data.resultCode === 0){ 
-        dispatch(followAC(id))           
+        dispatch(AC(userId))           
     }  
     dispatch(toggleFollowingInProgress(false, null))
+}   
+
+
+export const unfollowThunk = (id) => async(dispatch) => { 
+   followUnfollowFlow(dispatch, id, followAPI.unFollow.bind(followAPI), unfollowAC )
 }
-
-
+export const followThunk = (id) => async(dispatch) => { 
+    followUnfollowFlow(dispatch, id, followAPI.onFollow.bind(followAPI), followAC )
+}
 export default usersReducer
