@@ -12,7 +12,7 @@ const TOGGLE_IS_FOLLOWING ='TOGGLE_IS_FOLLOWING'
 
 let initialState = { 
     users:[], 
-    pageSize:25, 
+    pageSize:15, 
     totalUsers: 10, 
     currentPage:1, 
     isFetching: false, 
@@ -85,12 +85,12 @@ export const toggleFetching = (isFetching) =>({type:TOGGLE_FETCHING, isFetching}
 export const toggleFollowingInProgress = (isFollowing,userId) => ({type: TOGGLE_IS_FOLLOWING, isFollowing, userId})
 //Thunk-Creators
 export const getUsersThunkCreator = (currentPage,pageSize) =>async (dispatch) =>{ 
-    dispatch(toggleFetching(true)) 
     dispatch(getCurrentPageAC(currentPage)); 
+    dispatch(toggleFetching(true)) 
 let response = await userAPI.getUsers(currentPage, pageSize) 
-    dispatch(toggleFetching(false))
-    dispatch(setUsersAC(response.items)) 
-    dispatch(setTotalCountAC(response.totalCount))   
+dispatch(setUsersAC(response.items)) 
+dispatch(setTotalCountAC(response.totalCount))   
+dispatch(toggleFetching(false))
 }  
 
 const followUnfollowFlow = async (dispatch, userId,apiMethod, AC) =>{ 

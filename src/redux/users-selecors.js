@@ -15,7 +15,9 @@ export const getCurrentPage = (state) =>{
 export const getIsFollow = (state) =>{ 
     return state.usersPage.followingInProgress
 } 
-
+export const isFetching = (state) =>{ 
+    return state.usersPage.isFetching
+}
 // just practise
 export const getUsersSuperSelector = createSelector(getUsers,(users) =>{ 
     return users.filter(item => true)

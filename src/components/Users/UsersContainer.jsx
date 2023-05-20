@@ -5,7 +5,7 @@ import React from "react";
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
-import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow } from "../../redux/users-selecors";
+import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching } from "../../redux/users-selecors";
 import { compose } from "redux";
 
 
@@ -50,7 +50,8 @@ const mapStateToProps = (state)=>{
         pageSize: getPageSize(state), 
         totalUsers: getTotalUserCount(state), 
         currentPage: getCurrentPage(state), 
-        isFollowing: getIsFollow(state),
+        isFollowing: getIsFollow(state), 
+        isFetching: isFetching(state)
     }
 } 
 
@@ -59,7 +60,8 @@ export default compose(
         { 
         getUsersThunkCreator, 
         unfollowThunk, 
-        followThunk,
+        followThunk, 
+        
     }) ,  
     
     
