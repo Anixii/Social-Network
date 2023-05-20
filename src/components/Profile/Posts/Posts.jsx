@@ -2,8 +2,8 @@ import s from './Posts.module.css'
 import MyPosts from './MyPosts/MyPosts' 
 import React from 'react' 
 import { useForm } from 'react-hook-form' 
-const Posts = React.memo((props) =>{       
-        const myPostElem = props.post.myPostItem.map((post, index) => <MyPosts key={index+post} message={post.message} likes={post.likes}/>)
+const Posts = React.memo(({post,...props}) =>{       
+        const myPostElem = post.myPostItem.map((post, index) => <MyPosts key={index+post} message={post.message} likes={post.likes}/>)
         return(
         <div className={s.post}>  
             <PostForm {...props}/>
@@ -16,7 +16,6 @@ const Posts = React.memo((props) =>{
 })
 const PostForm = (props )  => { 
     const onSubmit = (dataObj) => {  
-        console.log(dataObj)
         props.addPost(dataObj.newPostText)  
         reset()   
     }
@@ -30,7 +29,7 @@ const PostForm = (props )  => {
         handleSubmit, 
         reset
     } = useForm({ 
-        mode: 'onChange'
+        mode: 'onBlur'
     })
     
     return( 
