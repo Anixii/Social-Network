@@ -2,7 +2,6 @@ import s from './Users.module.css'
 import userImage from '../../assets/image/user.png'; 
 import { NavLink } from 'react-router-dom';
  const User = ({item,...props}) =>{  
-    console.log(item);
     return( 
         <div>
             <div> 

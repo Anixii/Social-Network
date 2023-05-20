@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import {  useLocation, useNavigate, useParams } from 'react-router-dom'; 
 import { compose } from 'redux';
 import { getAuthSelector, getProfileSelector, getStatusSelector, getUserIDSelector } from '../../redux/profile-Selector';
-import { useEffect } from 'react';
+
 class ProfileContainer extends React.Component{ 
     componentDidMount(){ 
         let userId = this.props.router.params.userId; 
@@ -21,9 +21,8 @@ class ProfileContainer extends React.Component{
         this.props.getStatusThunkC(userId)
     }
     render(){    
-        console.log('RenderC');
         return( 
-            <Profile {...this.props } profile={this.props.profile} />
+            <Profile status={this.props.status} profile={this.props.profile} updateStatusThunkC={this.props.updateStatusThunkC}  />
         )
 }
 }  

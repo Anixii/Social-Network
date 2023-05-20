@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react"
-const ProfileStatus = props =>{  
+const ProfileStatus = ({updateStatusThunkC,...props})=>{  
     const [editMode, setEditMode] = useState(false) 
     const [status, setStatus] = useState(props.status) 
     useEffect(() =>{ 
@@ -8,7 +8,7 @@ const ProfileStatus = props =>{
     },[props.status]) 
     const deactivedEditMode =() =>{ 
         setEditMode(false)
-        props.updateStatusThunkC(status)
+        updateStatusThunkC(status)
    }
    return( 
        <div> 
