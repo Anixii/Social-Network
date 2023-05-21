@@ -8,32 +8,35 @@ import Preloader from "../common/Preloader";
 import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching } from "../../redux/users-selecors";
 import { compose } from "redux";
 
-
  class UsersAPIComponent extends React.Component{  
     
     componentDidMount(){    
         let { currentPage,pageSize} = this.props
        this.props.getUsersThunkCreator(currentPage, pageSize)
     }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.color !== nextProps.color) {
+    //       return true;
+    //     }
+    //     if (this.state.count !== nextState.count) {
+    //       return true;
+    //     }
+    //     return false;
+    //   } 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.state.users !== nextState.users) {
+    //       return true;
+    //     }
+    //     return false;
+    //   }
     setCurrentPage(currentPage){  
        this.props.getUsersThunkCreator(currentPage, this.props.pageSize)
     }
     
-    
     render(){   
-        console.log('render')
+        console.log('renderC')
         return( 
             <> 
-            {/* {this.props.isFetching ? <Preloader/> :( 
-            <Users users={this.props.users}  
-            unfollowThunk={this.props.unfollowThunk} 
-            followThunk={this.props.followThunk}
-            totalUsers={this.props.totalUsers} 
-            currentPage={this.props.currentPage}  
-            setCurrentPage={this.setCurrentPage.bind(this)} 
-            pageSize={this.props.pageSize}  
-            isFollowing={this.props.isFollowing}
-            /> )} */}
             {this.props.isFetching ? <Preloader/> :( 
             <Users {...this.props}  
             setCurrentPage={this.setCurrentPage.bind(this)} 
@@ -43,6 +46,13 @@ import { compose } from "redux";
         )
     }
 }
+ 
+  
+  
+  
+  
+  
+  
   
 const mapStateToProps = (state)=>{   
     return{ 
