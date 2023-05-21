@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';   
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Sidebar from './components/Sidebar/Side';  
-import { Routes, Route, BrowserRouter} from 'react-router-dom'; 
+import { Routes, Route, } from 'react-router-dom'; 
 
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';

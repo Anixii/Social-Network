@@ -1,6 +1,7 @@
+
 export const getProfileSelector = (state) =>{ 
     return state.postPage.profile
-}  
+}
 export const getStatusSelector = (state) =>{ 
     return state.postPage.status
 }  
