@@ -12,7 +12,7 @@ const ProfileStatus = ({updateStatusThunkC,...props})=>{
    }
    return( 
        <div> 
-            {!editMode &&  <div onDoubleClick={() => setEditMode(true)}>{props.status || 'no Status'}</div>} 
+            {!editMode &&  <div onDoubleClick={() => setEditMode(true)}><span>{props.status || 'no Status'}</span></div>} 
             {editMode &&  <div><input onChange={(e)=> setStatus(e.target.value) } autoFocus={true} onBlur={deactivedEditMode} type="text" value={status} /></div>} 
                     
         </div> 
