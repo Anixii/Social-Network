@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,lazy, Suspense } from 'react';
 import './App.css';   
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Sidebar from './components/Sidebar/Side';  
 import { Routes, Route,BrowserRouter } from 'react-router-dom'; 
 import store from './redux/redux-store';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/login/Login';
 import {  connect, Provider } from 'react-redux';
 import { initializeTC } from './redux/app-reducer';
 import Preloader from './components/common/Preloader';
-
-
+const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'))
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'))
 function App(props) {  
     useEffect(()=> { 
       props.initializeTC()
@@ -21,12 +19,11 @@ function App(props) {
       return <Preloader/>
     }
  return (  
-  
-
     <div className='App'> 
     <HeaderContainer/>
-    <Sidebar/> 
+    <Sidebar /> 
       <div className='wrapper'>  
+      <Suspense> 
       <Routes>
         <Route path='/profile/' element={<ProfileContainer />}> 
           <Route path=":userId?" element={<ProfileContainer/>}/>       
@@ -35,8 +32,8 @@ function App(props) {
         <Route path='/dialogs/*' element={<DialogsContainer />}/>  
         <Route path='/users/*' element={<UsersContainer/>}/>   
       </Routes>
+      </Suspense> 
       </div> 
-      
     </div> 
  )
 }
