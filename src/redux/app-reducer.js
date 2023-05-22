@@ -17,8 +17,6 @@ const initialState ={
 }  
 
 export const initializedSuccess = () =>({type: SET_INITIALIZED})
- 
-
 export const initializeTC = () => (dispatch) =>{ 
     let result =  dispatch(loginThunkCreator())
     result.then(() =>{ 
