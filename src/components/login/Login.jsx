@@ -2,7 +2,8 @@
 import { connect } from "react-redux"  
 import { loginTC } from "../../redux/auth-reducer"
 import { Navigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form" 
+import { isUserAuth } from "../../redux/authSelector"
 const Login =(props) =>{  
     
      if(props.isAuth){  
@@ -86,29 +87,10 @@ const LoginForm = (props) => {
     </form>
     )
 }
-// const LoginForm = (props) =>{    
-//     return( 
-//         <form onSubmit={props.handleSubmit}> 
-//         <div> <Field name={'email'}  placeholder="Login" component={Input} validate={[required]} /></div> 
-//         <div><Field name={"password"}  placeholder="Password" type="password" component={PasswordInput} validate={[required]}/></div>
-//         <div><Field name={"rememberMe"} type="checkbox" component={Input} /> Remember me</div>
-       
-//         {/* {props.errorResponse && 
-//        <div>
-//           {props.errorResponse}
-//        </div>} */}
-//          <div> <button>Log in</button></div>
-//     </form> 
-//     )
-// } 
-// const ReduxLoginForm = reduxForm({ 
-//     form: 'login'
-// })(LoginForm) 
 
 const mapStateToProps = (state) =>{ 
     return{ 
-        isAuth: state.auth.isAuth, 
-        //errorResponse : state.auth.error
+        isAuth: isUserAuth(state), 
     }
 }
 export default connect(mapStateToProps , {loginTC})(Login)
