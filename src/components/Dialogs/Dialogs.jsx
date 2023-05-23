@@ -5,7 +5,6 @@ import Message from './Message/Message'
 import { useForm } from 'react-hook-form' 
 import React from 'react'
 function Dialogs(props){  
-
     const onSubmit = (dataObj) =>{ 
         props.addMessage(dataObj.newMessageText) 
         console.log(dataObj)
@@ -14,18 +13,13 @@ function Dialogs(props){
     .map(arg => <Dialog name={arg.name} id={arg.id}/> ); 
     const messageElem = props.state.messageItem 
     .map(m => <Message message={m.message} />  )
-
     return(
- 
- <div className={s.dialogs}> 
+        <div className={s.dialogs}> 
             <div className={s.dialogItem}>          
               {dialogsElem} 
-                
             </div>
- 
              <div className={s.messages}>  
-                {messageElem}
-                
+                {messageElem}  
             </div>   
             <DialogForms onSubmit={onSubmit}/>
         </div>
