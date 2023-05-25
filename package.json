@@ -1,7 +1,8 @@
 {
   "name": "travel",
   "version": "0.1.0",
-  "private": true,
+  "private": true, 
+  "homepage": "https://github.com/Anixii/Social-Network",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "react-test-renderer": "^18.2.0"
   }
 }
