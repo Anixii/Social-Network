@@ -1,4 +1,3 @@
-
 import s from './Dialogs.module.css' 
 import Dialog from './Dialog/Dialog' 
 import Message from './Message/Message'  
@@ -25,7 +24,6 @@ function Dialogs(props){
         </div>
     )
 }  
-
 const DialogForms = (props) => { 
     const { 
         register, 
@@ -48,5 +46,4 @@ const DialogForms = (props) => {
         </form>
     )
 }
-
 export default Dialogs
