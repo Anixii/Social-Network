@@ -4,7 +4,6 @@ export const required = value =>{
     } 
     return 'error'
 } 
-
 export const maxLength = length =>{ 
     return (value) =>{ 
         if(value && value.length > length    ) { 
