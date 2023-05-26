@@ -92,7 +92,6 @@ dispatch(setUsersAC(response.items))
 dispatch(setTotalCountAC(response.totalCount))   
 dispatch(toggleFetching(false))
 }  
-
 const followUnfollowFlow = async (dispatch, userId,apiMethod, AC) =>{ 
     dispatch(toggleFollowingInProgress(true, userId)) 
     let response = await apiMethod(userId) 
@@ -101,8 +100,6 @@ const followUnfollowFlow = async (dispatch, userId,apiMethod, AC) =>{
     }  
     dispatch(toggleFollowingInProgress(false, null))
 }   
-
-
 export const unfollowThunk = (id) => async(dispatch) => { 
    followUnfollowFlow(dispatch, id, followAPI.unFollow.bind(followAPI), unfollowAC )
 }
