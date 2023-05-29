@@ -1,7 +1,7 @@
 import React, { useEffect,lazy, Suspense } from 'react';
 import './App.css';   
 import Sidebar from './components/Sidebar/Side';  
-import { Routes, Route,BrowserRouter } from 'react-router-dom'; 
+import { Routes, Route,BrowserRouter , HashRouter} from 'react-router-dom'; 
 import store from './redux/redux-store';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -46,11 +46,11 @@ const AppContainer = connect(mapStateToProps, {initializeTC})(App);
  
 const MainApp = (props) =>{ 
   return( 
-  <BrowserRouter basename={process.env.PUBLIC_URL}> 
+  <HashRouter > 
   <Provider store={store}>
   <AppContainer />  
   </Provider>
-  </BrowserRouter>
+  </HashRouter>
   )
 } 
 export default MainApp
