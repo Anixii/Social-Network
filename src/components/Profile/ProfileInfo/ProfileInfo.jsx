@@ -5,14 +5,20 @@ import userAnonimAvatar from '../../../assets/image/user.png'
 function ProfileInfo({profile,status,...props}){  
     if(!profile){ 
         return <Preloader/>
-    } 
+    }  
+    const onPhotoSelected = (e) =>{ 
+        if(e.target.files.length){ 
+            props.savePhotoTC(e.target.files[0])
+        }
+    }
     return(  
         
         <div className={s.info}>   
         
         <div> NickName: {profile.fullName}</div>
             <div className={s.info__image}> <img  className={s.bg__img} src={profile.photos.small} alt="Background Img" /></div> 
-            <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar } alt='Ava'></img></div>  
+            <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar } alt='Ava'></img></div> 
+            <div>{props.isOwner && <input type='file' onChange={onPhotoSelected}/>}</div>  
             <div> 
                 Обо мне: {profile.aboutMe}
             </div>  
