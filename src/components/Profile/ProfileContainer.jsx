@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import { getAuthSelector, getProfileSelector, getStatusSelector, getUserIDSelector } from '../../redux/profile-Selector';
 
 class ProfileContainer extends React.Component{ 
-    componentDidMount(){ 
+    refrechProfile = () =>{ 
         let userId = this.props.router.params.userId; 
         if(!userId){  
             userId= this.props.loginnedUserId
@@ -19,6 +19,15 @@ class ProfileContainer extends React.Component{
         }
         this.props.getUsersProfileThunkC(userId)
         this.props.getStatusThunkC(userId)
+    } 
+    componentDidMount(){ 
+        this.refrechProfile()
+    } 
+    componentDidUpdate(prevProps){  
+        if(this.props.router.params.userId !== prevProps.router.params.userId){ 
+
+            this.refrechProfile()
+        }
     }
     render(){   
         return( 

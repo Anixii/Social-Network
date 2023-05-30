@@ -1,6 +1,7 @@
 import Preloader from '../../common/Preloader'
 import s from './ProfileInfo.module.css' 
-import ProfileStatus from './ProfileStatus'
+import ProfileStatus from './ProfileStatus' 
+import userAnonimAvatar from '../../../assets/image/user.png'
 function ProfileInfo({profile,status,...props}){  
     if(!profile){ 
         return <Preloader/>
@@ -11,7 +12,7 @@ function ProfileInfo({profile,status,...props}){
         
         <div> NickName: {profile.fullName}</div>
             <div className={s.info__image}> <img  className={s.bg__img} src={profile.photos.small} alt="Background Img" /></div> 
-            <div className={s.item}> <img className={s.ava} src={profile.photos.large} alt='Ava'></img></div>  
+            <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar } alt='Ava'></img></div>  
             <div> 
                 Обо мне: {profile.aboutMe}
             </div>  
