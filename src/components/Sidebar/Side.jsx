@@ -5,7 +5,6 @@ const Sidebar = () =>{
     return( 
         <div className={s.navbar}> 
             <div className={s.navbar__item}> 
-                
                  <NavLink to= '/profile' activeClassName={s.active}>Profile</NavLink> 
             </div>
             <div className={s.navbar__item}> 
