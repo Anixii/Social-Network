@@ -73,7 +73,12 @@ export const updateStatusThunkC = (status) => async (dispatch) => {
         console.log("Error updating user status: ", error);
       }
     };
-  
+export const savePhotoTC = (photos) => async(dispatch) =>{ 
+    const response = await ProfileAPI.savePhoto(photos) 
+    if (response.data.resultCode === 0) {
+      
+    }
+}
   
 
 export default profileReducer
