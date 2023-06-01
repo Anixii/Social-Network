@@ -83,7 +83,7 @@ export const updateStatusThunkC = (status) => async (dispatch) => {
 export const savePhotoTC = (photos) => async(dispatch) =>{ 
     const response = await ProfileAPI.savePhoto(photos) 
     if (response.data.resultCode === 0) {
-      dispatch(savePhotoAC(response.data.photos))
+      dispatch(savePhotoAC(response.data.data.photos))
     }
 }
   
