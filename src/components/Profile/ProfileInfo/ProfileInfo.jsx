@@ -16,7 +16,6 @@ function ProfileInfo({profile,status,...props}){
         <div className={s.info}>   
         
         <div> NickName: {profile.fullName}</div>
-            <div className={s.info__image}> <img  className={s.bg__img} src={profile.photos.small} alt="Background Img" /></div> 
             <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar } alt='Ava'></img></div> 
             <div>{props.isOwner && <input type='file' onChange={onPhotoSelected}/>}</div>  
             <div> 
