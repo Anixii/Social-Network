@@ -2,7 +2,8 @@ import { ProfileAPI} from "../api/api"
  const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'  
 const SET_USER_PROFILE = 'SET_USER_PROFILE' 
-const SET_STATUS = 'SET_STATUS'
+const SET_STATUS = 'SET_STATUS' 
+const SAVE_PHOTO = 'SAVE_PHOTO'
 let initialState = { 
     myPostItem : [ 
         {id:1, message:'How are u?', likes: 1547,},  
@@ -37,6 +38,12 @@ const profileReducer = (state = initialState, action) =>{
         } 
         case SET_STATUS : { 
             return {...state, status :action.status}
+        } 
+        case SAVE_PHOTO:{ 
+          return{ 
+            ...state, 
+            profile: {...state.profile, photos : action.data}
+          }
         }
         default: 
          return state
@@ -45,7 +52,7 @@ const profileReducer = (state = initialState, action) =>{
 export const addPostActionCreator = (text) =>({type: ADD_POST, text})
 export const setUsersProfile = (profile) => ({type: SET_USER_PROFILE, profile })
 export const setStatus    = (status) => ({type: SET_STATUS, status})
-
+const savePhotoAC = (data) => ({type: SAVE_PHOTO, data})
 
 export const getUsersProfileThunkC = (userId) => async (dispatch) => {
       try {
@@ -76,7 +83,7 @@ export const updateStatusThunkC = (status) => async (dispatch) => {
 export const savePhotoTC = (photos) => async(dispatch) =>{ 
     const response = await ProfileAPI.savePhoto(photos) 
     if (response.data.resultCode === 0) {
-      
+      dispatch(savePhotoAC(response.data.photos))
     }
 }
   
