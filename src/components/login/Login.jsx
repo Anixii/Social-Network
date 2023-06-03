@@ -18,7 +18,6 @@ const Login =(props) =>{
     )
 }   
 const LoginForm = (props) => { 
-    console.log(props)
     const onSubmit = (formData) => {  
         props.loginTC(formData.email, formData.password, formData.rememberMe,setError) 
         reset()
