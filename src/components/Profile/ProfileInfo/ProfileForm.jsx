@@ -10,10 +10,7 @@ import { useForm } from "react-hook-form"
         formState:{ 
             errors, isValid
         }, 
-        reset, 
-        setError, 
-        clearErrors
-
+        reset,
     } = useForm( { 
         mode: 'onBlur'
     })
