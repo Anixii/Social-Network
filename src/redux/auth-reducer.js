@@ -1,9 +1,9 @@
 
 import { authAPI } from "../api/api" 
-
+const defaultValue = 'auth'
   
-let SET_USER_DATA = 'SET_USER_DATA' 
-let  ERROR_MESSAGE ='ERROR_MESSAGE'
+let SET_USER_DATA = defaultValue+ 'SET_USER_DATA' 
+let  ERROR_MESSAGE =defaultValue+ 'ERROR_MESSAGE'
  
 let initialState = { 
     email: null,    

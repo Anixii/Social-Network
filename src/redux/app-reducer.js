@@ -1,4 +1,4 @@
-import { loginThunkCreator } from "./auth-reducer" 
+import { loginThunkCreator } from "./auth-reducer"  
 const SET_INITIALIZED = 'SET_INITIALIZED'
 const initialState ={ 
     initialized : false
