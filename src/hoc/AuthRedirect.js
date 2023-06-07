@@ -1,7 +1,6 @@
 import React  from "react" 
 import { Navigate } from "react-router-dom"
 import { connect } from "react-redux"
-
 let mapStateToPropsRedirect = (state) => ({ 
     profile: state.postPage.profile,
     isAuth: state.auth.isAuth
