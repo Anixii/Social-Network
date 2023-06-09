@@ -1,13 +1,14 @@
 import { followAPI } from "../api/api"
 import { userAPI} from "../api/api"  
-import { updateObjectInArr } from "../utils/helpers"
-const FOLLOW = 'FOLLOW'
-const CURRENT_PAGE = 'CURRENT-PAGE'
-const UNFOLLOW = 'UNFOLLOW'  
-const SET_USERS = 'SET-USERS'  
-const TOTAL_COUNT = 'TOTAL-COUNT' 
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING' 
-const TOGGLE_IS_FOLLOWING ='TOGGLE_IS_FOLLOWING'
+import { updateObjectInArr } from "../utils/helpers" 
+const defaultValue = 'USER_PAGE'
+const FOLLOW = defaultValue + 'FOLLOW'
+const CURRENT_PAGE =  defaultValue +'CURRENT-PAGE'
+const UNFOLLOW = defaultValue + 'UNFOLLOW'  
+const SET_USERS = defaultValue + 'SET-USERS'  
+const TOTAL_COUNT = defaultValue + 'TOTAL-COUNT' 
+const TOGGLE_FETCHING = defaultValue + 'TOGGLE_FETCHING' 
+const TOGGLE_IS_FOLLOWING =defaultValue + 'TOGGLE_IS_FOLLOWING'
  
 
 let initialState = { 
