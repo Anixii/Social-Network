@@ -19,7 +19,7 @@ const Login =(props) =>{
 }   
 const LoginForm = (props) => { 
     const onSubmit = (formData) => {  
-        props.loginTC(formData.email, formData.password, formData.rememberMe,setError) 
+        props.loginTC(formData.email, formData.password, formData.rememberMe,setError, formData.captcha) 
         reset()
     }
     const { 
@@ -34,10 +34,12 @@ const LoginForm = (props) => {
 
     } = useForm( { 
         mode: 'onBlur'
-    })
+    }) 
+    console.log(props);
     return ( 
         <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email:
+         
+         <label>Email:
             <br />
             <input 
                onFocus={() => clearErrors(["email", "server"])}
@@ -81,7 +83,21 @@ const LoginForm = (props) => {
             &&
             <div >
                 <span>{errors.server.message}</span>
-            </div>}
+            </div>} 
+
+             
+            {props.captchaUrl &&  
+            <div> 
+                <div> 
+                    <img src={props.captchaUrl} alt="wow"/> 
+                </div> 
+                <div> 
+                <input
+                type="text"
+                {...register("captcha")}
+            />
+                </div>
+             </div>}
         <input type="submit" disabled={!isValid} value="Log in" />
     </form>
     )
@@ -89,7 +105,8 @@ const LoginForm = (props) => {
 
 const mapStateToProps = (state) =>{ 
     return{ 
-        isAuth: isUserAuth(state), 
+        isAuth: isUserAuth(state),  
+        captchaUrl: state.auth.captchaUrl
     }
 }
 export default connect(mapStateToProps , {loginTC})(Login)

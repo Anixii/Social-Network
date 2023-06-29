@@ -47,14 +47,14 @@ export const loginThunkCreator = () => async(dispatch) =>{
         dispatch(setUserDataAC(id,email,login, true))
     }; 
 }
-export const loginTC = (email, password,rememberMe, setError) =>async(dispatch) =>{ 
-        let response = await authAPI.authLogin(email, password, rememberMe) 
+export const loginTC = (email, password,rememberMe, setError, captcha = null) =>async(dispatch) =>{ 
+        let response = await authAPI.authLogin(email, password, rememberMe,captcha) 
         if(response.data.resultCode === 0){ 
             dispatch(loginThunkCreator())
-        }else if(response.data.resultCode === 10){ 
-            dispatch(getCaptchaUrl())
-        } 
-         else {  
+        }else{   
+            if(response.data.resultCode === 10){  
+                dispatch(getCaptchaUrl())
+            } 
             setError("server", {
             type: "custom",
             message: response.data.messages
@@ -62,11 +62,12 @@ export const loginTC = (email, password,rememberMe, setError) =>async(dispatch) 
         }
 } 
 export const getCaptchaUrl = () => async(dispatch) =>{ 
-    let response = await authAPI.authLogout()  
+    let response = await securityAPI.getCaptcha() 
+    debugger
     dispatch(getCaptchaUrlAC(response.data.url))
     }
 export const logoutTC = () => async(dispatch) =>{ 
-        let response = await securityAPI.getCaptcha()  
+        let response = await authAPI.authLogout() 
         if(response.data.resultCode === 0){ 
          dispatch(setUserDataAC(null, null,null, false))
         } 

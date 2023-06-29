@@ -24,8 +24,8 @@ export const authAPI = {
     console.warn('NOOOO')
     return ProfileAPI.getProfile(id)
    }, 
-   authLogin(email, password, rememberMe = false){ 
-    return instance.post(`auth/login`, {email, password, rememberMe})
+   authLogin(email, password, rememberMe = false, captcha){ 
+    return instance.post(`auth/login`, {email, password, rememberMe,captcha})
    }, 
    authLogout() { 
     return instance.delete(`auth/login`)
