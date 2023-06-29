@@ -62,7 +62,11 @@ export const followAPI = {
         return instance.delete(`follow/${id}`) 
     }
 } 
-
+export const securityAPI = { 
+    getCaptcha(){ 
+        return instance.get(`security/get-captcha-url`)
+    }
+}
 
 // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, { 
 //     withCredentials: true
