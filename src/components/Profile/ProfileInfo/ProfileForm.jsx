@@ -1,24 +1,33 @@
 import { useForm } from "react-hook-form" 
- const ProfileForm = () =>{  
-    const onSubmit = (formData) => {  
-        reset()
+ const ProfileForm = ({saveProfileTC,handleEdit,profile}) =>{  
+    const onSubmit = (formData, ) => {  
+        reset()  
+        saveProfileTC(formData)
+        handleEdit()
     }
     const { 
         register, 
         handleSubmit, 
         formState:{ 
-            errors, isValid
+            errors, 
         }, 
         reset,
     } = useForm( { 
-        mode: 'onBlur'
+        mode: 'onBlur', 
+        defaultValues:{ 
+            fullName: profile.fullName, 
+            aboutMe: profile.aboutMe, 
+            lookingForAJob: profile.lookingForAJob, 
+            LookingForAJobDescription: profile.lookingForAJobDescription
+        }
     })
     return( 
         <>  
     <form onSubmit={handleSubmit(onSubmit)}>
         <label>NickName:
             <br />
-            <input 
+            <input  
+            
                 {...register("fullName", {
                     required: "This field is requiered.",
                 })}
@@ -45,14 +54,14 @@ import { useForm } from "react-hook-form"
             <input
                 type="checkbox"
                 {...register("lookingForAJob")}
-            /> Remember me
+            /> looking For A Job
         </label>
         <br />
         <label>Professional Skills:
             <br />
             <input 
                 type="text"
-                {...register("lookingForAJocDescription", {
+                {...register("LookingForAJobDescription", {
                     required: "This field is requiered."
                 })}
                 
@@ -61,9 +70,10 @@ import { useForm } from "react-hook-form"
         <br />
         <div >
             {errors.lookignForAJobDescription && <span>{errors.lookignForAJobDescription?.message || "Error!"}</span>}
-        </div>  
+        </div>   
         <input type="submit"  value="Сохранить" />
     </form>
+        <button onClick={()=> handleEdit(false)}>Отменить</button>
         </>
     )
 } 

@@ -85,7 +85,13 @@ export const savePhotoTC = (photos) => async(dispatch) =>{
     if (response.data.resultCode === 0) {
       dispatch(savePhotoAC(response.data.data.photos))
     }
-}
+} 
+export const saveProfileTC = (data) => async(dispatch,getState) =>{ 
+  const response = await ProfileAPI.saveProfile(data)
+  if (response.data.resultCode === 0) {
+    dispatch(getUsersProfileThunkC(getState().auth.userId))
+  }
+} 
   
 
 export default profileReducer

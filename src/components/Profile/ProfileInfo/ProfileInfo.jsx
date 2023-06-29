@@ -4,8 +4,8 @@ import ProfileStatus from './ProfileStatus'
 import userAnonimAvatar from '../../../assets/image/user.png'
 import { useState } from 'react' 
 import ProfileForm from './ProfileForm'
-function ProfileInfo({ profile, status, ...props }) {
-     
+function ProfileInfo({ profile, status,saveProfileTC, ...props }) {
+     console.log(profile);
     const [edit, setEdit] = useState(false) 
     if (!profile) {
         return <Preloader />
@@ -16,16 +16,22 @@ function ProfileInfo({ profile, status, ...props }) {
         }
     }
     return (
-
         <div className={s.info}> 
             <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar} alt='Ava'></img></div>
             <div>{props.isOwner && <input type='file' onChange={onPhotoSelected} />}</div>  
-            {edit ? <ProfileForm/> :<ProfileData profile={profile} isOwner={props.isOwner} handleEdit={() => setEdit(true)}/>}
-            
-            <ProfileStatus status={status} updateStatusThunkC={props.updateStatusThunkC} />
+            <div style={{marginTop: '3%'}}> 
+            {edit ? <ProfileForm handleEdit={() => setEdit(false)} profile={profile} saveProfileTC={saveProfileTC}/> :<ProfileData profile={profile} isOwner={props.isOwner} handleEdit={() => setEdit(true)}/>}
+            </div> 
+             
+             
+            <div style={{marginTop: '3%'}}> 
+            <ProfileStatus  status={status} updateStatusThunkC={props.updateStatusThunkC} />
+            </div>
         </div>
     )
 }  
+
+
 const ProfileData = ({profile, isOwner, handleEdit}) =>{ 
     return( 
         <div>  
@@ -35,9 +41,9 @@ const ProfileData = ({profile, isOwner, handleEdit}) =>{
             <ul> 
                 <li>Имя: {profile.fullName}</li>
                 <li> Обо мне: {profile.aboutMe}</li>
-                <li> Ищу работу: {profile.lookignForAJob ? 'yes' : 'no'}</li>
-                {profile.lookignForAJob && <li> 
-                Скилы: {profile.lookignForAJobDescription}     
+                <li> Ищу работу: {profile.lookingForAJob ? 'yes' : 'no'}</li>
+                {profile.lookingForAJob && <li> 
+                Скилы: {profile.lookingForAJobDescription}     
                 </li>}
              </ul> 
              <div>Контакты:
