@@ -86,8 +86,10 @@ export const savePhotoTC = (photos) => async(dispatch) =>{
       dispatch(savePhotoAC(response.data.data.photos))
     }
 } 
-export const saveProfileTC = (data) => async(dispatch,getState) =>{ 
-  const response = await ProfileAPI.saveProfile(data)
+export const saveProfileTC = (data) => async(dispatch,getState) =>{  
+  console.log(data);
+  const response = await ProfileAPI.saveProfile(data) 
+  debugger
   if (response.data.resultCode === 0) {
     dispatch(getUsersProfileThunkC(getState().auth.userId))
   }

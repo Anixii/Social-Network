@@ -5,7 +5,7 @@ import userAnonimAvatar from '../../../assets/image/user.png'
 import { useState } from 'react' 
 import ProfileForm from './ProfileForm'
 function ProfileInfo({ profile, status,saveProfileTC, ...props }) {
-     console.log(profile);
+    console.log(profile); 
     const [edit, setEdit] = useState(false) 
     if (!profile) {
         return <Preloader />

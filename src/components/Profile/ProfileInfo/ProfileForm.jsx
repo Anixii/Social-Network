@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form" 
  const ProfileForm = ({saveProfileTC,handleEdit,profile}) =>{  
     const onSubmit = (formData, ) => {  
-        reset()  
+        reset() 
+        console.log(formData);  
         saveProfileTC(formData)
         handleEdit()
     }
@@ -18,7 +19,8 @@ import { useForm } from "react-hook-form"
             fullName: profile.fullName, 
             aboutMe: profile.aboutMe, 
             lookingForAJob: profile.lookingForAJob, 
-            LookingForAJobDescription: profile.lookingForAJobDescription
+            LookingForAJobDescription: profile.lookingForAJobDescription, 
+            
         }
     })
     return( 
@@ -70,7 +72,19 @@ import { useForm } from "react-hook-form"
         <br />
         <div >
             {errors.lookignForAJobDescription && <span>{errors.lookignForAJobDescription?.message || "Error!"}</span>}
-        </div>   
+        </div>    
+         
+        <div> 
+            {Object.keys(profile.contacts).map((item,index) =><div key={index}> 
+              <label>{item}</label>:  
+              <input  
+                defaultValue={profile.contacts[item]}
+                type="text"
+                {...register(`contacts.${item}`)} 
+            /> 
+            </div>)}
+
+        </div>
         <input type="submit"  value="Сохранить" />
     </form>
         <button onClick={()=> handleEdit(false)}>Отменить</button>
