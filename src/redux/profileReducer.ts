@@ -8,6 +8,28 @@ type PostItemType = {
   id: number, 
   message: string 
   likes: number
+}  
+type ContactType = { 
+  vk: string | null 
+  facebook:string | null 
+  instagram: string | null 
+  github: string | null 
+  twitter: string | null 
+  website: string | null 
+  youtube: string | null 
+  mainLink:string | null
+} 
+type PhotoType = { 
+  small: string | null 
+  large: string | null
+}
+type ProfileType = { 
+  userId: number 
+  lookingForAJob: boolean 
+  lookingForAJobDescription: string 
+  fullName: string 
+  contacts: ContactType 
+  photos: PhotoType
 }
 let initialState = { 
     myPostItem : [ 
@@ -16,7 +38,7 @@ let initialState = {
         {id:3, message:'dude', likes: 4547,},  
         {id:4, message:'bruh', likes: 17,}, 
     ] as Array<PostItemType> ,   
-    profile: null as any | null  , 
+    profile: null as ProfileType | null, 
     status: '' as string
     
 } 
@@ -43,7 +65,7 @@ const profileReducer = (state = initialState, action:any):InitialStateType =>{
         case SAVE_PHOTO:{ 
           return{ 
             ...state, 
-            profile: {...state.profile, photos : action.data}
+            profile: {...state.profile, photos : action.data} as ProfileType
           }
         }
         default: 
@@ -57,9 +79,9 @@ type ActionCreatorType = {
 export const addPostActionCreator = (text:string):ActionCreatorType =>({type: ADD_POST, text})
 type setUsersProfileType =  { 
   type: typeof SET_USER_PROFILE 
-  profile: any
+  profile: ProfileType
 } 
-export const setUsersProfile = (profile:any):setUsersProfileType => ({type: SET_USER_PROFILE, profile })
+export const setUsersProfile = (profile:ProfileType):setUsersProfileType => ({type: SET_USER_PROFILE, profile })
 type SetStatus = { 
   type: typeof SET_STATUS 
   status: string
@@ -67,9 +89,9 @@ type SetStatus = {
 export const setStatus    = (status:string):SetStatus => ({type: SET_STATUS, status}) 
 type savePhotoType = { 
   type: typeof SAVE_PHOTO 
-  data: any
+  data: PhotoType
 }
-const savePhotoAC = (data:any):savePhotoType => ({type: SAVE_PHOTO, data})
+const savePhotoAC = (data:PhotoType):savePhotoType => ({type: SAVE_PHOTO, data})
 
 export const getUsersProfileThunkC = (userId:number) => async (dispatch:any) => {
       try {
@@ -103,7 +125,7 @@ export const savePhotoTC = (photos:any) => async(dispatch:any) =>{
       dispatch(savePhotoAC(response.data.data.photos))
     }
 } 
-export const saveProfileTC = (data:any) => async(dispatch:any,getState:any) =>{  
+export const saveProfileTC = (data:ProfileType) => async(dispatch:any,getState:any) =>{  
   console.log(data);
   const response = await ProfileAPI.saveProfile(data) 
   debugger
