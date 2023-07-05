@@ -5,7 +5,6 @@ import profileReducer from "./profileReducer"
 import usersReducer from './usersReducer'
 import authreducer from './auth-reducer'
 import thunk from 'redux-thunk'
-
 import appReducer from './app-reducer'
 let reducers = combineReducers({  
     postPage:profileReducer ,
@@ -15,5 +14,5 @@ let reducers = combineReducers({
     app: appReducer
 })
 let store = createStore(reducers, applyMiddleware(thunk))  
-window.store= store
+
 export default store

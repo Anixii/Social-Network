@@ -1,12 +1,16 @@
 {
   "name": "travel",
   "version": "0.1.0",
-  "private": true, 
+  "private": true,
   "homepage": "https://anixii.github.io/Social-Network/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
     "antd": "^5.5.0",
     "axios": "^1.3.2",
     "firebase": "^9.15.0",
@@ -20,6 +24,7 @@
     "redux-form": "^8.3.10",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
+    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
   },
   "jest": {
@@ -31,8 +36,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject", 
-    "predeploy": "npm run build", 
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
