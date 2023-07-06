@@ -1,8 +1,19 @@
 
+import React, { FC } from 'react';
+import { UserActionType } from '../../redux/usersReducer';
 import Paginator from './Paginator';
 import User from './User';
-
-function Users({totalUsers,pageSize, setCurrentPage,currentPage, users,...props}){   
+type PropsType = { 
+    totalUsers: number 
+    pageSize:number 
+    setCurrentPage: (number:number) => void 
+    currentPage: number
+    users: Array<UserActionType>
+    followThunk: (id:number) => void 
+    unfollowThunk: (id:number) => void 
+    isFollowing: any
+}
+const Users:FC<PropsType> = ({totalUsers,pageSize, setCurrentPage,currentPage, users,...props}) =>{   
     return( 
         <div>  
             <div> 

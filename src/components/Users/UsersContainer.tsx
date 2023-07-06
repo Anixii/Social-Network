@@ -6,9 +6,27 @@ import React from "react";
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
 import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching } from "../../redux/users-selecors";
-import { compose } from "redux";
+import { compose } from "redux"; 
+import { UserActionType } from "../../redux/usersReducer";
+import { AppStateType } from "../../redux/redux-store";
+type MapStateToPropsType = {
+    users: Array<UserActionType>,
+    pageSize: number,
+    totalUsers: number,
+    currentPage: number,
+    isFollowing: any,
+    isFetching: boolean,
+  };
+  
+  type MapDispatchToPropsType = {
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void,
+    unfollowThunk: (id:number) => void,
+    followThunk: (id:number) => void,
+  };
+  
+  type PropsType = MapStateToPropsType & MapDispatchToPropsType; 
 
- class UsersAPIComponent extends React.Component{  
+ class UsersAPIComponent extends React.Component<PropsType>{  
     
     componentDidMount(){    
         let { currentPage,pageSize} = this.props
@@ -29,12 +47,11 @@ import { compose } from "redux";
     //     }
     //     return false;
     //   }
-    setCurrentPage(currentPage){  
+    setCurrentPage(currentPage:number){   
        this.props.getUsersThunkCreator(currentPage, this.props.pageSize)
     }
     
     render(){   
-        console.log('renderC')
         return( 
             <> 
             {this.props.isFetching ? <Preloader/> :( 
@@ -54,7 +71,7 @@ import { compose } from "redux";
   
   
   
-const mapStateToProps = (state)=>{   
+const mapStateToProps = (state:AppStateType): MapStateToPropsType=>{   
     return{ 
         users: getUsers(state), 
         pageSize: getPageSize(state), 
@@ -65,17 +82,12 @@ const mapStateToProps = (state)=>{
     }
 } 
 
-export default compose( 
-    connect(mapStateToProps,  
-        { 
-        getUsersThunkCreator, 
-        unfollowThunk, 
-        followThunk, 
-        
-    }) ,  
-    
-    
-    )(UsersAPIComponent)
+export default compose(
+  connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
+    mapStateToProps,
+    { getUsersThunkCreator, unfollowThunk, followThunk }
+  )
+)(UsersAPIComponent);
      
     
     

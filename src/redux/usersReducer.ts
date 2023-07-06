@@ -14,14 +14,12 @@ type PhotoType = {
     small: string | null 
     large: string | null
 }
-type UserActionType = { 
-    items: Array<{ 
+export type UserActionType = { 
         id: number 
         name: string 
         status: string | null 
         photos : PhotoType 
         followed: boolean
-    }>
 }
 let initialState = { 
     users:[] as Array<UserActionType>, 

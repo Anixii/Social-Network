@@ -1,7 +1,7 @@
 import s from './Users.module.css'  
 import React, { useState } from 'react'; 
 type Props = { 
-    portionSize: number, 
+    portionSize?: number , 
     totalUsers: number, 
     pageSize: number, 
     currentPage: number
