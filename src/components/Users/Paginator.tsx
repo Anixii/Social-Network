@@ -1,9 +1,15 @@
 import s from './Users.module.css'  
-import { useState } from 'react';
- const Paginator = ({portionSize = 10,...props}) =>{  
-    console.log(props);
-    let pagesCount = Math.ceil(props.totalUsers / props.pageSize)
-    let pages = []; 
+import React, { useState } from 'react'; 
+type Props = { 
+    portionSize: number, 
+    totalUsers: number, 
+    pageSize: number, 
+    currentPage: number
+    setCurrentPage: (pageNumber: number) => void
+}
+ const Paginator:React.FC<Props> = ({portionSize = 10,totalUsers,pageSize,currentPage,setCurrentPage}) =>{  
+    let pagesCount = Math.ceil(totalUsers / pageSize)
+    let pages:Array<number> = []; 
     for(let i = 1; i<= pagesCount; i++){ 
         pages.push(i)
     } 
@@ -11,7 +17,6 @@ import { useState } from 'react';
     let [portionNumber, setPortionNumber] = useState(1)
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     let rightPortionPageNumber = portionNumber * portionSize
-
 
     return <div className={s.pagination}>
         {portionNumber > 1 ?
@@ -22,9 +27,9 @@ import { useState } from 'react';
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p, index) => {
-                return <button className={props.currentPage === p ? s.selectedPage : s.unSelectedPage}
+                return <button className={currentPage === p ? s.selectedPage : s.unSelectedPage}
                 onClick={(e) => {
-                  props.setCurrentPage(p)               
+                  setCurrentPage(p)               
                 }}              
                 key={index}>{p}</button>
             })}
