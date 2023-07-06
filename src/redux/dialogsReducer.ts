@@ -1,6 +1,4 @@
-
-
-const ADD_MESSAGE = 'ADD-MESSAGE' 
+const ADD_MESSAGE = 'ADD-MESSAGE'  
 type dialogItemType = { 
     id: number, 
     name: string
@@ -18,19 +16,17 @@ let initialState = {
     messageItem :[ 
         {message:'What up'}, 
         {message:'Wow'}
-    ] as Array<MessageItemType> ,  
-    
-    
+    ] as Array<MessageItemType> ,     
 } 
 type initialStateType = typeof initialState
-const dialogsReducer = (state = initialState, action:any):initialStateType =>{ 
+const dialogsReducer = (state = initialState, action:AddMessageType):initialStateType =>{ 
     switch(action.type){   
     case ADD_MESSAGE :{ 
         return { 
             ...state, 
             messageItem: [...state.messageItem, {message: action.text}]
         }
-    }
+    } 
         default: return state
     } 
 }  
