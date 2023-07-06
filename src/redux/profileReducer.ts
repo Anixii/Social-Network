@@ -1,4 +1,6 @@
+import { ThunkAction } from "redux-thunk"
 import { ProfileAPI} from "../api/api"
+import { AppStateType } from "./redux-store"
  const ADD_POST = 'ADD-POST'
   
 const SET_USER_PROFILE = 'SET_USER_PROFILE' 
@@ -43,7 +45,7 @@ let initialState = {
     
 } 
 type InitialStateType = typeof initialState 
-const profileReducer = (state = initialState, action:any):InitialStateType =>{ 
+const profileReducer = (state = initialState, action:AllActionCreatorsType):InitialStateType =>{ 
     switch(action.type){  
         case ADD_POST: {
         let newPost = { 
@@ -71,7 +73,9 @@ const profileReducer = (state = initialState, action:any):InitialStateType =>{
         default: 
          return state
     } 
-}   
+}     
+//Action Creators
+type AllActionCreatorsType = ActionCreatorType | setUsersProfileType | SetStatus | savePhotoType
 type ActionCreatorType = { 
   type: typeof ADD_POST 
   text: string
@@ -92,8 +96,10 @@ type savePhotoType = {
   data: PhotoType
 }
 const savePhotoAC = (data:PhotoType):savePhotoType => ({type: SAVE_PHOTO, data})
-
-export const getUsersProfileThunkC = (userId:number) => async (dispatch:any) => {
+ 
+//Thunks 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionCreatorsType>
+export const getUsersProfileThunkC = (userId:number | null):ThunkType => async (dispatch) => {
       try {
         const response = await ProfileAPI.getProfile(userId);
         dispatch(setUsersProfile(response.data));
@@ -101,7 +107,7 @@ export const getUsersProfileThunkC = (userId:number) => async (dispatch:any) => 
         console.log("Error getting user profile: ", error);
       } 
     };
-export const getStatusThunkC = (userId:number) => async (dispatch:any) => {
+export const getStatusThunkC = (userId:number):ThunkType => async (dispatch) => {
       try {
         const response = await ProfileAPI.getStatus(userId);
         dispatch(setStatus(response.data));
@@ -109,7 +115,7 @@ export const getStatusThunkC = (userId:number) => async (dispatch:any) => {
         console.log("Error getting user status: ", error);
       }
     };
-export const updateStatusThunkC = (status:string) => async (dispatch:any) => {
+export const updateStatusThunkC = (status:string):ThunkType => async (dispatch) => {
       try {
         const response = await ProfileAPI.updateStatus(status);
         if (response.data.resultCode === 0) {
@@ -119,14 +125,14 @@ export const updateStatusThunkC = (status:string) => async (dispatch:any) => {
         console.log("Error updating user status: ", error);
       }
     };
-export const savePhotoTC = (photos:any) => async(dispatch:any) =>{ 
+export const savePhotoTC = (photos:any):ThunkType => async(dispatch) =>{ 
     const response = await ProfileAPI.savePhoto(photos) 
     if (response.data.resultCode === 0) {
       dispatch(savePhotoAC(response.data.data.photos))
     }
-} 
-export const saveProfileTC = (data:ProfileType) => async(dispatch:any,getState:any) =>{  
-  console.log(data);
+}  
+type GetStateType= () => AppStateType
+export const saveProfileTC = (data:ProfileType):ThunkType => async(dispatch,getState: GetStateType) =>{  
   const response = await ProfileAPI.saveProfile(data) 
   debugger
   if (response.data.resultCode === 0) {
