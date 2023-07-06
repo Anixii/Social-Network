@@ -1,7 +1,16 @@
 import s from './Users.module.css' 
-import userImage from '../../assets/image/user.png'; 
-import { NavLink } from 'react-router-dom';
- const User = ({item,...props}) =>{  
+import  userImage from '../../assets/image/user.png'; 
+import { NavLink } from 'react-router-dom'; 
+import { UserActionType } from '../../redux/usersReducer'; 
+import { FC } from 'react'; 
+type UserType = { 
+    item: UserActionType, 
+    unfollowThunk: (id:number) => void,
+    followThunk: (id:number) => void, 
+    isFollowing: any
+} 
+
+ const User:FC<UserType> = ({item,...props}) =>{  
     return( 
         <div>
             <div> 

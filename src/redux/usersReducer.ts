@@ -1,3 +1,4 @@
+
 import { followAPI } from "../api/api"
 import { userAPI} from "../api/api"  
 import { updateObjectInArr } from "../utils/helpers" 
@@ -20,20 +21,19 @@ export type UserActionType = {
         status: string | null 
         photos : PhotoType 
         followed: boolean
-}
+} 
 let initialState = { 
     users:[] as Array<UserActionType>, 
     pageSize:15, 
     totalUsers: 10, 
     currentPage:1, 
     isFetching: false, 
-    followingInProgress :  {
-        isFollowing: false,
-        userId: null
+    followingInProgress: { 
+        isFollowing: false, 
+        userId: null as string | null
     } 
-
-} 
-type InitialStateType =typeof initialState 
+}  
+type InitialStateType = typeof initialState 
 const usersReducer = (state = initialState, action:any):InitialStateType =>{ 
 
     switch(action.type){  
