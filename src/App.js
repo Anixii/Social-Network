@@ -46,11 +46,11 @@ const AppContainer = connect(mapStateToProps, {initializeTC})(App);
  
 const MainApp = (props) =>{ 
   return( 
-  <HashRouter > 
+  <BrowserRouter > 
   <Provider store={store}>
   <AppContainer />  
   </Provider>
-  </HashRouter>
+  </BrowserRouter>
   )
 } 
 export default MainApp

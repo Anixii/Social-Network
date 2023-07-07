@@ -134,7 +134,6 @@ export const savePhotoTC = (photos:any):ThunkType => async(dispatch) =>{
 type GetStateType= () => AppStateType
 export const saveProfileTC = (data:ProfileType):ThunkType => async(dispatch,getState: GetStateType) =>{  
   const response = await ProfileAPI.saveProfile(data) 
-  debugger
   if (response.data.resultCode === 0) {
     dispatch(getUsersProfileThunkC(getState().auth.userId))
   }
