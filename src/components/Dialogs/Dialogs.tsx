@@ -1,12 +1,19 @@
 import s from './Dialogs.module.css' 
 import Dialog from './Dialog/Dialog' 
 import Message from './Message/Message'  
-import { useForm } from 'react-hook-form' 
-import React from 'react'
-function Dialogs(props){  
-    const onSubmit = (dataObj) =>{ 
+import { SubmitHandler, useForm } from 'react-hook-form'  
+import { initialStateType as DialogStateType } from '../../redux/dialogsReducer'
+import React, { FC } from 'react' 
+type PropsType = { 
+    addMessage: (text:string) => void 
+    state: DialogStateType
+} 
+type FormValues = { 
+    newMessageText: string
+}
+const Dialogs:FC<PropsType> =(props) =>{  
+    const onSubmit:SubmitHandler<FormValues> = (dataObj) =>{ 
         props.addMessage(dataObj.newMessageText) 
-        console.log(dataObj)
     }
     let dialogsElem = props.state.dialogItem 
     .map(arg => <Dialog name={arg.name} id={arg.id}/> ); 
@@ -23,15 +30,18 @@ function Dialogs(props){
             <DialogForms onSubmit={onSubmit}/>
         </div>
     )
-}  
-const DialogForms = (props) => { 
+}   
+type DialogPropsType = { 
+    onSubmit: (data:FormValues)=> void
+}
+const DialogForms:FC<DialogPropsType> = (props) => { 
     const { 
         register, 
         formState: { 
             errors
         }, 
         handleSubmit
-    } = useForm()
+    } = useForm<FormValues>()
     return( 
         <form onSubmit={handleSubmit(props.onSubmit)}>  
         <label > 
