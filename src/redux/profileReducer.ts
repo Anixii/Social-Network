@@ -6,7 +6,7 @@ import { AppStateType } from "./redux-store"
 const SET_USER_PROFILE = 'SET_USER_PROFILE' 
 const SET_STATUS = 'SET_STATUS' 
 const SAVE_PHOTO = 'SAVE_PHOTO' 
-type PostItemType = { 
+export type PostItemType = { 
   id: number, 
   message: string 
   likes: number

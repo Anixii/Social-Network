@@ -2,8 +2,13 @@ import s from './Posts.module.css'
 import MyPosts from './MyPosts/MyPosts' 
 import React from 'react' 
 import { useForm } from 'react-hook-form' 
-const Posts = React.memo(({post,...props}) =>{       
-        const myPostElem = post.myPostItem.map((post, index) => <MyPosts key={index+post} message={post.message} likes={post.likes}/>)
+import { PostItemType } from '../../../redux/profileReducer'
+type PropsType = { 
+    post: Array<PostItemType> 
+    addPost:(text:string) => void
+} 
+const Posts:React.FC<PropsType> = React.memo(({post,...props}) =>{       
+        const myPostElem = post.map((post, index) => <MyPosts key={index + post.id} message={post.message} likes={post.likes}/>)
         return(
         <div className={s.post}>  
             <PostForm {...props}/>
@@ -13,9 +18,15 @@ const Posts = React.memo(({post,...props}) =>{
         </div>
     )
 
-})
-const PostForm = (props )  => { 
-    const onSubmit = (dataObj) => {  
+}) 
+type PostFormType = { 
+    addPost:(text:string) => void
+} 
+type FormValuesType = { 
+    newPostText:string
+}
+const PostForm:React.FC<PostFormType> = (props )  => { 
+    const onSubmit = (dataObj:FormValuesType) => {  
         props.addPost(dataObj.newPostText)  
         reset()   
     }
@@ -28,7 +39,7 @@ const PostForm = (props )  => {
         }, 
         handleSubmit, 
         reset
-    } = useForm({ 
+    } = useForm<FormValuesType>({ 
         mode: 'onBlur'
     })
     

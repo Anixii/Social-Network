@@ -1,5 +1,10 @@
+import { FC } from 'react'
 import s from './MyPosts.module.css' 
-function MyPosts(props){ 
+type PropsType =  { 
+    message: string 
+    likes: number
+}
+const MyPosts:FC<PropsType> = (props) =>{ 
     return( 
         <div className={s.mypost} > 
             <div className={s.item}>{props.message}</div> 
