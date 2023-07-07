@@ -11,7 +11,7 @@ type PostItemType = {
   message: string 
   likes: number
 }  
-type ContactType = { 
+export type ContactType = { 
   vk: string | null 
   facebook:string | null 
   instagram: string | null 
@@ -21,11 +21,11 @@ type ContactType = {
   youtube: string | null 
   mainLink:string | null
 } 
-type PhotoType = { 
+export type PhotoType = { 
   small: string | null 
   large: string | null
 }
-type ProfileType = { 
+export type ProfileType = { 
   userId: number 
   lookingForAJob: boolean 
   lookingForAJobDescription: string 

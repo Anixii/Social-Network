@@ -1,4 +1,5 @@
 import axios from "axios"; 
+import { ProfileType } from "../redux/profileReducer";
  
 
  
@@ -9,7 +10,7 @@ const instance = axios.create({
 }) 
 
 export const userAPI = { 
-    getUsers (currentPage,pageSize) { 
+    getUsers (currentPage:number,pageSize:number) { 
         return instance.get(`users?page=${currentPage}&count=${pageSize}`,{ 
                 withCredentials:true
             })  
@@ -20,11 +21,11 @@ export const authAPI = {
    me(){ 
     return instance.get(`auth/me`)   
    }, 
-   getProfile (id) {  
+   getProfile (id:number) {  
     console.warn('NOOOO')
     return ProfileAPI.getProfile(id)
    }, 
-   authLogin(email, password, rememberMe = false, captcha){ 
+   authLogin(email:string, password:number, rememberMe = false, captcha:string | null = null){ 
     return instance.post(`auth/login`, {email, password, rememberMe,captcha})
    }, 
    authLogout() { 
@@ -32,16 +33,16 @@ export const authAPI = {
    }
 }   
 export const ProfileAPI ={ 
-    getProfile (id) { 
+    getProfile (id:number | null) { 
         return instance.get(`profile/${id}`)
        },
-    getStatus (id){ 
+    getStatus (id:number){ 
         return instance.get(`profile/status/${id}`)
     }, 
-    updateStatus (status){ 
+    updateStatus (status:string){ 
         return instance.put(`profile/status`,{status})
     }, 
-    savePhoto(photoFile){  
+    savePhoto(photoFile:any){  
         let formData = new FormData() 
         formData.append('image', photoFile) 
         return instance.put(`profile/photo`, formData, {  
@@ -50,15 +51,15 @@ export const ProfileAPI ={
             }
         })
     } ,
-    saveProfile(profile){ 
+    saveProfile(profile:ProfileType){ 
         return instance.put(`profile`, profile)
     }
     }
 export const followAPI = { 
-    onFollow(id){ 
+    onFollow(id:number){ 
         return instance.post(`follow/${id}`, {},) 
     }, 
-    unFollow(id){ 
+    unFollow(id:number){ 
         return instance.delete(`follow/${id}`) 
     }
 } 

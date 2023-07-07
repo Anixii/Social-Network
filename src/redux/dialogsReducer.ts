@@ -18,7 +18,7 @@ let initialState = {
         {message:'Wow'}
     ] as Array<MessageItemType> ,     
 } 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 const dialogsReducer = (state = initialState, action:AddMessageType):initialStateType =>{ 
     switch(action.type){   
     case ADD_MESSAGE :{ 
@@ -30,7 +30,7 @@ const dialogsReducer = (state = initialState, action:AddMessageType):initialStat
         default: return state
     } 
 }  
-type AddMessageType = { 
+export type AddMessageType = { 
     type: typeof ADD_MESSAGE 
     text: string
 }
