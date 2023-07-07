@@ -2,9 +2,26 @@
 import { connect } from "react-redux"  
 import { loginTC } from "../../redux/auth-reducer"
 import { Navigate } from "react-router-dom"
-import { useForm } from "react-hook-form" 
-import { isUserAuth } from "../../redux/authSelector"
-const Login =(props) =>{  
+import {SubmitHandler, useForm } from "react-hook-form" 
+import { isUserAuth } from "../../redux/authSelector" 
+import { FC } from "react"
+import { AppStateType } from "../../redux/redux-store" 
+// import { Message, MultipleFieldErrors, Ref, } from "react-hook-form"  
+// export type FieldError = {
+//     type: string
+//     ref?: Ref
+//     types?: MultipleFieldErrors
+//     message?: Message
+// } 
+type MapStateToPropsType = { 
+    isAuth: boolean, 
+    captchaUrl: string | null
+} 
+type MapDispatchToPropsType= {
+    loginTC: (email:string,password:string,rememberMe: boolean, setError:Function, captcha: string | null) => void
+} 
+type PropsType = MapDispatchToPropsType & MapStateToPropsType
+const Login:FC<PropsType> =(props) =>{  
     
      if(props.isAuth){  
    
@@ -16,9 +33,20 @@ const Login =(props) =>{
        <LoginForm {...props}/>    
         </div>
     )
-}   
-const LoginForm = (props) => { 
-    const onSubmit = (formData) => {  
+}    
+type FormValuesType ={ 
+    email: string, 
+    password: string,  
+    rememberMe: boolean, 
+    captcha: string | null, 
+    server: any
+} 
+type LoginFormPropsType = { 
+    loginTC: (email:string,password:string,rememberMe: boolean, setError:Function, captcha: string | null)=>void, 
+    captchaUrl: string | null
+} 
+const LoginForm:FC<LoginFormPropsType> = (props) => { 
+    const onSubmit:SubmitHandler<FormValuesType> = (formData) => {  
         props.loginTC(formData.email, formData.password, formData.rememberMe,setError, formData.captcha) 
         reset()
     }
@@ -32,10 +60,9 @@ const LoginForm = (props) => {
         setError, 
         clearErrors
 
-    } = useForm( { 
+    } = useForm<FormValuesType>( { 
         mode: 'onBlur'
     }) 
-    console.log(props);
     return ( 
         <form onSubmit={handleSubmit(onSubmit)}>
          
@@ -82,7 +109,7 @@ const LoginForm = (props) => {
         {errors.server
             &&
             <div >
-                <span>{errors.server.message}</span>
+                <span>{errors.server.message as string}</span>
             </div>} 
 
              
@@ -103,10 +130,10 @@ const LoginForm = (props) => {
     )
 }
 
-const mapStateToProps = (state) =>{ 
+const mapStateToProps = (state:AppStateType):MapStateToPropsType =>{ 
     return{ 
         isAuth: isUserAuth(state),  
         captchaUrl: state.auth.captchaUrl
     }
 }
-export default connect(mapStateToProps , {loginTC})(Login)
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps , {loginTC})(Login) 

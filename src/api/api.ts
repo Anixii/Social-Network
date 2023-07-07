@@ -40,7 +40,7 @@ export const authAPI = {
    getProfile (id:number) {  
     return ProfileAPI.getProfile(id)
    }, 
-   authLogin(email:string, password:number, rememberMe = false, captcha:string | null = null){ 
+   authLogin(email:string, password:string, rememberMe = false, captcha:string | null = null){ 
     return instance.post<AuthLoginType>(`auth/login`, {email, password, rememberMe,captcha})
    }, 
    authLogout() { 
