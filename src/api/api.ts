@@ -1,5 +1,6 @@
 import axios from "axios"; 
 import { ProfileType } from "../redux/profileReducer";
+import { type } from "os";
  
 
  
@@ -16,17 +17,31 @@ export const userAPI = {
             })  
             .then(response => response.data)
         }, 
+}   
+export enum ResultCodesEnum { 
+    Success = 0, 
+    Error = 1,  
+    Capthcha = 10
+}
+type AuthMeType = { 
+    data:{ id:number, email: string,login:string} 
+    resultCode: ResultCodesEnum
+    messages: Array<string>
 } 
+type AuthLoginType = { 
+    data:{ userId: number} 
+    resultCode: ResultCodesEnum 
+    messages: Array<string>
+}
 export const authAPI = {  
    me(){ 
-    return instance.get(`auth/me`)   
+    return instance.get<AuthMeType>(`auth/me`).then(res => res.data)
    }, 
    getProfile (id:number) {  
-    console.warn('NOOOO')
     return ProfileAPI.getProfile(id)
    }, 
    authLogin(email:string, password:number, rememberMe = false, captcha:string | null = null){ 
-    return instance.post(`auth/login`, {email, password, rememberMe,captcha})
+    return instance.post<AuthLoginType>(`auth/login`, {email, password, rememberMe,captcha})
    }, 
    authLogout() { 
     return instance.delete(`auth/login`)
