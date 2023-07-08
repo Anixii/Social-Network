@@ -62,15 +62,7 @@ type MapStateToPropsType = {
             
         )
     }
-}
- 
-  
-  
-  
-  
-  
-  
-  
+} 
 const mapStateToProps = (state:AppStateType): MapStateToPropsType=>{   
     return{ 
         users: getUsers(state), 

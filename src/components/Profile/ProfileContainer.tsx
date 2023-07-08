@@ -61,8 +61,7 @@ let mapStateToProps = (state:AppStateType):MapStateToPropsType => ({
     isAuth: getAuthSelector(state)
 })   
 
-
-function withRouter(Component:any) {
+function withRouter(Component:React.FC) {
     function ComponentWithRouterProp(props:any) {
         let location = useLocation();
         let navigate = useNavigate();

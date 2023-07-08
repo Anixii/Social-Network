@@ -13,8 +13,7 @@ type MapDispatchToPropsType ={
     logoutTC:() => void
 } 
 type PropsType = MapDispatchToPropsType & MapStateToPropsType
-class HeaderContainer extends React.Component<PropsType>{ 
-    
+class HeaderContainer extends React.Component<PropsType>{
     render(){  
         return( 
             <Header {...this.props}/>
