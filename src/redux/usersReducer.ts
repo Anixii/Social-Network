@@ -1,8 +1,7 @@
 import { Dispatch } from "react"
 import { userAPI } from "../api/users-api"
 import { updateObjectInArr } from "../utils/helpers"
-import { ThunkAction } from "redux-thunk"
-import { AppStateType, InferActionTypes } from "./redux-store"
+import { InferActionTypes, ThunkActionsType } from "./redux-store"
 import { Nullable } from "../types/types"
 
 const FOLLOW = 'USER_PAGE_FOLLOW'
@@ -103,7 +102,7 @@ export const actions = {
 
 
 //Thunk-Creators 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionType>
+type ThunkType = ThunkActionsType<AllActionType>
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<AllActionType>) => {
     dispatch(actions.getCurrentPageAC(currentPage));
     dispatch(actions.toggleFetching(true))

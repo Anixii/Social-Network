@@ -1,7 +1,6 @@
-import { ThunkAction } from "redux-thunk"
 import { ResultCodesEnum, securityAPI } from "../api/api"
 import { authAPI } from "../api/auth-api"
-import { AppStateType, InferActionTypes } from "./redux-store"
+import { InferActionTypes, ThunkActionsType } from "./redux-store"
 import { Nullable } from "../types/types"
 
 const SET_USER_DATA = 'AUTH_PAGE_SET_USER_DATA'
@@ -50,7 +49,7 @@ const actions = {
     getCaptchaUrlAC:(url: string) => ({ type: GET_CAPTCHA, url } as const)
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionCreatorsType>
+type ThunkType = ThunkActionsType<AllActionCreatorsType>
 export const loginThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.me()
     if (response.resultCode === ResultCodesEnum.Success) {

@@ -1,6 +1,6 @@
-import { ThunkAction } from "redux-thunk"
+
 import { ProfileAPI } from "../api/profile-api"
-import { AppStateType, InferActionTypes } from "./redux-store"
+import { AppStateType, InferActionTypes, ThunkActionsType } from "./redux-store"
 import { Nullable } from "../types/types"
 const ADD_POST = 'ADD-POST'
 
@@ -86,7 +86,7 @@ export const actions = {
 }
 
 //Thunks 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionCreatorsType>
+type ThunkType = ThunkActionsType<AllActionCreatorsType>
 export const getUsersProfileThunkC = (userId: number | null): ThunkType => async (dispatch) => {
   try {
     const response = await ProfileAPI.getProfile(userId);

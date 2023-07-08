@@ -71,7 +71,7 @@ import { useForm } from "react-hook-form"
         </label>
         <br />
         <div >
-            {errors.lookignForAJobDescription && <span>{errors.lookignForAJobDescription?.message || "Error!"}</span>}
+            {errors.LookingForAJobDescription && <span>{errors.LookingForAJobDescription?.message || "Error!"}</span>}
         </div>    
          
         <div> 
