@@ -6,13 +6,7 @@ import {SubmitHandler, useForm } from "react-hook-form"
 import { isUserAuth } from "../../redux/authSelector" 
 import React, { FC } from "react"
 import { AppStateType } from "../../redux/redux-store" 
-// import { Message, MultipleFieldErrors, Ref, } from "react-hook-form"  
-// export type FieldError = {
-//     type: string
-//     ref?: Ref
-//     types?: MultipleFieldErrors
-//     message?: Message
-// } 
+
 type MapStateToPropsType = { 
     isAuth: boolean, 
     captchaUrl: string | null

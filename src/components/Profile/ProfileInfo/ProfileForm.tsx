@@ -1,10 +1,27 @@
-import { useForm } from "react-hook-form" 
- const ProfileForm = ({saveProfileTC,handleEdit,profile}) =>{  
-    const onSubmit = (formData, ) => {  
+
+import { SubmitHandler, useForm } from "react-hook-form"  
+import { ContactType, PhotoType, ProfileType } from "../../../redux/profileReducer"
+import { FC } from "react"
+type PropsType = { 
+    saveProfileTC:(data:ProfileType) =>void, 
+    handleEdit: (value:boolean) =>void 
+    profile: ProfileType
+}  
+type FormValuesType = {   
+    fullName: string 
+    aboutMe: string  
+    lookingForAJobDescription: string 
+    lookingForAJob:boolean
+    //Эти значения снизу не нужны!
+    userId: number 
+    photos: PhotoType
+    contacts: ContactType
+}
+const ProfileForm:FC<PropsType> = ({saveProfileTC,handleEdit,profile}) =>{  
+    const onSubmit:SubmitHandler<FormValuesType> = (formData) => {  
         reset() 
-        console.log(formData);  
         saveProfileTC(formData)
-        handleEdit()
+        handleEdit(false)
     }
     const { 
         register, 
@@ -13,14 +30,13 @@ import { useForm } from "react-hook-form"
             errors, 
         }, 
         reset,
-    } = useForm( { 
+    } = useForm<FormValuesType>( { 
         mode: 'onBlur', 
         defaultValues:{ 
             fullName: profile.fullName, 
             aboutMe: profile.aboutMe, 
             lookingForAJob: profile.lookingForAJob, 
-            LookingForAJobDescription: profile.lookingForAJobDescription, 
-            
+            lookingForAJobDescription: profile.lookingForAJobDescription,      
         }
     })
     return( 
@@ -63,7 +79,7 @@ import { useForm } from "react-hook-form"
             <br />
             <input 
                 type="text"
-                {...register("LookingForAJobDescription", {
+                {...register("lookingForAJobDescription", {
                     required: "This field is requiered."
                 })}
                 
@@ -71,15 +87,17 @@ import { useForm } from "react-hook-form"
         </label>
         <br />
         <div >
-            {errors.LookingForAJobDescription && <span>{errors.LookingForAJobDescription?.message || "Error!"}</span>}
+            {errors.lookingForAJobDescription && <span>{errors.lookingForAJobDescription?.message || "Error!"}</span>}
         </div>    
          
         <div> 
             {Object.keys(profile.contacts).map((item,index) =><div key={index}> 
               <label>{item}</label>:  
-              <input  
-                defaultValue={profile.contacts[item]}
-                type="text"
+              <input    
+              //@ts-ignore
+                defaultValue={profile.contacts[item as keyof ContactType]}
+                type="text" 
+                //@ts-ignore
                 {...register(`contacts.${item}`)} 
             /> 
             </div>)}

@@ -1,6 +1,10 @@
 
-import { useEffect, useState } from "react"
-const ProfileStatus = ({updateStatusThunkC,...props})=>{  
+import { FC, useEffect, useState } from "react" 
+type PropsType = { 
+    updateStatusThunkC: (status:string) => void 
+    status:string
+}
+const ProfileStatus:FC<PropsType> = ({updateStatusThunkC,...props})=>{  
     const [editMode, setEditMode] = useState(false) 
     const [status, setStatus] = useState(props.status) 
     useEffect(() =>{ 

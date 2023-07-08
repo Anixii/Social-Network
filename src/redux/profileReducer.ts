@@ -121,8 +121,11 @@ export const savePhotoTC = (photos: File): ThunkType => async (dispatch) => {
   }
 }
 
-export const saveProfileTC = (data: ProfileType): ThunkType => async (dispatch, getState) => {
+export const saveProfileTC = (data: ProfileType): ThunkType => async (dispatch, getState) => { 
+  console.log(data.userId);
+  
   const response = await ProfileAPI.saveProfile(data)
+  console.log(response);
   if (response.data.resultCode === 0) {
     dispatch(getUsersProfileThunkC(getState().auth.userId))
   }

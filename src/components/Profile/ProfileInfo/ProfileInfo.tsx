@@ -15,7 +15,6 @@ type ProfilePropsType = {
     isOwner: boolean
 }
 const ProfileInfo:React.FC<ProfilePropsType> = ({ profile, status,saveProfileTC, ...props })=> {
-    console.log(profile,status,props); 
     const [edit, setEdit] = useState(false) 
     if (!profile) {
         return <Preloader />
@@ -44,12 +43,12 @@ const ProfileInfo:React.FC<ProfilePropsType> = ({ profile, status,saveProfileTC,
 type ProfileDataType = { 
     profile: ProfileType, 
     isOwner: boolean 
-    handleEdit: (value:boolean) =>void
+    handleEdit: () =>void
 }
 const ProfileData:React.FC<ProfileDataType> = ({profile, isOwner, handleEdit}) =>{ 
     return( 
         <div>  
-            {isOwner && <button onClick={()=>handleEdit(false)}>Edit</button>}
+            {isOwner && <button onClick={handleEdit}>Edit</button>}
              <div> NickName: {profile.fullName}</div>
             
             <ul> 

@@ -22,7 +22,10 @@ export const ProfileAPI ={
             }
         })
     } ,
-    saveProfile(profile:ProfileType){ 
-        return instance.put<ResponseType>(`profile`, profile)
+    saveProfile(profile:ProfileType){  
+        return instance.put<ResponseType>(`profile`, profile).then(res =>{ 
+            console.log(res) 
+            return res
+        } )
     }
     }
