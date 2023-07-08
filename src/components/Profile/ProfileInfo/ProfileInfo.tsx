@@ -3,15 +3,25 @@ import s from './ProfileInfo.module.css'
 import ProfileStatus from './ProfileStatus'
 import userAnonimAvatar from '../../../assets/image/user.png'
 import { useState } from 'react' 
-import ProfileForm from './ProfileForm'
-function ProfileInfo({ profile, status,saveProfileTC, ...props }) {
-    console.log(profile); 
+import ProfileForm from './ProfileForm' 
+import { ContactType, ProfileType } from '../../../redux/profileReducer'
+import { Nullable } from '../../../types/types'
+type ProfilePropsType = { 
+    profile: ProfileType, 
+    status:string, 
+    saveProfileTC: (data:ProfileType) => void 
+    savePhotoTC: (file:File) =>void 
+    updateStatusThunkC: (status:string) => void 
+    isOwner: boolean
+}
+const ProfileInfo:React.FC<ProfilePropsType> = ({ profile, status,saveProfileTC, ...props })=> {
+    console.log(profile,status,props); 
     const [edit, setEdit] = useState(false) 
     if (!profile) {
         return <Preloader />
     }
-    const onPhotoSelected = (e) => {
-        if (e.target.files.length) {
+    const onPhotoSelected = (e:React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
             props.savePhotoTC(e.target.files[0])
         }
     }
@@ -20,7 +30,7 @@ function ProfileInfo({ profile, status,saveProfileTC, ...props }) {
             <div className={s.item}> <img className={s.ava} src={profile.photos.large || userAnonimAvatar} alt='Ava'></img></div>
             <div>{props.isOwner && <input type='file' onChange={onPhotoSelected} />}</div>  
             <div style={{marginTop: '3%'}}> 
-            {edit ? <ProfileForm handleEdit={() => setEdit(false)} profile={profile} saveProfileTC={saveProfileTC}/> :<ProfileData profile={profile} isOwner={props.isOwner} handleEdit={() => setEdit(true)}/>}
+            {edit ? <ProfileForm handleEdit={() => setEdit} profile={profile} saveProfileTC={saveProfileTC}/> :<ProfileData profile={profile} isOwner={props.isOwner} handleEdit={() => setEdit(true)}/>}
             </div> 
              
              
@@ -31,11 +41,15 @@ function ProfileInfo({ profile, status,saveProfileTC, ...props }) {
     )
 }  
 
-
-const ProfileData = ({profile, isOwner, handleEdit}) =>{ 
+type ProfileDataType = { 
+    profile: ProfileType, 
+    isOwner: boolean 
+    handleEdit: (value:boolean) =>void
+}
+const ProfileData:React.FC<ProfileDataType> = ({profile, isOwner, handleEdit}) =>{ 
     return( 
         <div>  
-            {isOwner && <button onClick={handleEdit}>Edit</button>}
+            {isOwner && <button onClick={()=>handleEdit(false)}>Edit</button>}
              <div> NickName: {profile.fullName}</div>
             
             <ul> 
@@ -47,13 +61,17 @@ const ProfileData = ({profile, isOwner, handleEdit}) =>{
                 </li>}
              </ul> 
              <div>Контакты:
-                {Object.keys(profile.contacts).map((item,index) =><Contacts key={index} title={item} value={profile.contacts[item]}/>)}
+                {Object.keys(profile.contacts).map((item,index) =><Contacts key={index} title={item} value={profile.contacts[item as keyof ContactType] }/>)}
             </div>
 
         </div>
     )
-}
-const Contacts = ({title, value}) =>{ 
+} 
+type ContactsPropsType = { 
+    title: string 
+    value: Nullable<string>
+} 
+const Contacts:React.FC<ContactsPropsType> = ({title, value}) =>{ 
     return( 
         <>  
         <li><b>{title}</b>: {value}</li> 

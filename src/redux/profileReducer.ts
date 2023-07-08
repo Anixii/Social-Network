@@ -32,7 +32,8 @@ export type ProfileType = {
   lookingForAJobDescription: string
   fullName: string
   contacts: ContactType
-  photos: PhotoType
+  photos: PhotoType 
+  aboutMe:string
 }
 let initialState = {
   myPostItem: [
