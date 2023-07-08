@@ -16,9 +16,9 @@ const Dialogs:FC<PropsType> =(props) =>{
         props.addMessage(dataObj.newMessageText) 
     }
     let dialogsElem = props.state.dialogItem 
-    .map(arg => <Dialog name={arg.name} id={arg.id}/> ); 
+    .map(arg => <Dialog key={arg.id} name={arg.name} id={arg.id}/> ); 
     const messageElem = props.state.messageItem 
-    .map(m => <Message message={m.message} />  )
+    .map(m => <Message key={m.message} message={m.message} />  )
     return(
         <div className={s.dialogs}> 
             <div className={s.dialogItem}>          

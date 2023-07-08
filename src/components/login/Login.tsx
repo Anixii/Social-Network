@@ -4,7 +4,7 @@ import { loginTC } from "../../redux/auth-reducer"
 import { Navigate } from "react-router-dom"
 import {SubmitHandler, useForm } from "react-hook-form" 
 import { isUserAuth } from "../../redux/authSelector" 
-import { FC } from "react"
+import React, { FC } from "react"
 import { AppStateType } from "../../redux/redux-store" 
 // import { Message, MultipleFieldErrors, Ref, } from "react-hook-form"  
 // export type FieldError = {
@@ -136,4 +136,4 @@ const mapStateToProps = (state:AppStateType):MapStateToPropsType =>{
         captchaUrl: state.auth.captchaUrl
     }
 }
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps , {loginTC})(Login) 
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps , {loginTC})(Login) as React.ComponentType 

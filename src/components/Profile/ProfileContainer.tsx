@@ -80,7 +80,7 @@ function withRouter(Component:React.FC) {
 
 
 
-export default compose( 
+export default compose<React.ComponentType>( 
     connect<MapStateToPropsType,MapDispatchToPropsType,OwnProps,AppStateType> 
     (mapStateToProps, {getUsersProfileThunkC, getStatusThunkC,updateStatusThunkC, savePhotoTC,saveProfileTC}), 
     withRouter,  

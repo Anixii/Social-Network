@@ -74,7 +74,7 @@ const mapStateToProps = (state:AppStateType): MapStateToPropsType=>{
     }
 } 
 
-export default compose(
+export default compose<React.ComponentType>(
   connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
     mapStateToProps,
     { getUsersThunkCreator, unfollowThunk, followThunk }
