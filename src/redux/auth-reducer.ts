@@ -1,5 +1,6 @@
 import { ThunkAction } from "redux-thunk"
-import { ResultCodesEnum, authAPI, securityAPI } from "../api/api" 
+import { ResultCodesEnum,  securityAPI } from "../api/api" 
+import { authAPI } from "../api/auth-api" 
 import { AppStateType } from "./redux-store"
 
 const SET_USER_DATA ='AUTH_PAGE_SET_USER_DATA' 

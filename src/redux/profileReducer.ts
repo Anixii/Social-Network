@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk"
-import { ProfileAPI} from "../api/api"
+import { ProfileAPI} from "../api/profile-api"
 import { AppStateType } from "./redux-store"
  const ADD_POST = 'ADD-POST'
   
@@ -102,7 +102,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AllActionCrea
 export const getUsersProfileThunkC = (userId:number | null):ThunkType => async (dispatch) => {
       try {
         const response = await ProfileAPI.getProfile(userId);
-        dispatch(setUsersProfile(response.data));
+        dispatch(setUsersProfile(response));
       } catch (error) {
         console.log("Error getting user profile: ", error);
       } 

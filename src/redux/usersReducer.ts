@@ -1,6 +1,5 @@
 import { Dispatch } from "react"
-import { followAPI } from "../api/api"
-import { userAPI } from "../api/api"
+import { userAPI } from "../api/users-api"
 import { updateObjectInArr } from "../utils/helpers"
 import { ThunkAction } from "redux-thunk"
 import { AppStateType, InferActionTypes } from "./redux-store"
@@ -122,9 +121,9 @@ const _followUnfollowFlow = async (dispatch: Dispatch<AllActionType>, userId: nu
     dispatch(actions.toggleFollowingInProgress(false, 0))
 }
 export const unfollowThunk = (id: number): ThunkType => async (dispatch) => {
-    _followUnfollowFlow(dispatch, id, followAPI.unFollow.bind(followAPI), actions.unfollowAC)
+    _followUnfollowFlow(dispatch, id, userAPI.unFollow.bind(userAPI), actions.unfollowAC)
 }
 export const followThunk = (id: number) => async (dispatch: Dispatch<AllActionType>) => {
-    _followUnfollowFlow(dispatch, id, followAPI.onFollow.bind(followAPI), actions.followAC)
+    _followUnfollowFlow(dispatch, id, userAPI.onFollow.bind(userAPI), actions.followAC)
 }
 export default usersReducer
