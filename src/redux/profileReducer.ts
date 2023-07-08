@@ -1,6 +1,6 @@
 
 import { ProfileAPI } from "../api/profile-api"
-import { AppStateType, InferActionTypes, ThunkActionsType } from "./redux-store"
+import { InferActionTypes, ThunkActionsType } from "./redux-store"
 import { Nullable } from "../types/types"
 const ADD_POST = 'ADD-POST'
 
@@ -45,7 +45,7 @@ let initialState = {
   status: '' as string
 
 }
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 const profileReducer = (state = initialState, action: AllActionCreatorsType): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
@@ -113,14 +113,14 @@ export const updateStatusThunkC = (status: string): ThunkType => async (dispatch
     console.log("Error updating user status: ", error);
   }
 };
-export const savePhotoTC = (photos: any): ThunkType => async (dispatch) => {
+export const savePhotoTC = (photos: File): ThunkType => async (dispatch) => {
   const response = await ProfileAPI.savePhoto(photos)
   if (response.data.resultCode === 0) {
     dispatch(actions.savePhotoAC(response.data.data.photos))
   }
 }
-type GetStateType = () => AppStateType
-export const saveProfileTC = (data: ProfileType): ThunkType => async (dispatch, getState: GetStateType) => {
+
+export const saveProfileTC = (data: ProfileType): ThunkType => async (dispatch, getState) => {
   const response = await ProfileAPI.saveProfile(data)
   if (response.data.resultCode === 0) {
     dispatch(getUsersProfileThunkC(getState().auth.userId))
