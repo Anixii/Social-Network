@@ -7,9 +7,9 @@ export const userAPI = {
             .then(response => response.data)
         },  
         onFollow(id:number){ 
-            return instance.post<ResponseType>(`follow/${id}`, {},) 
+            return instance.post<ResponseType>(`follow/${id}`, {},).then((res) => res.data)
         }, 
         unFollow(id:number){ 
-            return instance.delete<ResponseType>(`follow/${id}`) 
+            return instance.delete(`follow/${id}`) as Promise<ResponseType>
         }
 }    
