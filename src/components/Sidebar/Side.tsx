@@ -5,10 +5,10 @@ const Sidebar = () =>{
     return( 
         <div className={s.navbar}> 
             <div className={s.navbar__item}> 
-                 <NavLink to= '/profile' activeClassName={s.active}>Profile</NavLink> 
+                 <NavLink to= '/profile'>Profile</NavLink> 
             </div>
             <div className={s.navbar__item}> 
-                <NavLink to= '/dialogs' activeClassName={s.active} >Messages</NavLink> 
+                <NavLink to= '/dialogs'>Messages</NavLink> 
             </div>
             <div className={s.navbar__item}> 
                 <NavLink to= '/users'>Users</NavLink> 
