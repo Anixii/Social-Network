@@ -1,6 +1,6 @@
-import { ThunkAction } from "redux-thunk"
+// import { ThunkAction } from "redux-thunk"
 import { loginThunkCreator } from "./auth-reducer"  
-import { AppStateType, InferActionTypes } from "./redux-store"
+import { InferActionTypes } from "./redux-store"
 const SET_INITIALIZED = 'SET_INITIALIZED' 
 
 const initialState={ 
@@ -23,7 +23,7 @@ const appReducer = (state = initialState, action:ActionTypes):InitialStateType =
         return state
     }
 }   
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> 
+// type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> 
 
 
  

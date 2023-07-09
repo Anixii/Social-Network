@@ -17,10 +17,10 @@ type MapDispatchToPropsType = {
 } 
 type MapStateToPropsType = ReturnType< typeof mapStateToProps> 
 type PropsType = MapDispatchToPropsType & MapStateToPropsType
-const App:FC<PropsType> = (props) => {  
+const App:FC<PropsType> = ({initializeTC,...props}) => {  
     useEffect(()=> { 
-      props.initializeTC()
-    },[]) 
+      initializeTC()
+    },[initializeTC]) 
     if(!props.initialized){ 
       return <Preloader/>
     }
