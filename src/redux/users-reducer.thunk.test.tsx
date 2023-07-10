@@ -1,4 +1,4 @@
-import { actions, followThunk } from "./usersReducer"
+import { actions, followThunk, unfollowThunk } from "./usersReducer"
 import { userAPI } from "../api/users-api" 
 import { ResponseType, ResultCodesEnum } from "../api/api" 
 const mockDispatch = jest.fn()
@@ -28,4 +28,18 @@ test('user/thunk/follow/test',async () =>  {
     expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.toggleFollowingInProgress(false,null)) 
 
     mockUserApi.onFollow.mockClear()
+}) 
+
+
+test('user/thunk/unFollow/test',async () =>  { 
+    mockUserApi.unFollow.mockReturnValue(Promise.resolve(result))
+    const thunk = unfollowThunk(3)   
+
+    await thunk(mockDispatch,getStateMock, {})
+    expect(mockDispatch).toBeCalledTimes(3)
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, actions.toggleFollowingInProgress(true,3)) 
+    expect(mockDispatch).toHaveBeenNthCalledWith(2, actions.unfollowAC(3)) 
+    expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.toggleFollowingInProgress(false,null)) 
+
+    mockUserApi.unFollow.mockClear()
 })
