@@ -6,10 +6,14 @@ export const userAPI = {
             })  
             .then(response => response.data)
         },  
-        onFollow(id:number){ 
-            return instance.post<ResponseType>(`follow/${id}`, {},).then((res) => res.data)
+        onFollow(id:number|null){  
+            return instance.post<ResponseType>(`follow/${id}`, {},).then((res) =>{ 
+                console.log(res);
+                return res.data 
+            }  
+            )
         }, 
-        unFollow(id:number){ 
-            return instance.delete(`follow/${id}`) as Promise<ResponseType>
+        unFollow(id:number|null){ 
+            return instance.delete<ResponseType>(`follow/${id}`).then(res => res.data)
         }
 }    

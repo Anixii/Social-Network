@@ -1,19 +1,31 @@
-import { followThunk } from "./usersReducer"
+import { actions, followThunk } from "./usersReducer"
 import { userAPI } from "../api/users-api" 
-import { ResponseType, ResultCodesEnum } from "../api/api"
-jest.mock('../api/users-api') 
-const mockUserApi = userAPI  
+import { ResponseType, ResultCodesEnum } from "../api/api" 
+const mockDispatch = jest.fn()
+const getStateMock = jest.fn()
+
+beforeEach(() => {
+    getStateMock.mockClear()
+    mockDispatch.mockClear()
+})
+
+jest.mock('../api/users-api')  
+
+const mockUserApi = userAPI as jest.Mocked<typeof userAPI>
 const result:ResponseType = { 
+    data: {},
+    messages: ['test 1'], 
     resultCode: ResultCodesEnum.Success, 
-    messages: [], 
-    data: []
 } 
-//@ts-ignore
-mockUserApi.onFollow.mockReturnValue(Promise.resolve(result))
 test('user/thunk/follow/test',async () =>  { 
-    const thunk = followThunk(1)   
-    const mockDispatch = jest.fn()  
-    //@ts-ignore
-    await thunk(mockDispatch)
+    mockUserApi.onFollow.mockReturnValue(Promise.resolve(result))
+    const thunk = followThunk(3)   
+
+    await thunk(mockDispatch,getStateMock, {})
     expect(mockDispatch).toBeCalledTimes(3)
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, actions.toggleFollowingInProgress(true,3)) 
+    expect(mockDispatch).toHaveBeenNthCalledWith(2, actions.followAC(3)) 
+    expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.toggleFollowingInProgress(false,null)) 
+
+    mockUserApi.onFollow.mockClear()
 })

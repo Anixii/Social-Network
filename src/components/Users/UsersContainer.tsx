@@ -20,8 +20,8 @@ type MapStateToPropsType = {
   
   type MapDispatchToPropsType = {
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void,
-    unfollowThunk: (id:number) => void,
-    followThunk: (id:number) => void,
+    unfollowThunk: (id:number|null) => void,
+    followThunk: (id:number |null) => void,
   };
   
   type PropsType = MapStateToPropsType & MapDispatchToPropsType; 

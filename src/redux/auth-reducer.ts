@@ -1,4 +1,4 @@
-import { ResultCodesEnum, securityAPI } from "../api/api"
+import { ResultCodeForCaptchaEnum, ResultCodesEnum, securityAPI } from "../api/api"
 import { authAPI } from "../api/auth-api"
 import { InferActionTypes, ThunkActionsType } from "./redux-store"
 import { Nullable } from "../types/types"
@@ -53,7 +53,7 @@ type ThunkType = ThunkActionsType<AllActionCreatorsType>
 export const loginThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.me()
     if (response.resultCode === ResultCodesEnum.Success) {
-        let { id, email, login } = response.data
+        let {id,login,email } = response.data.data
         dispatch(actions.setUserDataAC(id, email, login, true))
     };
 }
@@ -62,7 +62,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, se
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(loginThunkCreator())
     } else {
-        if (response.data.resultCode === ResultCodesEnum.Capthcha) {
+        if (response.data.resultCode === ResultCodeForCaptchaEnum.Captcha) {
             dispatch(getCaptchaUrl())
         }
         setError('server', {

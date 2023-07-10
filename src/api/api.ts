@@ -10,8 +10,12 @@ export const instance = axios.create({
 export enum ResultCodesEnum { 
     Success = 0, 
     Error = 1,  
-    Capthcha = 10
-} 
+}  
+export enum ResultCodeForCaptchaEnum {
+    Success = 0,
+    Error = 1,
+    Captcha = 10
+ }
 type AuthMeDataType = { 
     id:number,  
     email: string, 

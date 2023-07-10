@@ -5,8 +5,8 @@ import { UserActionType } from '../../redux/usersReducer';
 import { FC } from 'react'; 
 type UserType = { 
     item: UserActionType, 
-    unfollowThunk: (id:number) => void,
-    followThunk: (id:number) => void, 
+    unfollowThunk: (id:number|null) => void,
+    followThunk: (id:number|null) => void, 
     isFollowing: any
 } 
 

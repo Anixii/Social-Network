@@ -9,8 +9,8 @@ type PropsType = {
     setCurrentPage: (number:number) => void 
     currentPage: number
     users: Array<UserActionType>
-    followThunk: (id:number) => void 
-    unfollowThunk: (id:number) => void 
+    followThunk: (id:number|null) => void 
+    unfollowThunk: (id:number|null) => void 
     isFollowing: any
 }
 const Users:FC<PropsType> = ({totalUsers,pageSize, setCurrentPage,currentPage, users,...props}) =>{   
