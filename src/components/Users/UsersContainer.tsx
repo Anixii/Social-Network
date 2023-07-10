@@ -5,7 +5,7 @@ import React from "react";
 
 import Users from "./Users"; 
 import Preloader from "../common/Preloader";
-import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching } from "../../redux/users-selecors";
+import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching, getUserFilterSelector } from "../../redux/users-selecors";
 import { compose } from "redux"; 
 import { UserActionType } from "../../redux/usersReducer";
 import { AppStateType } from "../../redux/redux-store";
@@ -15,11 +15,12 @@ type MapStateToPropsType = {
     totalUsers: number,
     currentPage: number,
     isFollowing: any,
-    isFetching: boolean,
+    isFetching: boolean, 
+    filter: FilterUserType
   };
   
   type MapDispatchToPropsType = {
-    getUsersThunkCreator: (currentPage: number, pageSize: number, term:string) => void,
+    getUsersThunkCreator: (currentPage: number, pageSize: number, filter:FilterUserType) => void,
     unfollowThunk: (id:number|null) => void,
     followThunk: (id:number |null) => void,
   };
@@ -29,29 +30,15 @@ type MapStateToPropsType = {
  class UsersAPIComponent extends React.Component<PropsType>{  
     
     componentDidMount(){    
-        let { currentPage,pageSize} = this.props
-       this.props.getUsersThunkCreator(currentPage, pageSize, '')
+      let { currentPage,pageSize, filter} = this.props  
+      this.props.getUsersThunkCreator(currentPage, pageSize, filter)
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.color !== nextProps.color) {
-    //       return true;
-    //     }
-    //     if (this.state.count !== nextState.count) {
-    //       return true;
-    //     }
-    //     return false;
-    //   } 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.state.users !== nextState.users) {
-    //       return true;
-    //     }
-    //     return false;
-    //   }
-    setCurrentPage(currentPage:number){   
-       this.props.getUsersThunkCreator(currentPage, this.props.pageSize,'')
+
+    setCurrentPage(currentPage:number){    
+      this.props.getUsersThunkCreator(currentPage, this.props.pageSize, this.props.filter)
     } 
     onFilterChanged(filter: FilterUserType) { 
-      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize,filter.term)
+      this.props.getUsersThunkCreator(1, this.props.pageSize,filter)
     }
     
     render(){   
@@ -74,8 +61,9 @@ const mapStateToProps = (state:AppStateType): MapStateToPropsType=>{
         totalUsers: getTotalUserCount(state), 
         currentPage: getCurrentPage(state), 
         isFollowing: getIsFollow(state), 
-        isFetching: isFetching(state)
-    }
+        isFetching: isFetching(state), 
+        filter: getUserFilterSelector(state)
+    } 
 } 
 
 export default compose<React.ComponentType>(
@@ -88,7 +76,21 @@ export default compose<React.ComponentType>(
     
     
     
-    
+        // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.color !== nextProps.color) {
+    //       return true;
+    //     }
+    //     if (this.state.count !== nextState.count) {
+    //       return true;
+    //     }
+    //     return false;
+    //   } 
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.state.users !== nextState.users) {
+    //       return true;
+    //     }
+    //     return false;
+    //   }
     
     
     // const mapDispatchToProps = (dispatch) =>{  

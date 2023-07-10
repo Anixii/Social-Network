@@ -20,6 +20,7 @@ export type AppStateType = ReturnType<RootReducerType>
 export type InferActionTypes<T> = T extends {[key:string]: (...args: any[]) => infer U} ? U : never
 
 export type ThunkActionsType<A extends Action, R = Promise<void>, > = ThunkAction<R, AppStateType, unknown, A>
-let store = createStore(reducers, applyMiddleware(thunk))  
-
+let store = createStore(reducers, applyMiddleware(thunk))   
+//@ts-ignore
+window.store= store
 export default store

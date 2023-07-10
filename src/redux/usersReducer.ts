@@ -36,7 +36,8 @@ let initialState = {
         userId: null as number | null
     },  
     filter: { 
-        term:''
+        term:'', 
+        friend: null as boolean | null
     }
 } 
 export type FilterUserType = typeof initialState.filter
@@ -107,7 +108,7 @@ export const actions = {
     unfollowAC : (userId: number|null) => ({ type: UNFOLLOW, userId } as const),
     setUsersAC : (users: Array<UserActionType>) => ({ type: SET_USERS, users } as const),
     getCurrentPageAC : (currentPage: number) => ({ type: CURRENT_PAGE, currentPage } as const), 
-    setFilterAC: (term:string) =>({type:SET_FILTER ,payload:{term}} as const),
+    setFilterAC: (filter: FilterUserType) =>({type:SET_FILTER ,payload:filter} as const),
     setTotalCountAC : (totalCount: number)=> ({ type: TOTAL_COUNT, totalCount } as const),
     toggleFetching : (isFetching: boolean) => ({ type: TOGGLE_FETCHING, isFetching } as const),
     toggleFollowingInProgress:(isFollowing: boolean, userId: number|null)=> ({ type: TOGGLE_IS_FOLLOWING, isFollowing, userId } as const)
@@ -116,11 +117,12 @@ export const actions = {
 
 //Thunk-Creators 
 type ThunkType = ThunkActionsType<AllActionType>
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string) => async (dispatch: Dispatch<AllActionType>) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter:FilterUserType) => async (dispatch: Dispatch<AllActionType>) => {
     dispatch(actions.getCurrentPageAC(currentPage));
     dispatch(actions.toggleFetching(true)) 
-    dispatch(actions.setFilterAC(term))
-    let response = await userAPI.getUsers(currentPage, pageSize,term)
+    dispatch(actions.setFilterAC(filter))
+    
+    let response = await userAPI.getUsers(currentPage, pageSize,filter.term, filter.friend)
     dispatch(actions.setUsersAC(response.items))
     dispatch(actions.setTotalCountAC(response.totalCount))
     dispatch(actions.toggleFetching(false))

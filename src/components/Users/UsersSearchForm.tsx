@@ -1,25 +1,26 @@
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FilterUserType } from '../../redux/usersReducer'
-
-// type FormValuesType = { 
-//     term: string  
-//     // isFriend: boolean
-// } 
+import { Select } from 'antd'
+type FormValuesType = { 
+    term: string  
+    // isFriend: boolean
+} 
 type PropsType = { 
     onFilterChanged:(filter:FilterUserType) => void
 }
 export const UsersSearchForm:React.FC<PropsType> = (props) => { 
     const { 
-        reset, 
+        reset,  
+        control,
         register, 
         handleSubmit, 
         formState:{errors } 
     } = useForm<FilterUserType>({ 
-        mode:'onBlur'
+        mode:'onSubmit'
     }) 
-    const onSubmit:SubmitHandler<FilterUserType> = (formData) =>{ 
-        props.onFilterChanged(formData)
+    const onSubmit:SubmitHandler<FilterUserType> = (formData) =>{  
+        props.onFilterChanged(formData) 
     }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>  
@@ -27,18 +28,27 @@ export const UsersSearchForm:React.FC<PropsType> = (props) => {
             Search
             <input 
             type="text"
-            {...register("term", {
-                required: "This field is requiered."
-            })}
+            {...register("term",)}
             />  
             {errors.term && <span>{errors.term?.message || "Error!"}</span>} 
         </div>   
         <div> 
             {/* <input
                 type="checkbox"
-                {...register("isFriend")}
-                /> Friend
-            {errors.term && <span>{errors.term?.message || "Error!"}</span>} */}
+                {...register("friend")}
+                /> Friend */}
+            <Controller
+                    name="friend"
+                    control={control}
+                    render={({field}) => <Select {...field}   
+                    defaultValue='null'
+                    options={[ 
+                        {value: 'null',label: 'All Users',}, 
+                        {value: 'true',label: 'Only Followed',}, 
+                        {value: 'false',label: 'Only Unfollowed',} 
+                        ]}> 
+                     
+                     </Select>}/>
         </div>
     <button>Найти</button>     
     </form>
