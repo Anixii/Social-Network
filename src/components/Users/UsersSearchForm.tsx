@@ -4,7 +4,7 @@ import { FilterUserType } from '../../redux/usersReducer'
 import { Select } from 'antd'
 type FormValuesType = { 
     term: string  
-    // isFriend: boolean
+    friend: 'false' | 'true' | 'null'
 } 
 type PropsType = { 
     onFilterChanged:(filter:FilterUserType) => void
@@ -19,10 +19,17 @@ export const UsersSearchForm:React.FC<PropsType> = (props) => {
     } = useForm<FilterUserType>({ 
         mode:'onSubmit'
     }) 
-    const onSubmit:SubmitHandler<FilterUserType> = (formData) =>{  
-        props.onFilterChanged(formData) 
+    const onSubmit:SubmitHandler<FormValuesType> = (formData) =>{   
+        const filter2:FilterUserType = {
+            term: formData.term,
+            friend: formData.friend === 'true'
+               ? true
+               : formData.friend === 'false' ? false : null
+         }
+        props.onFilterChanged(filter2) 
     }
-  return (
+  return ( 
+    //@ts-ignore
     <form onSubmit={handleSubmit(onSubmit)}>  
         <div>  
             Search

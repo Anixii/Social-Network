@@ -28,7 +28,7 @@ type MapStateToPropsType = {
   type PropsType = MapStateToPropsType & MapDispatchToPropsType; 
 
  class UsersAPIComponent extends React.Component<PropsType>{  
-    
+    // todos: Исправить баг с поиском(при клике исчезает значение)
     componentDidMount(){    
       let { currentPage,pageSize, filter} = this.props  
       this.props.getUsersThunkCreator(currentPage, pageSize, filter)

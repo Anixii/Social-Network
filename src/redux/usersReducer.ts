@@ -37,7 +37,7 @@ let initialState = {
     },  
     filter: { 
         term:'', 
-        friend: null as boolean | null
+        friend: null as boolean | null | string
     }
 } 
 export type FilterUserType = typeof initialState.filter
