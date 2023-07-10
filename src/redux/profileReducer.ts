@@ -44,8 +44,8 @@ let initialState = {
   ] as Array<PostItemType>,
   profile: null as ProfileType | null,
   status: '' as string
+} 
 
-}
 export type InitialStateType = typeof initialState
 const profileReducer = (state = initialState, action: AllActionCreatorsType): InitialStateType => {
   switch (action.type) {

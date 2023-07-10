@@ -1,6 +1,6 @@
 
 import { connect } from "react-redux";
-import { getUsersThunkCreator,followThunk,unfollowThunk} from "../../redux/usersReducer";
+import { getUsersThunkCreator,followThunk,unfollowThunk, FilterUserType} from "../../redux/usersReducer";
 import React from "react";  
 
 import Users from "./Users"; 
@@ -19,7 +19,7 @@ type MapStateToPropsType = {
   };
   
   type MapDispatchToPropsType = {
-    getUsersThunkCreator: (currentPage: number, pageSize: number) => void,
+    getUsersThunkCreator: (currentPage: number, pageSize: number, term:string) => void,
     unfollowThunk: (id:number|null) => void,
     followThunk: (id:number |null) => void,
   };
@@ -30,7 +30,7 @@ type MapStateToPropsType = {
     
     componentDidMount(){    
         let { currentPage,pageSize} = this.props
-       this.props.getUsersThunkCreator(currentPage, pageSize)
+       this.props.getUsersThunkCreator(currentPage, pageSize, '')
     }
     // shouldComponentUpdate(nextProps, nextState) {
     //     if (this.props.color !== nextProps.color) {
@@ -48,7 +48,10 @@ type MapStateToPropsType = {
     //     return false;
     //   }
     setCurrentPage(currentPage:number){   
-       this.props.getUsersThunkCreator(currentPage, this.props.pageSize)
+       this.props.getUsersThunkCreator(currentPage, this.props.pageSize,'')
+    } 
+    onFilterChanged(filter: FilterUserType) { 
+      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize,filter.term)
     }
     
     render(){   
@@ -57,6 +60,7 @@ type MapStateToPropsType = {
             {this.props.isFetching ? <Preloader/> :( 
             <Users {...this.props}  
             setCurrentPage={this.setCurrentPage.bind(this)} 
+            onFilterChanged={this.onFilterChanged.bind(this)} 
             /> )}            
             </>
             

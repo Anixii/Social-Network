@@ -10,7 +10,8 @@ const CURRENT_PAGE = 'USER_PAGE_CURRENT-PAGE'
 const UNFOLLOW = 'USER_PAGE_UNFOLLOW'
 const SET_USERS = 'USER_PAGE_SET-USERS'
 const TOTAL_COUNT = 'USER_PAGE_TOTAL-COUNT'
-const TOGGLE_FETCHING = 'USER_PAGE_TOGGLE_FETCHING'
+const TOGGLE_FETCHING = 'USER_PAGE_TOGGLE_FETCHING'  
+const SET_FILTER = 'USER_PAGE_SET_FILTER'
 const TOGGLE_IS_FOLLOWING = 'USER_PAGE_TOGGLE_IS_FOLLOWING'
 type PhotoType = {
     small: Nullable<string>
@@ -33,8 +34,12 @@ let initialState = {
     followingInProgress: {
         isFollowing: false,
         userId: null as number | null
+    },  
+    filter: { 
+        term:''
     }
-}
+} 
+export type FilterUserType = typeof initialState.filter
 export type InitialStateType = typeof initialState
 const usersReducer = (state = initialState, action: AllActionType): InitialStateType => {
 
@@ -72,6 +77,12 @@ const usersReducer = (state = initialState, action: AllActionType): InitialState
                 ...state,
                 isFetching: action.isFetching
             }
+        } 
+        case SET_FILTER: { 
+            return{ 
+                ...state, 
+                filter: action.payload
+            }
         }
         case TOGGLE_IS_FOLLOWING: {
 
@@ -95,7 +106,8 @@ export const actions = {
     followAC: (userId: number|null) => ({ type: FOLLOW, userId, } as const),
     unfollowAC : (userId: number|null) => ({ type: UNFOLLOW, userId } as const),
     setUsersAC : (users: Array<UserActionType>) => ({ type: SET_USERS, users } as const),
-    getCurrentPageAC : (currentPage: number) => ({ type: CURRENT_PAGE, currentPage } as const),
+    getCurrentPageAC : (currentPage: number) => ({ type: CURRENT_PAGE, currentPage } as const), 
+    setFilterAC: (term:string) =>({type:SET_FILTER ,payload:{term}} as const),
     setTotalCountAC : (totalCount: number)=> ({ type: TOTAL_COUNT, totalCount } as const),
     toggleFetching : (isFetching: boolean) => ({ type: TOGGLE_FETCHING, isFetching } as const),
     toggleFollowingInProgress:(isFollowing: boolean, userId: number|null)=> ({ type: TOGGLE_IS_FOLLOWING, isFollowing, userId } as const)
@@ -104,10 +116,11 @@ export const actions = {
 
 //Thunk-Creators 
 type ThunkType = ThunkActionsType<AllActionType>
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<AllActionType>) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string) => async (dispatch: Dispatch<AllActionType>) => {
     dispatch(actions.getCurrentPageAC(currentPage));
-    dispatch(actions.toggleFetching(true))
-    let response = await userAPI.getUsers(currentPage, pageSize)
+    dispatch(actions.toggleFetching(true)) 
+    dispatch(actions.setFilterAC(term))
+    let response = await userAPI.getUsers(currentPage, pageSize,term)
     dispatch(actions.setUsersAC(response.items))
     dispatch(actions.setTotalCountAC(response.totalCount))
     dispatch(actions.toggleFetching(false))

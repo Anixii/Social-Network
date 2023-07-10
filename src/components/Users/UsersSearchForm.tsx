@@ -1,20 +1,25 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-type FormValuesType = { 
-    term: string  
-    isFriend: boolean
+import { FilterUserType } from '../../redux/usersReducer'
+
+// type FormValuesType = { 
+//     term: string  
+//     // isFriend: boolean
+// } 
+type PropsType = { 
+    onFilterChanged:(filter:FilterUserType) => void
 }
-export const UsersSearchForm = () => { 
+export const UsersSearchForm:React.FC<PropsType> = (props) => { 
     const { 
         reset, 
         register, 
         handleSubmit, 
         formState:{errors } 
-    } = useForm<FormValuesType>({ 
+    } = useForm<FilterUserType>({ 
         mode:'onBlur'
     }) 
-    const onSubmit:SubmitHandler<FormValuesType> = (formData) =>{ 
-
+    const onSubmit:SubmitHandler<FilterUserType> = (formData) =>{ 
+        props.onFilterChanged(formData)
     }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>  
@@ -29,11 +34,11 @@ export const UsersSearchForm = () => {
             {errors.term && <span>{errors.term?.message || "Error!"}</span>} 
         </div>   
         <div> 
-            <input
+            {/* <input
                 type="checkbox"
                 {...register("isFriend")}
                 /> Friend
-            {errors.term && <span>{errors.term?.message || "Error!"}</span>}
+            {errors.term && <span>{errors.term?.message || "Error!"}</span>} */}
         </div>
     <button>Найти</button>     
     </form>
