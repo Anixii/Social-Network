@@ -53,7 +53,7 @@ type ThunkType = ThunkActionsType<AllActionCreatorsType>
 export const loginThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.me()
     if (response.resultCode === ResultCodesEnum.Success) {
-        let {id,login,email } = response.data.data
+        let {id,login,email } = response.data
         dispatch(actions.setUserDataAC(id, email, login, true))
     };
 }

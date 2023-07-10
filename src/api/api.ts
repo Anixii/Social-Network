@@ -12,8 +12,6 @@ export enum ResultCodesEnum {
     Error = 1,  
 }  
 export enum ResultCodeForCaptchaEnum {
-    Success = 0,
-    Error = 1,
     Captcha = 10
  }
 type AuthMeDataType = { 
@@ -23,9 +21,10 @@ type AuthMeDataType = {
 } 
 type AuthLoginDataType = { 
     userId: number
-}
+} 
+type Result =  ResultCodesEnum | ResultCodeForCaptchaEnum
 export type AuthMeType = ResponseType<AuthMeDataType, ResultCodesEnum >
-export type AuthLoginType = ResponseType<AuthLoginDataType, ResultCodesEnum> 
+export type AuthLoginType = ResponseType<AuthLoginDataType, Result> 
 
 export type ResponseType<D = {}, RC = ResultCodesEnum> = { 
     data: D, 

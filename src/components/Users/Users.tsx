@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { UserActionType } from '../../redux/usersReducer';
 import Paginator from './Paginator';
 import User from './User';
+import { UsersSearchForm } from './UsersSearchForm';
 type PropsType = { 
     totalUsers: number 
     pageSize:number 
@@ -15,7 +16,10 @@ type PropsType = {
 }
 const Users:FC<PropsType> = ({totalUsers,pageSize, setCurrentPage,currentPage, users,...props}) =>{   
     return( 
-        <div>  
+        <div>   
+            <div> 
+                <UsersSearchForm/>
+            </div>
             <div> 
                 <Paginator totalUsers={totalUsers} setCurrentPage={setCurrentPage} pageSize={pageSize} currentPage={currentPage}/>
             </div>
