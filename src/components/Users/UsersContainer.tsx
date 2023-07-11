@@ -1,78 +1,19 @@
-
-import { connect } from "react-redux";
-import { getUsersThunkCreator,followThunk,unfollowThunk, FilterUserType} from "../../redux/usersReducer";
-import React from "react";  
-
-import Users from "./Users"; 
+import {Users} from "./Users"; 
 import Preloader from "../common/Preloader";
-import { getUsers, getCurrentPage,getPageSize,getTotalUserCount,getIsFollow, isFetching, getUserFilterSelector } from "../../redux/users-selecors";
-import { compose } from "redux"; 
-import { UserActionType } from "../../redux/usersReducer";
-import { AppStateType } from "../../redux/redux-store";
-type MapStateToPropsType = {
-    users: Array<UserActionType>,
-    pageSize: number,
-    totalUsers: number,
-    currentPage: number,
-    isFollowing: any,
-    isFetching: boolean, 
-    filter: FilterUserType
-  };
-  
-  type MapDispatchToPropsType = {
-    getUsersThunkCreator: (currentPage: number, pageSize: number, filter:FilterUserType) => void,
-    unfollowThunk: (id:number|null) => void,
-    followThunk: (id:number |null) => void,
-  };
-  
-  type PropsType = MapStateToPropsType & MapDispatchToPropsType; 
-
- class UsersAPIComponent extends React.Component<PropsType>{  
-    // todos: Исправить баг с поиском(при клике исчезает значение)
-    componentDidMount(){    
-      let { currentPage,pageSize, filter} = this.props  
-      this.props.getUsersThunkCreator(currentPage, pageSize, filter)
-    }
-
-    setCurrentPage(currentPage:number){    
-      this.props.getUsersThunkCreator(currentPage, this.props.pageSize, this.props.filter)
-    } 
-    onFilterChanged(filter: FilterUserType) { 
-      this.props.getUsersThunkCreator(1, this.props.pageSize,filter)
-    }
-    
-    render(){   
-        return( 
-            <> 
-            {this.props.isFetching ? <Preloader/> :( 
-            <Users {...this.props}  
-            setCurrentPage={this.setCurrentPage.bind(this)} 
-            onFilterChanged={this.onFilterChanged.bind(this)} 
-            /> )}            
-            </>
-            
-        )
-    }
-} 
-const mapStateToProps = (state:AppStateType): MapStateToPropsType=>{   
-    return{ 
-        users: getUsers(state), 
-        pageSize: getPageSize(state), 
-        totalUsers: getTotalUserCount(state), 
-        currentPage: getCurrentPage(state), 
-        isFollowing: getIsFollow(state), 
-        isFetching: isFetching(state), 
-        filter: getUserFilterSelector(state)
-    } 
-} 
-
-export default compose<React.ComponentType>(
-  connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
-    mapStateToProps,
-    { getUsersThunkCreator, unfollowThunk, followThunk }
+import { isFetching,  } from "../../redux/users-selecors";
+import { useSelector } from "react-redux";
+const UserPage = () => {  
+    const isFetch = useSelector(isFetching)
+  return( 
+    <> 
+    {isFetch ? <Preloader/> :( 
+    <Users /> )}            
+    </>
   )
-)(UsersAPIComponent);
-     
+} 
+export default UserPage
+
+
     
     
     
@@ -92,16 +33,3 @@ export default compose<React.ComponentType>(
     //     return false;
     //   }
     
-    
-    // const mapDispatchToProps = (dispatch) =>{  
-    //     debugger 
-    //     return{  
-        
-    //         onFollow : (userId) =>{dispatch(followAC(userId))},
-    //         unFollow: (userId) =>{dispatch(unfollowAC(userId))},  
-    //         setTotalCount : (totalCount) =>{dispatch(setTotalCountAC(totalCount))}, 
-    //         setUsers : (users) =>{dispatch(setUsersAC(users))}, 
-    //         getCurrentPage: (currentPage) =>{dispatch(getCurrentPageAC(currentPage))},
-    //         toggleFetching: (isFetching) =>{dispatch(toggleFetching(isFetching))}
-    //     }
-    // } 

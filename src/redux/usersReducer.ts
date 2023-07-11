@@ -116,8 +116,8 @@ export const actions = {
 
 
 //Thunk-Creators 
-type ThunkType = ThunkActionsType<AllActionType>
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter:FilterUserType) => async (dispatch: Dispatch<AllActionType>) => {
+export type ThunkType = ThunkActionsType<AllActionType>
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter:FilterUserType):ThunkType => async (dispatch) => {
     dispatch(actions.getCurrentPageAC(currentPage));
     dispatch(actions.toggleFetching(true)) 
     dispatch(actions.setFilterAC(filter))
