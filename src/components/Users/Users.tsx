@@ -1,12 +1,13 @@
 
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { FilterUserType,  getUsersThunkCreator } from '../../redux/usersReducer';
 import Paginator from './Paginator';
 import User from './User'; 
 import { useSelector,useDispatch } from 'react-redux';
 import { UsersSearchForm } from './UsersSearchForm';
 import { getCurrentPage, getIsFollow, getPageSize, getTotalUserCount, getUserFilterSelector, getUsers } from '../../redux/users-selecors';
-import { AppDispatch } from '../../redux/redux-store';
+import { AppDispatch, } from '../../redux/redux-store';
+import { AnyAction } from 'redux';
 type PropsType = { 
     // setCurrentPage: (number:number) => void 
     // users: Array<UserActionType>
@@ -16,13 +17,16 @@ type PropsType = {
     // onFilterChanged:(filter:FilterUserType) => void
 }
 export const Users:FC<PropsType> = ({...props}) =>{   
+    useEffect(() =>{ 
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter)) 
+    }, [])
     const totalUsers = useSelector(getTotalUserCount) 
     const currentPage = useSelector(getCurrentPage) 
     const pageSize = useSelector(getPageSize)
     const users = useSelector(getUsers) 
     const isFollowing = useSelector(getIsFollow) 
     const filter = useSelector(getUserFilterSelector) 
-    const dispatch:AppDispatch | any = useDispatch() 
+    const dispatch:AppDispatch= useDispatch() 
 
     const setCurrentPage = (pageNum:number) =>{     
         dispatch(getUsersThunkCreator(pageNum, pageSize, filter))
@@ -32,14 +36,11 @@ export const Users:FC<PropsType> = ({...props}) =>{
         dispatch(getUsersThunkCreator(1,pageSize,filter))
       } 
     const followThunk = (id:number|null) => { 
-        dispatch(followThunk(id))
+        dispatch(followThunk(id)as unknown as AnyAction)
     } 
     const unfollowThunk = (id:number|null) => { 
-        dispatch(unfollowThunk(id))
+        dispatch(unfollowThunk(id)as unknown as AnyAction)
     }  
-    useEffect(() =>{ 
-        dispatch(getUsersThunkCreator(currentPage, pageSize, filter))
-    }, [currentPage, dispatch, filter, pageSize])
     return( 
         <div>   
             <div> 
