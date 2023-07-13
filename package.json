@@ -2,25 +2,50 @@
   "name": "travel",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://anixii.github.io/Social-Network/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/react-redux": "^7.1.25",
+    "@types/react-router-dom": "^5.3.3",
+    "antd": "^5.5.0",
     "axios": "^1.3.2",
     "firebase": "^9.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.6.2",
+    "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "redux-form": "^8.3.10",
+    "redux-thunk": "^2.4.2",
+    "reselect": "^4.1.8",
+    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ]
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +64,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0",
+    "react-test-renderer": "^18.2.0"
   }
 }
