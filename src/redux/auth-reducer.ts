@@ -8,7 +8,7 @@ const ERROR_MESSAGE = 'AUTH_PAGE_ERROR_MESSAGE'
 const GET_CAPTCHA = 'AUTH_PAGE_GET_CAPTCHA'
 export type initialStateType = {
     email: Nullable<string>
-    userId: Nullable<number>
+    userId: number | null | any
     login: Nullable<string>
     isAuth: boolean
     error: Nullable<string>

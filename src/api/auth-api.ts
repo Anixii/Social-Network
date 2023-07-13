@@ -1,5 +1,4 @@
-import { instance, AuthLoginType, AuthMeType, ResultCodeForCaptchaEnum, ResultCodesEnum,ResponseType } from "./api"  
-type Result =  ResultCodesEnum | ResultCodeForCaptchaEnum
+import { instance, AuthLoginType, AuthMeType,} from "./api"  
 export const authAPI = {  
     me(){ 
      return instance.get<AuthMeType>(`auth/me`).then(res => res.data)

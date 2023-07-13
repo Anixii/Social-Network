@@ -17,9 +17,6 @@ type PropsType = {
     // onFilterChanged:(filter:FilterUserType) => void
 }
 export const Users:FC<PropsType> = ({...props}) =>{   
-    useEffect(() =>{ 
-        dispatch(getUsersThunkCreator(currentPage, pageSize, filter)) 
-    }, [])
     const totalUsers = useSelector(getTotalUserCount) 
     const currentPage = useSelector(getCurrentPage) 
     const pageSize = useSelector(getPageSize)
@@ -27,6 +24,7 @@ export const Users:FC<PropsType> = ({...props}) =>{
     const isFollowing = useSelector(getIsFollow) 
     const filter = useSelector(getUserFilterSelector) 
     const dispatch:AppDispatch= useDispatch() 
+    
 
     const setCurrentPage = (pageNum:number) =>{     
         dispatch(getUsersThunkCreator(pageNum, pageSize, filter))

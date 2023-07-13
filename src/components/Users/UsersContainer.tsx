@@ -1,12 +1,20 @@
 import {Users} from "./Users"; 
 import Preloader from "../common/Preloader";
-import { isFetching,  } from "../../redux/users-selecors";
+
 import { useSelector } from "react-redux";
+import { AppDispatch, AppStateType } from "../../redux/redux-store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getUsersThunkCreator } from "../../redux/usersReducer";
 const UserPage = () => {  
-    const isFetch = useSelector(isFetching)
+    const {isFetching, pageSize, currentPage,filter} = useSelector((state:AppStateType) => state.usersPage) 
+    const dispatch:AppDispatch  = useDispatch() 
+    useEffect(() =>{  
+      dispatch(getUsersThunkCreator(currentPage, pageSize, filter)) 
+  }, [currentPage, pageSize, filter,dispatch])
   return( 
     <> 
-    {isFetch ? <Preloader/> :( 
+    {isFetching ? <Preloader/> :( 
     <Users /> )}            
     </>
   )
