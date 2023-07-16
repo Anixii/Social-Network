@@ -10,16 +10,20 @@ export type ChatMessagePropsType = {
 } 
 export const Messages:React.FC = () =>{  
     const [message, setMessages] = useState<Array<ChatMessagePropsType>>([]) 
-    useEffect(()=> { 
-        ws.addEventListener('message', (e)=>{ 
-            console.log(JSON.parse(e.data));
-            
-        })
-     }) 
+    useEffect(()=> {  
+        console.log('e');
+        
+        ws.addEventListener('message', (e:MessageEvent)=>{ 
+            console.log(JSON.parse(e.data)); 
+            let newMessages = JSON.parse(e.data) 
+            setMessages((prev) =>[...prev, ...newMessages])
+        }) 
+     },[])  
+
     return( 
         <> 
             <div> 
-                {message.map(item => <Message message={item.message} userId={item.userId} userName={item.userName} photo={item.photo} />)}
+                {message.map((item,index) => <Message key={index + item.userId} message={item.message} userId={item.userId} userName={item.userName} photo={item.photo} />)}
             </div>
         </>
     )

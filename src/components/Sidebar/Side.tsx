@@ -14,7 +14,7 @@ const Sidebar = () =>{
                 <NavLink to= '/users'>Users</NavLink> 
             </div>
             <div className={s.navbar__item}> 
-                <NavLink to= '/Profile'>Music</NavLink> 
+                <NavLink to= '/chat'>Chat</NavLink> 
             </div>
             <div className={s.navbar__item}> 
                 <NavLink to= '/Profile'>Settigns</NavLink> 

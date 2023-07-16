@@ -9,10 +9,10 @@ import Login from './components/login/Login';
 import {  connect, Provider } from 'react-redux';
 import { initializeTC } from './redux/app-reducer';
 import Preloader from './components/common/Preloader';
-import ChatPage from './components/pages/Chat/ChatPage';
+
 const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'))
 const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer')) 
-
+const ChatPage = lazy(() => import('./components/pages/Chat/ChatPage'))
 type MapDispatchToPropsType = { 
   initializeTC:()=>void,
 } 

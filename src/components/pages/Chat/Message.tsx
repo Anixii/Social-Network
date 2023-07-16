@@ -3,7 +3,14 @@ import { ChatMessagePropsType } from "./Messages"
 export const Message:React.FC<ChatMessagePropsType> = ({message,userId,userName,photo}) =>{ 
     return( 
         <> 
-            Chat
+            <div><img src={photo} alt="" /></div>  
+            <div> 
+               NickName  {userName}
+            </div> 
+            <div> 
+                {message}
+            </div>
+
         </>
     )
 }
