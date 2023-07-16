@@ -6,9 +6,64 @@ import { AppDispatch, AppStateType } from "../../redux/redux-store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUsersThunkCreator } from "../../redux/usersReducer";
-const UserPage = () => {  
+import { useNavigate, useSearchParams } from "react-router-dom";
+const UserPage = () => {    
+  const [searchParams, setSearchParams] = useSearchParams()
+    const history = useNavigate() 
+    
     const {isFetching, pageSize, currentPage,filter} = useSelector((state:AppStateType) => state.usersPage) 
-    const dispatch:AppDispatch  = useDispatch() 
+    const dispatch:AppDispatch  = useDispatch()  
+
+    // useEffect(() =>{ 
+    //   history(`?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`)
+    // },[filter, history,currentPage]) 
+
+    useEffect(() =>{ 
+      const result: any = {}
+      // @ts-ignore
+      for (const [key, value] of searchParams.entries()) {
+        let value2: any = +value
+        if (isNaN(value2)) {
+           value2 = value 
+        }
+        if (value === 'true') { 
+           value2 = true
+        } else if (value === 'false') { 
+           value2 = false
+        } 
+ 
+        result[key] = value2
+     }
+
+     let actualPage = result.page || currentPage
+     let term = result.term || filter.term
+
+     let friend = result.friend || filter.friend
+     if (result.friend === false) {
+        friend = result.friend
+     }
+
+     const actualFilter = {friend, term}
+
+     dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter))
+      
+    }, [searchParams, currentPage, filter, pageSize,dispatch])
+     
+    useEffect(() => {
+
+      const term = filter.term
+      const friend = filter.friend
+
+      let urlQuery =
+         (term === '' ? '' : `&term=${term}`)
+         + (friend === null ? '' : `&friend=${friend}`)
+         + (currentPage === 1 ? '' : `&page=${currentPage}`)
+
+      setSearchParams(urlQuery)
+
+
+   }, [filter, currentPage,setSearchParams])
+    
     useEffect(() =>{  
       dispatch(getUsersThunkCreator(currentPage, pageSize, filter)) 
   }, [currentPage, pageSize, filter,dispatch])
