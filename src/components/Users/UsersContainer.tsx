@@ -53,7 +53,8 @@ const UserPage = () => {
 
       const term = filter.term
       const friend = filter.friend
-
+      console.log(filter);
+      
       let urlQuery =
          (term === '' ? '' : `&term=${term}`)
          + (friend === null ? '' : `&friend=${friend}`)
