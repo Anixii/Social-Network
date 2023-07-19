@@ -7,7 +7,7 @@ import ProfileForm from './ProfileForm'
 import { ContactType, ProfileType } from '../../../redux/profileReducer'
 import { Nullable } from '../../../types/types'
 type ProfilePropsType = { 
-    profile: ProfileType, 
+    profile: ProfileType | null, 
     status:string, 
     saveProfileTC: (data:ProfileType) => void 
     savePhotoTC: (file:File) =>void 

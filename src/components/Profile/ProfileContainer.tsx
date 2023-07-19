@@ -12,7 +12,7 @@ type MapStateToPropsType = {
     isAuth: boolean,  
     loginnedUserId: number 
     status: string 
-    profile: ProfileType | null
+    profile: ProfileType  | null
 } 
 type MapDispatchToPropsType = { 
     getUsersProfileThunkC: (id:number | null) => void, 
@@ -47,7 +47,8 @@ class ProfileContainer extends React.Component<PropsType>{
     }
     render(){   
         return( 
-            <Profile isOwner={!this.props.router.params.userId} savePhotoTC={this.props.savePhotoTC} saveProfileTC={this.props.saveProfileTC} status={this.props.status} profile={this.props.profile} updateStatusThunkC={this.props.updateStatusThunkC}  />
+            <Profile isOwner={!this.props.router.params.userId} savePhotoTC={this.props.savePhotoTC} saveProfileTC={this.props.saveProfileTC} status={this.props.status}  
+            profile={this.props.profile} updateStatusThunkC={this.props.updateStatusThunkC}  />
         )
 }
 }  

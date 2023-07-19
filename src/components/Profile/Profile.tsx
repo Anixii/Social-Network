@@ -5,7 +5,7 @@ import Preloader from '../common/Preloader'
 import { ProfileType } from '../../redux/profileReducer'
 import { FC } from 'react'
 type PropsType = { 
-    profile: ProfileType | null  
+    profile: ProfileType  | null
     isOwner: boolean, 
     status:string 
     updateStatusThunkC: (status:string) => void,  
